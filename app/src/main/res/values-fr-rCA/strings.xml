@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CookBook</string>
+    <string name="email">Entrez l\'e-mail*</string>
+    <string name="forgotpassword"><u>Mot de passe oublié ?</u></string>
+    <string name="or">Ou</string>
+    <string name="password">Entrer le mot de passe *</string>
+    <string name="sign_in_with_google">Connectez-vous avec Google</string>
+    <string name="signin"><b>Connectez-vous</b></string>
+    <string name="signup">Nouveau ici? <u><b>Inscrivez-vous</b></u> à la place</string>
+    <string name="start">Commençons</string>
+    <string name="welcome"><b>Bienvenue</b></string>
+</resources>
