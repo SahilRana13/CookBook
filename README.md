@@ -1,5 +1,5 @@
 # CookBook
-  <img src="https://github.com/tejaspatel083/CookBook/blob/master/app/src/main/res/drawable-xxxhdpi/logo.png" width="300" height="300">
+  <img src="https://github.com/tejaspatel083/CookBook/blob/master/app/src/main/ic_launcher-web.png" width="300" height="300">
 
 * **Android Based Project**
 
