@@ -10,4 +10,10 @@
     <string name="signup">Nouveau ici? <u><b>Inscrivez-vous</b></u> à la place</string>
     <string name="start">Commençons</string>
     <string name="welcome"><b>Bienvenue</b></string>
+    <string name="search">Rechercher une recette</string>
+    <string name="title">Nom de la recette</string>
+    <string name="ingredients">Ingrédients</string>
+    <string name="type">Taper</string>
+    <string name="duration">Durée</string>
+    <string name="direction">Direction</string>
 </resources>

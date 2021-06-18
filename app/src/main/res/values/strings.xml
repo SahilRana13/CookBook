@@ -15,4 +15,17 @@
     <string name="signup">New here? <u><b>Sign up</b></u> instead</string>
     <string name="sign_in_with_google">Sign In with Google</string>
     <string name="or">OR</string>
+
+
+    <!-- Discover fragment-->
+    <string name="search">Search Recipe</string>
+
+    <!-- Add recipe fragment-->
+    <string name="title">Recipe name</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="type">Type</string>
+    <string name="duration">Duration</string>
+    <string name="direction">Direction</string>
+
+
 </resources>

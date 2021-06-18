@@ -3,4 +3,9 @@
     <color name="colorPrimary">#193566</color>
     <color name="colorPrimaryDark">#000f3b</color>
     <color name="colorAccent">#D81B60</color>
+
+
+    <!--Sahil's theme-->
+    <color name="background">#e0f7fa</color>
+    <color name="backgroundSearch">#aec4c7</color>
 </resources>
