@@ -1,14 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.AddRecipeFragment">
+    tools:context=".Fragments.AddRecipeFragment"
+    android:background="@color/background">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+    <ImageView
+        android:id="@+id/recipe_image"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        />
+
+    <EditText
+        android:id="@+id/recipe_title"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recipe_image"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:gravity="left"
+        android:hint="@string/title"
+        android:paddingLeft="10dp" />
+
+    <EditText
+        android:id="@+id/recipe_ingredients"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recipe_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:gravity="left"
+        android:hint="@string/ingredients"
+        android:paddingLeft="10dp" />
+
+    <EditText
+        android:id="@+id/recipe_direction"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recipe_ingredients"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:gravity="left"
+        android:hint="@string/direction"
+        android:inputType="textMultiLine"
+        android:isScrollContainer="true"
+        android:paddingLeft="10dp" />
+
+    <EditText
+        android:id="@+id/recipe_type"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recipe_direction"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:gravity="left"
+        android:hint="@string/type"
+        android:paddingLeft="10dp" />
+
+    <EditText
+        android:id="@+id/recipe_duration"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recipe_type"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:hint="@string/duration"
+        android:paddingLeft="10dp" />
+
+    </ScrollView>
+
+</RelativeLayout>
