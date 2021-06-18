@@ -11,8 +11,24 @@
         android:id="@+id/iconImage"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginLeft="120dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="100dp"
         android:layout_marginTop="220dp"
-        android:background="@drawable/logo"/>
+        android:background="@drawable/cook_logo"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cookTextView"
+        android:text="@string/cook"
+        android:layout_centerHorizontal="true"
+        android:textSize="35dp"
+        android:textColor="#193566"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif"
+        android:layout_marginTop="380dp"
+        android:layout_marginLeft="120dp"/>
+
 
 </RelativeLayout>
