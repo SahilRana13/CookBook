@@ -10,10 +10,17 @@
     <string name="signup">Nouveau ici? <u><b>Inscrivez-vous</b></u> à la place</string>
     <string name="start">Commençons</string>
     <string name="welcome"><b>Bienvenue</b></string>
+
+    <!-- Discover fragment-->
     <string name="search">Rechercher une recette</string>
+
+    <!-- Add recipe fragment-->
     <string name="title">Nom de la recette</string>
     <string name="ingredients">Ingrédients</string>
     <string name="type">Taper</string>
     <string name="duration">Durée(Minutes)</string>
     <string name="direction">Direction</string>
+
+    <!-- My recipe fragment-->
+    <string name="UserName">Nom d\'utilisateur</string>
 </resources>
