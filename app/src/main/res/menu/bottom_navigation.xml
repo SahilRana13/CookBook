@@ -4,14 +4,14 @@
         <item
             android:id="@+id/discoverRecipe"
             android:title="Discover"
-            android:icon="@drawable/home"/>
+            android:icon="@drawable/ic_search_black_24dp"/>
         <item
             android:id="@+id/addRecipe"
             android:title="Add Recipe"
-            android:icon="@drawable/add"/>
+            android:icon="@drawable/ic_add_black_24dp"/>
         <item
             android:id="@+id/myRecipe"
             android:title="My Recipe"
-            android:icon="@drawable/person"/>
+            android:icon="@drawable/ic_person_black_24dp"/>
 
 </menu>

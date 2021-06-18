@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ThemeToolbar" >
+        <item name="android:listDivider">@color/light</item>
+        <item name="android:textColorSecondary">@color/light</item>
+    </style>
+
 </resources>

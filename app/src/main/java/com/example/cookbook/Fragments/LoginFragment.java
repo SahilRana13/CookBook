@@ -1,5 +1,6 @@
 package com.example.cookbook.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,9 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.cookbook.DashboardActivity;
+import com.example.cookbook.MainActivity;
 import com.example.cookbook.R;
 import com.example.cookbook.SplashScreen;
 
@@ -23,6 +27,7 @@ public class LoginFragment extends Fragment {
     private ImageView imageView1;
     private TextView textView1,textView2,textForgotPassword,textSignup;
     private Animation animation1,animation2,animation3;
+    private Button loginButton;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -44,6 +49,7 @@ public class LoginFragment extends Fragment {
         getActivity().setTitle("Login");
 
         imageView1 = view.findViewById(R.id.iconLogin);
+        loginButton = view.findViewById(R.id.MainLoginBtn);
 
         animation1 = AnimationUtils.loadAnimation(getActivity(),R.anim.zoomin);
         animation2 = AnimationUtils.loadAnimation(getActivity(),R.anim.lefttoright);
@@ -53,6 +59,16 @@ public class LoginFragment extends Fragment {
 
 
         imageView1.startAnimation(animation1);
+
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getActivity(), DashboardActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }

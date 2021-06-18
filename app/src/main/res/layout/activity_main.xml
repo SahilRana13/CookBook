@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:name="androidx.navigation.fragment.NavHostFragment"
         app:defaultNavHost="true"
-        android:id="@+id/Host_Fragment"
+        android:id="@+id/Host_Fragment1"
         app:navGraph="@navigation/nav_graph1"
         />
 

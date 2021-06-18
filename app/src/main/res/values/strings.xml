@@ -4,6 +4,10 @@
     <!-- TODO: Remove or change this placeholder text -->
 
 
+    <string name="nav_drawer_open" translatable="false">Open Navigation Drawer</string>
+    <string name="nav_drawer_close" translatable="false">Close Navigation Drawer</string>
+
+
     <string name="cook" translatable="false"><b>Cook Book</b></string>
 
     <string name="welcome"><b>Welcome</b></string>
