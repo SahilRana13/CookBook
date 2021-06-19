@@ -14,7 +14,10 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.cookbook.Fragments.AddRecipeFragment;
 import com.example.cookbook.Fragments.DiscoverFragment;
+import com.example.cookbook.Fragments.LoginFragment;
+import com.example.cookbook.Fragments.MyRecipeFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class DashboardActivity extends AppCompatActivity {
@@ -60,16 +63,22 @@ public class DashboardActivity extends AppCompatActivity {
 
                     case R.id.Home :
 
-                        navController.navigate(R.id.discoverFragment);
+                        navController.navigate(R.id.addRecipeFragment);
+                        break;
+
+                    case R.id.MyRecentRecipe :
+
+                        navController.navigate(R.id.myRecipeFragment);
+                        break;
+
+                    case R.id.MyFavRecipe :
+
+                        navController.navigate(R.id.recipeDescriptionFragment);
                         break;
 
                     case R.id.Profile :
 
-                        Toast toast1 = Toast.makeText(DashboardActivity.this,"Profile",Toast.LENGTH_LONG);
-                        toast1.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
-                        toast1.show();
-
-                        //navController.navigate(R.id.);
+                        navController.navigate(R.id.profileFragment);
                         break;
 
 
@@ -79,8 +88,8 @@ public class DashboardActivity extends AppCompatActivity {
                         toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                         toast.show();
 //                        firebaseAuth.signOut();
-//                        fragment = new LoginFragment();
-//                        finish();
+                        fragment = new LoginFragment();
+                        finish();
                         break;
 
                 }

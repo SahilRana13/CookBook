@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +31,8 @@ public class LoginFragment extends Fragment {
     private Animation animation1,animation2,animation3;
     private Button loginButton;
 
+    private NavController navController;
+
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -50,6 +54,11 @@ public class LoginFragment extends Fragment {
 
         imageView1 = view.findViewById(R.id.iconLogin);
         loginButton = view.findViewById(R.id.MainLoginBtn);
+        textView1 = view.findViewById(R.id.signUpLogin);
+        textView2 = view.findViewById(R.id.forgotPasswordLogin);
+
+        navController = Navigation.findNavController(getActivity(),R.id.Host_Fragment1);
+
 
         animation1 = AnimationUtils.loadAnimation(getActivity(),R.anim.zoomin);
         animation2 = AnimationUtils.loadAnimation(getActivity(),R.anim.lefttoright);
@@ -67,6 +76,23 @@ public class LoginFragment extends Fragment {
 
                 Intent intent = new Intent(getActivity(), DashboardActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        textView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                navController.navigate(R.id.signupFragment);
+            }
+        });
+
+
+        textView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                navController.navigate(R.id.forgotPasswordFragment);
             }
         });
 

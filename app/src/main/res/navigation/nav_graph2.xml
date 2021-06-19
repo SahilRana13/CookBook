@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph_dashboard"
+    android:id="@+id/nav_graph2"
     app:startDestination="@id/discoverFragment">
 
     <fragment
@@ -20,4 +20,24 @@
         android:name="com.example.cookbook.Fragments.MyRecipeFragment"
         android:label="fragment_my_recipe"
         tools:layout="@layout/fragment_my_recipe" />
+    <fragment
+        android:id="@+id/recentlyViewedFragment"
+        android:name="com.example.cookbook.Fragments.RecentlyViewedFragment"
+        android:label="fragment_recently_viewed"
+        tools:layout="@layout/fragment_recently_viewed" />
+    <fragment
+        android:id="@+id/favouriteRecipeFragment"
+        android:name="com.example.cookbook.Fragments.FavouriteRecipeFragment"
+        android:label="fragment_favourite_recipe"
+        tools:layout="@layout/fragment_favourite_recipe" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.cookbook.Fragments.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/recipeDescriptionFragment"
+        android:name="com.example.cookbook.Fragments.RecipeDescriptionFragment"
+        android:label="fragment_recipe_description"
+        tools:layout="@layout/fragment_recipe_description" />
 </navigation>

@@ -13,6 +13,7 @@
 
                     />
 
+
                 <item
                     android:id="@+id/Profile"
                     android:title="Profile"
@@ -22,7 +23,26 @@
         </menu>
     </item>
 
+    <item android:id="@+id/Recipe"
+        android:title="Recipes">
+        <menu>
+            <group android:checkableBehavior="single">
 
+                <item
+                    android:id="@+id/MyRecentRecipe"
+                    android:title="Recently viewed"
+                    android:icon="@drawable/ic_format_list_bulleted_black_24dp"/>
+
+
+                <item
+                    android:id="@+id/MyFavRecipe"
+                    android:title="Favourite"
+                    android:icon="@drawable/ic_favorite_black_24dp"/>
+
+
+            </group>
+        </menu>
+    </item>
 
     <item
         android:id="@+id/Logout"

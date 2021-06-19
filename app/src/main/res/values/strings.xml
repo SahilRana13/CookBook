@@ -20,6 +20,9 @@
     <string name="sign_in_with_google">Sign In with Google</string>
     <string name="or">OR</string>
 
+    <string name="login">Do you have an account? <u><b>Log in</b></u></string>
+
+
 
     <!-- Discover fragment-->
     <string name="search">Search Recipe</string>
@@ -33,6 +36,16 @@
 
     <!-- My recipe fragment-->
     <string name="UserName">User Name</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="enter_name">Enter Name*</string>
+    <string name="enter_email">Enter Email*</string>
+    <string name="enter_password">Enter Password*</string>
+    <string name="confirm_password">Confirm Password*</string>
+    <string name="please_enter_your_registered_email_id_below">Please enter your registered email id below.</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="submit">Submit</string>
 
 
 </resources>

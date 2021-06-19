@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">CookBook</string>
     <string name="email">Entrez l\'e-mail*</string>
     <string name="forgotpassword"><u>Mot de passe oublié ?</u></string>
     <string name="or">Ou</string>
@@ -23,4 +22,12 @@
 
     <!-- My recipe fragment-->
     <string name="UserName">Nom d\'utilisateur</string>
+    <string name="login">Avez-vous un compte? <u><b>Se connecter</b></u></string>
+    <string name="enter_email">Entrez l\'e-mail*</string>
+    <string name="enter_name">Entrez le nom*</string>
+    <string name="enter_password">Entrer le mot de passe *</string>
+    <string name="confirm_password">Confirmez le mot de passe*</string>
+    <string name="forgot_your_password">Mot de passe oublié?</string>
+    <string name="please_enter_your_registered_email_id_below">Veuillez entrer votre identifiant de messagerie enregistré ci-dessous</string>
+    <string name="submit">Soumettre</string>
 </resources>

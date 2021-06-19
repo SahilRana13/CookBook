@@ -7,6 +7,15 @@
     android:id="@+id/drawer_layout"
     tools:context=".DashboardActivity">
 
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost="true"
+        android:id="@+id/Host_Fragment2"
+        app:navGraph="@navigation/nav_graph2"
+        />
+
 
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
@@ -24,13 +33,6 @@
 
     </com.google.android.material.navigation.NavigationView>
 
-    <fragment
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        app:defaultNavHost="true"
-        android:id="@+id/Host_Fragment2"
-        app:navGraph="@navigation/nav_graph2"
-        />
+
 
 </androidx.drawerlayout.widget.DrawerLayout>
