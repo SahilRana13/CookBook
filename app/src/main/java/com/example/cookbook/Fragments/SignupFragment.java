@@ -9,6 +9,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,6 +78,40 @@ public class SignupFragment extends Fragment {
 
         FirebaseApp.initializeApp(getContext());
         firebaseAuth = FirebaseAuth.getInstance();
+
+
+        v1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                user_pwd1.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                v1.setVisibility(View.INVISIBLE);
+                iv1.setVisibility(View.VISIBLE);
+            }
+        });
+        iv1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                user_pwd1.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                iv1.setVisibility(View.INVISIBLE);
+                v1.setVisibility(View.VISIBLE);
+            }
+        });
+        v2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                user_pwd2.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                v2.setVisibility(View.INVISIBLE);
+                iv2.setVisibility(View.VISIBLE);
+            }
+        });
+        iv2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                user_pwd2.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                iv2.setVisibility(View.INVISIBLE);
+                v2.setVisibility(View.VISIBLE);
+            }
+        });
 
         View.OnClickListener navigate1 = Navigation.createNavigateOnClickListener(R.id.loginFragment);
 
