@@ -22,8 +22,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cookbook.MainActivity;
+import com.example.cookbook.Models.UserInfo;
 import com.example.cookbook.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
@@ -33,6 +36,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 
 public class SignupFragment extends Fragment {
@@ -40,6 +44,7 @@ public class SignupFragment extends Fragment {
     private Button btnSignup;
     private TextView txtLogin;
     private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore db;
 
 
     private EditText user_pwd1,user_pwd2,user_name,user_email;
@@ -78,6 +83,8 @@ public class SignupFragment extends Fragment {
 
         FirebaseApp.initializeApp(getContext());
         firebaseAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+
 
 
         v1.setOnClickListener(new View.OnClickListener() {
@@ -193,12 +200,8 @@ public class SignupFragment extends Fragment {
                     if(task.isSuccessful())
                     {
 
-                        //sendData();
+                        sendData();
 
-                        Toast.makeText(getActivity().getApplicationContext(),"Registration Successful!",Toast.LENGTH_LONG).show();
-                        FirebaseAuth.getInstance().signOut();
-                        getActivity().finish();
-                        startActivity(new Intent(getActivity(), MainActivity.class));
                     }
 
                     else
@@ -211,6 +214,50 @@ public class SignupFragment extends Fragment {
             });
 
         }
+
+
+    }
+
+    private void sendData()
+    {
+
+
+
+
+        String name = user_name.getText().toString().trim();
+        String email = user_email.getText().toString().trim();
+
+        UserInfo obj1 = new UserInfo(name,email);
+
+        db.collection("User Profile Information")
+                .document(firebaseAuth.getUid())
+                .set(obj1)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                        if (task.isSuccessful())
+                        {
+                            Toast.makeText(getActivity().getApplicationContext(),"Registration Successful!",Toast.LENGTH_LONG).show();
+                            FirebaseAuth.getInstance().signOut();
+                            getActivity().finish();
+                            startActivity(new Intent(getActivity(),MainActivity.class));
+
+
+                        }else
+                        {
+                            Toast.makeText(getActivity().getApplicationContext(),"FireStore Error!",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                        Toast.makeText(getActivity(), "Something Wrong", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
 
 
     }
