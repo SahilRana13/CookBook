@@ -1,6 +1,7 @@
 package com.example.cookbook.Fragments;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -9,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.provider.MediaStore;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.Gravity;
@@ -38,6 +40,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.IOException;
+
+import static android.app.Activity.RESULT_OK;
+
 
 public class SignupFragment extends Fragment {
 
@@ -45,6 +51,11 @@ public class SignupFragment extends Fragment {
     private TextView txtLogin;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
+    private FirebaseStorage firebaseStorage;
+    private StorageReference storageReference;
+    private ImageView dpimage;
+    private static int PICK_IMAGE = 123;
+    private Uri imagePath;
 
 
     private EditText user_pwd1,user_pwd2,user_name,user_email;
@@ -70,6 +81,8 @@ public class SignupFragment extends Fragment {
 
         btnSignup = view.findViewById(R.id.CreateBtn);
         txtLogin = view.findViewById(R.id.LoginText);
+        dpimage = view.findViewById(R.id.DpImage);
+
 
         user_email = view.findViewById(R.id.CreateEmail);
         user_name = view.findViewById(R.id.CreateName);
@@ -83,6 +96,8 @@ public class SignupFragment extends Fragment {
 
         FirebaseApp.initializeApp(getContext());
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
+        storageReference = firebaseStorage.getReference();
         db = FirebaseFirestore.getInstance();
 
 
@@ -122,6 +137,17 @@ public class SignupFragment extends Fragment {
 
         View.OnClickListener navigate1 = Navigation.createNavigateOnClickListener(R.id.loginFragment);
 
+        dpimage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                SignupFragment.this.startActivityForResult(Intent.createChooser(intent, "Choose Image"), PICK_IMAGE);
+            }
+        });
 
 
         txtLogin.setOnClickListener(navigate1);
@@ -222,6 +248,33 @@ public class SignupFragment extends Fragment {
     {
 
 
+        StorageReference ref = storageReference.child("User Profile Images").child(firebaseAuth.getUid());
+
+        ref.putFile(imagePath)
+                .addOnSuccessListener(
+                        new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
+                            @Override
+                            public void onSuccess(
+                                    UploadTask.TaskSnapshot taskSnapshot)
+                            {
+
+                            }
+                        })
+
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e)
+                    {
+
+                        Toast toast = Toast.makeText(getActivity(),"Upload Failed",Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                        toast.show();
+
+                    }
+                });
+
+
 
 
         String name = user_name.getText().toString().trim();
@@ -261,4 +314,26 @@ public class SignupFragment extends Fragment {
 
 
     }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data.getData() != null)
+        {
+
+            imagePath = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),imagePath);
+                dpimage.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
 }
