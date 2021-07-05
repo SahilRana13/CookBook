@@ -27,11 +27,18 @@ import com.example.cookbook.DashboardActivity;
 import com.example.cookbook.MainActivity;
 import com.example.cookbook.R;
 import com.example.cookbook.SplashScreen;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 
 public class LoginFragment extends Fragment {
@@ -39,13 +46,15 @@ public class LoginFragment extends Fragment {
     private ImageView imageView1;
     private TextView textForgotPassword,textSignup;
     private Animation animation1,animation2,animation3;
-    private Button loginButton;
+    private Button loginButton,googleSignInButton;
     private EditText pwd,emailId;
     private TextView v1,iv1;
     private FirebaseAuth firebaseAuth;
 
 
     private NavController navController;
+    private GoogleSignInClient mGoogleSignInClient;
+    private final static int RC_SIGN_IN = 123;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -68,6 +77,7 @@ public class LoginFragment extends Fragment {
 
         imageView1 = view.findViewById(R.id.iconLogin);
         loginButton = view.findViewById(R.id.MainLoginBtn);
+        googleSignInButton = view.findViewById(R.id.google_signIn);
         textSignup = view.findViewById(R.id.signUpLogin);
         textForgotPassword = view.findViewById(R.id.forgotPasswordLogin);
         pwd = view.findViewById(R.id.enterPasswordLogin);
@@ -86,6 +96,7 @@ public class LoginFragment extends Fragment {
         animation3 = AnimationUtils.loadAnimation(getActivity(),R.anim.righttoleft);
 
 
+        createGoogleRequest();
 
         v1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +117,14 @@ public class LoginFragment extends Fragment {
 
 
         imageView1.startAnimation(animation1);
+
+        googleSignInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                signIn();
+            }
+        });
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -181,6 +200,7 @@ public class LoginFragment extends Fragment {
 
     }
 
+
     private void checkEmailVerification() {
 
 
@@ -198,6 +218,74 @@ public class LoginFragment extends Fragment {
         {
             Toast.makeText(getActivity(), "Please verify your Email", Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+
+    private void createGoogleRequest() {
+
+        // Configure Google Sign In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
+
+    }
+
+    private void signIn() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account);
+            } catch (ApiException e) {
+                // Google Sign In failed, update UI appropriately
+                // ...
+                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+
+
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                if (task.isSuccessful()) {
+                    // Sign in success, update UI with the signed-in user's information
+                    FirebaseUser user = firebaseAuth.getCurrentUser();
+                    Intent intent = new Intent(getContext(),DashboardActivity.class);
+                    startActivity(intent);
+
+
+                } else {
+                    Toast.makeText(getActivity(), "Sorry auth failed.", Toast.LENGTH_SHORT).show();
+
+
+                }
+
+            }
+        });
 
     }
 }

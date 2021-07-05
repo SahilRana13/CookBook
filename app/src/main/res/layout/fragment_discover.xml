@@ -3,9 +3,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/home"
+    android:background="#ECF0F3"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.DiscoverFragment">
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:layout_marginTop="500dp"
+        android:layout_centerHorizontal="true"/>
+
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="63dp"
+        android:layout_marginTop="97dp"
+        android:text="TextView"
+        android:layout_marginLeft="63dp" />
+
+
+    <TextView
+        android:id="@+id/mail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="63dp"
+        android:layout_marginTop="28dp"
+        android:text="TextView"
+        android:layout_below="@+id/name"
+        android:layout_marginLeft="63dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="250dp"
+        android:layout_centerHorizontal="true" />
 
 <!--    <RelativeLayout-->
 <!--        android:layout_width="match_parent"-->

@@ -73,12 +73,12 @@ public class DashboardActivity extends AppCompatActivity {
 
                     case R.id.MyFavRecipe :
 
-                        navController.navigate(R.id.recipeDescriptionFragment);
+                        navController.navigate(R.id.favouriteRecipeFragment);
                         break;
 
                     case R.id.Profile :
 
-                        navController.navigate(R.id.profileFragment);
+                        navController.navigate(R.id.recipeDescriptionFragment);
                         break;
 
 
