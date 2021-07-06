@@ -46,6 +46,9 @@
     <string name="please_enter_your_registered_email_id_below">Please enter your registered email id below.</string>
     <string name="forgot_your_password">Forgot your password?</string>
     <string name="submit">Submit</string>
+    <string name="save">Save Changes</string>
+    <string name="emailProfile">Email :</string>
+    <string name="nameProfile">Name :</string>
 
 
 </resources>

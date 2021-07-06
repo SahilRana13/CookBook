@@ -30,4 +30,7 @@
     <string name="forgot_your_password">Mot de passe oublié?</string>
     <string name="please_enter_your_registered_email_id_below">Veuillez entrer votre identifiant de messagerie enregistré ci-dessous</string>
     <string name="submit">Soumettre</string>
+    <string name="emailProfile">E-mail</string>
+    <string name="nameProfile">Nom</string>
+    <string name="save">Sauvegarder les modifications</string>
 </resources>

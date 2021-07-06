@@ -2,9 +2,97 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="850dp"
-    android:background="@drawable/profile"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/light"
     tools:context=".Fragments.ProfileFragment">
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:id="@+id/ProfileImage"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/square_border"
+                app:srcCompat="@drawable/ic_perm_identity_black_24dp"
+                tools:ignore="VectorDrawableCompat" />
+
+            <EditText
+                android:id="@+id/ProfileName"
+                android:layout_width="240dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="300dp"
+                android:background="@drawable/email"
+                android:layout_toRightOf="@+id/emiltxt"
+                android:textSize="18sp"
+                android:textColor="#A2AEC2"
+                android:layout_marginLeft="25dp"
+                android:layout_centerHorizontal="true"
+                android:editable="false"
+                android:padding="5dp"/>
+
+            <EditText
+                android:id="@+id/ProfileEmail"
+                android:layout_width="240dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="380dp"
+                android:background="@drawable/email"
+                android:textSize="18sp"
+                android:textColor="#A2AEC2"
+                android:layout_marginLeft="25dp"
+                android:layout_toRightOf="@+id/emiltxt"
+                android:editable="false"
+                android:padding="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nameProfile"
+                android:layout_marginTop="310dp"
+                android:textSize="20sp"
+                android:textColor="@color/dark"
+                android:layout_marginLeft="20dp"
+                android:textStyle="bold"
+                android:layout_marginStart="20dp" />
+
+            <TextView
+                android:id="@+id/emiltxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/emailProfile"
+                android:layout_marginTop="390dp"
+                android:textSize="20sp"
+                android:textColor="@color/dark"
+                android:layout_marginLeft="20dp"
+                android:textStyle="bold"
+                android:layout_marginStart="20dp" />
+
+            <TextView
+                android:id="@+id/notvisible"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:drawableLeft="@drawable/ic_mode_edit_black_24dp"
+                android:layout_marginLeft="305dp"
+                android:visibility="visible"
+                android:layout_marginTop="315dp"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+
 
 
 
