@@ -87,6 +87,19 @@
                 android:visibility="visible"
                 android:layout_marginTop="315dp"/>
 
+            <Button
+                android:id="@+id/CreateBtn"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="@string/save"
+                android:textSize="20sp"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:textColor="#ECF0F3"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="500dp"
+                android:background="@drawable/button_background" />
+
         </RelativeLayout>
 
     </ScrollView>
