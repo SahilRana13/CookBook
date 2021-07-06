@@ -29,7 +29,7 @@
                 tools:ignore="VectorDrawableCompat" />
 
             <EditText
-                android:id="@+id/ProfileName"
+                android:id="@+id/EditProfileName"
                 android:layout_width="240dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="300dp"
@@ -79,7 +79,7 @@
                 android:layout_marginStart="20dp" />
 
             <TextView
-                android:id="@+id/notvisible"
+                android:id="@+id/editNameTool"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:drawableLeft="@drawable/ic_mode_edit_black_24dp"
@@ -88,7 +88,7 @@
                 android:layout_marginTop="315dp"/>
 
             <Button
-                android:id="@+id/CreateBtn"
+                android:id="@+id/SaveBtn"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text="@string/save"
