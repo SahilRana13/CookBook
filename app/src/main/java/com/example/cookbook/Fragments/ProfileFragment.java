@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +20,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cookbook.Models.UserInfo;
 import com.example.cookbook.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -34,9 +38,9 @@ import com.squareup.picasso.Picasso;
 
 public class ProfileFragment extends Fragment {
 
-    private TextView email,editTool;
+    private TextView editTool;
     private Button saveButton;
-    private EditText editName;
+    private EditText email,editName;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
     private ImageView dp;
@@ -76,15 +80,33 @@ public class ProfileFragment extends Fragment {
 
         firebaseStorage = FirebaseStorage.getInstance();
 
+        editName.setEnabled(false);
+        email.setEnabled(false);
+
         getData();
         getImage();
 
+        editTool.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                editName.setEnabled(true);
+            }
+        });
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                updateData();
+                editName.setEnabled(false);
+            }
+        });
+
     }
 
-
-
     private void getData() {
-        
+
         currentUser = firebaseAuth.getCurrentUser();
 
         DocumentReference docRef = db.collection("User Profile Information").document(currentUser.getUid());
@@ -127,4 +149,43 @@ public class ProfileFragment extends Fragment {
                     }
                 });
     }
+
+    private void updateData() {
+
+        String name = editName.getText().toString().trim();
+
+        UserInfo userInfo = new UserInfo(name);
+
+
+
+        db.collection("User Profile Information")
+                .document(firebaseAuth.getUid())
+                .update("name",name)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+
+                        navController.navigate(R.id.profileFragment);
+                        Toast toast = Toast.makeText(getActivity(),"Profile Updated",Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                        toast.show();
+                       // progressDialog.dismiss();
+                        //getActivity().recreate();
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                        Toast toast = Toast.makeText(getActivity(),"Error : "+e.getMessage(),Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                        toast.show();
+                        //progressDialog.dismiss();
+                    }
+                });
+    }
+
+
 }
