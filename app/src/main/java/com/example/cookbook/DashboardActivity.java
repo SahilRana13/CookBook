@@ -19,6 +19,7 @@ import com.example.cookbook.Fragments.DiscoverFragment;
 import com.example.cookbook.Fragments.LoginFragment;
 import com.example.cookbook.Fragments.MyRecipeFragment;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -26,6 +27,8 @@ public class DashboardActivity extends AppCompatActivity {
     private ActionBarDrawerToggle t;
     private NavigationView navi;
     private NavController navController;
+    private FirebaseAuth firebaseAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,8 @@ public class DashboardActivity extends AppCompatActivity {
         navi = findViewById(R.id.nv);
         dl = findViewById(R.id.drawer_layout);
         t = new ActionBarDrawerToggle(this,dl,R.string.nav_drawer_open,R.string.nav_drawer_close);
+
+        firebaseAuth = FirebaseAuth.getInstance();
 
 
         navController = Navigation.findNavController(DashboardActivity.this,R.id.Host_Fragment2);
@@ -63,7 +68,7 @@ public class DashboardActivity extends AppCompatActivity {
 
                     case R.id.Home :
 
-                        navController.navigate(R.id.addRecipeFragment);
+                        navController.navigate(R.id.discoverFragment);
                         break;
 
                     case R.id.MyRecentRecipe :
@@ -78,7 +83,7 @@ public class DashboardActivity extends AppCompatActivity {
 
                     case R.id.Profile :
 
-                        navController.navigate(R.id.recipeDescriptionFragment);
+                        navController.navigate(R.id.profileFragment);
                         break;
 
 
@@ -87,7 +92,7 @@ public class DashboardActivity extends AppCompatActivity {
                         Toast toast = Toast.makeText(DashboardActivity.this,"Logged out",Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                         toast.show();
-//                        firebaseAuth.signOut();
+                        firebaseAuth.signOut();
                         fragment = new LoginFragment();
                         finish();
                         break;

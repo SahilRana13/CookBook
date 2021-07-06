@@ -1,6 +1,7 @@
 package com.example.cookbook.Fragments;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 
 import com.example.cookbook.DashboardActivity;
 import com.example.cookbook.MainActivity;
+import com.example.cookbook.Models.UserInfo;
 import com.example.cookbook.R;
 import com.example.cookbook.SplashScreen;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -33,12 +35,19 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 
 public class LoginFragment extends Fragment {
@@ -50,6 +59,11 @@ public class LoginFragment extends Fragment {
     private EditText pwd,emailId;
     private TextView v1,iv1;
     private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore db;
+    private FirebaseStorage firebaseStorage;
+    private StorageReference storageReference;
+
+
 
 
     private NavController navController;
@@ -60,7 +74,14 @@ public class LoginFragment extends Fragment {
         // Required empty public constructor
     }
 
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (firebaseAuth.getCurrentUser() != null) {
+            Intent intent = new Intent(getActivity(), DashboardActivity.class);
+            startActivity(intent);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,6 +108,10 @@ public class LoginFragment extends Fragment {
 
 
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
+        storageReference = firebaseStorage.getReference();
+        db = FirebaseFirestore.getInstance();
+
 
         navController = Navigation.findNavController(getActivity(),R.id.Host_Fragment1);
 
@@ -272,10 +297,9 @@ public class LoginFragment extends Fragment {
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if (task.isSuccessful()) {
-                    // Sign in success, update UI with the signed-in user's information
-                    FirebaseUser user = firebaseAuth.getCurrentUser();
-                    Intent intent = new Intent(getContext(),DashboardActivity.class);
-                    startActivity(intent);
+
+                    sendData();
+
 
 
                 } else {
@@ -286,6 +310,86 @@ public class LoginFragment extends Fragment {
 
             }
         });
+
+    }
+
+    private void sendData()
+    {
+
+
+        String name = null;
+        String email = null;
+        Uri imagePath = null;
+
+        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(getActivity().getApplicationContext());
+
+        if(signInAccount != null){
+
+            name = signInAccount.getDisplayName();
+            email = signInAccount.getEmail();
+            imagePath = signInAccount.getPhotoUrl();
+        }
+
+        StorageReference ref = storageReference.child("User Profile Images").child(firebaseAuth.getUid());
+
+        ref.putFile(imagePath)
+                .addOnSuccessListener(
+                        new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
+                            @Override
+                            public void onSuccess(
+                                    UploadTask.TaskSnapshot taskSnapshot)
+                            {
+
+                            }
+                        })
+
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e)
+                    {
+
+                        Toast toast = Toast.makeText(getActivity(),"Upload Failed",Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                        toast.show();
+
+                    }
+                });
+
+
+
+        UserInfo obj1 = new UserInfo(name,email);
+
+        db.collection("User Profile Information")
+                .document(firebaseAuth.getUid())
+                .set(obj1)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                        if (task.isSuccessful())
+                        {
+                            Toast.makeText(getActivity().getApplicationContext(),"Registration Successful!",Toast.LENGTH_LONG).show();
+                            // Sign in success, update UI with the signed-in user's information
+                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                            Intent intent = new Intent(getContext(),DashboardActivity.class);
+                            startActivity(intent);
+
+                        }else
+                        {
+                            Toast.makeText(getActivity().getApplicationContext(),"FireStore Error!",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                        Toast.makeText(getActivity(), "Something Wrong", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
 
     }
 }

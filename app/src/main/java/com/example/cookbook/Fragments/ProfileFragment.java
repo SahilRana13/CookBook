@@ -22,6 +22,8 @@ import android.widget.Toast;
 
 import com.example.cookbook.Models.UserInfo;
 import com.example.cookbook.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -132,6 +134,8 @@ public class ProfileFragment extends Fragment {
                 Toast.makeText(getActivity(), "Something Wrong", Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 
     private void getImage() {
@@ -148,6 +152,8 @@ public class ProfileFragment extends Fragment {
 
                     }
                 });
+
+        dp.setBackground(null);
     }
 
     private void updateData() {
