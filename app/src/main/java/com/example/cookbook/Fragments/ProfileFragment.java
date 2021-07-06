@@ -28,6 +28,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 
 public class ProfileFragment extends Fragment {
@@ -75,10 +77,14 @@ public class ProfileFragment extends Fragment {
         firebaseStorage = FirebaseStorage.getInstance();
 
         getData();
+        getImage();
 
     }
 
+
+
     private void getData() {
+        
         currentUser = firebaseAuth.getCurrentUser();
 
         DocumentReference docRef = db.collection("User Profile Information").document(currentUser.getUid());
@@ -104,5 +110,21 @@ public class ProfileFragment extends Fragment {
                 Toast.makeText(getActivity(), "Something Wrong", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void getImage() {
+
+        StorageReference storageReference = firebaseStorage.getReference();
+        storageReference.child("User Profile Images")
+                .child(firebaseAuth.getUid())
+                .getDownloadUrl()
+                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+
+                        Picasso.get().load(uri).into(dp);
+
+                    }
+                });
     }
 }
