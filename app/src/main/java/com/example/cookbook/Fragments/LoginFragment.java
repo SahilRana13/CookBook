@@ -1,6 +1,7 @@
 package com.example.cookbook.Fragments;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.provider.MediaStore;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.Gravity;
@@ -49,6 +51,11 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.io.IOException;
+
+import static android.app.Activity.RESULT_OK;
+
 
 public class LoginFragment extends Fragment {
 
@@ -62,6 +69,9 @@ public class LoginFragment extends Fragment {
     private FirebaseFirestore db;
     private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
+    private static int PICK_IMAGE = 123;
+    private Uri imagePath;
+    GoogleSignInAccount signInAccount;
 
 
 
@@ -111,6 +121,8 @@ public class LoginFragment extends Fragment {
         firebaseStorage = FirebaseStorage.getInstance();
         storageReference = firebaseStorage.getReference();
         db = FirebaseFirestore.getInstance();
+        signInAccount = GoogleSignIn.getLastSignedInAccount(getActivity().getApplicationContext());
+
 
 
         navController = Navigation.findNavController(getActivity(),R.id.Host_Fragment1);
@@ -285,6 +297,8 @@ public class LoginFragment extends Fragment {
                 Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
+
+
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
@@ -319,42 +333,61 @@ public class LoginFragment extends Fragment {
 
         String name = null;
         String email = null;
-        Uri imagePath = null;
 
-        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(getActivity().getApplicationContext());
 
         if(signInAccount != null){
 
             name = signInAccount.getDisplayName();
             email = signInAccount.getEmail();
-            imagePath = signInAccount.getPhotoUrl();
+            //imagePath = signInAccount.getPhotoUrl();
         }
+
 
         StorageReference ref = storageReference.child("User Profile Images").child(firebaseAuth.getUid());
 
-        ref.putFile(imagePath)
-                .addOnSuccessListener(
-                        new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        Uri file = signInAccount.getPhotoUrl();
+        //String s = file.toString();
+        UploadTask uploadTask = ref.putFile(file);
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                            @Override
-                            public void onSuccess(
-                                    UploadTask.TaskSnapshot taskSnapshot)
-                            {
+                Toast.makeText(getActivity(), "Photo uploaded", Toast.LENGTH_SHORT).show();
 
-                            }
-                        })
-
+            }
+        })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
-                    public void onFailure(@NonNull Exception e)
-                    {
+                    public void onFailure(@NonNull Exception e) {
 
-                        Toast toast = Toast.makeText(getActivity(),"Upload Failed",Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
-                        toast.show();
+                        Toast.makeText(getActivity(), "Photo Error", Toast.LENGTH_SHORT).show();
 
                     }
                 });
+
+//        ref.putFile(imagePath)
+//                .addOnSuccessListener(
+//                        new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//
+//                            @Override
+//                            public void onSuccess(
+//                                    UploadTask.TaskSnapshot taskSnapshot)
+//                            {
+//
+//                            }
+//                        })
+//
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e)
+//                    {
+//
+//                        Toast toast = Toast.makeText(getActivity(),"Upload Failed",Toast.LENGTH_LONG);
+//                        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+//                        toast.show();
+//
+//                    }
+//                });
 
 
 
@@ -392,4 +425,5 @@ public class LoginFragment extends Fragment {
 
 
     }
+
 }

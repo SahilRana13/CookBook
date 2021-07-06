@@ -140,6 +140,14 @@ public class ProfileFragment extends Fragment {
 
     private void getImage() {
 
+
+        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(getActivity().getApplicationContext());
+        if(signInAccount != null){
+
+            Picasso.get().load(signInAccount.getPhotoUrl()).into(dp);
+        }
+
+
         StorageReference storageReference = firebaseStorage.getReference();
         storageReference.child("User Profile Images")
                 .child(firebaseAuth.getUid())

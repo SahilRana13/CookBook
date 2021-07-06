@@ -24,9 +24,6 @@ import com.squareup.picasso.Picasso;
 
 public class DiscoverFragment extends Fragment {
 
-    TextView name, mail;
-    Button logout;
-    ImageView img;
 
     public DiscoverFragment() {
         // Required empty public constructor
@@ -45,29 +42,6 @@ public class DiscoverFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         getActivity().setTitle("Discover");
-
-        logout = view.findViewById(R.id.logout);
-        name = view.findViewById(R.id.name);
-        mail = view.findViewById(R.id.mail);
-        img = view.findViewById(R.id.imageView);
-
-
-        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(getActivity().getApplicationContext());
-        if(signInAccount != null){
-            name.setText(signInAccount.getDisplayName());
-            mail.setText(signInAccount.getEmail());
-            Picasso.get().load(signInAccount.getPhotoUrl()).into(img);
-        }
-
-
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-            }
-        });
 
 
     }
