@@ -4,8 +4,13 @@
 * **Android Based Project**
 
 * **Software Used**
-  - Android Studio (Frontend)
-  - Firebase  (Backend)
+  - Android Studio
+  - Firebase
+  - Adobe XD
+
+* **Technology Used**
+  - Java
+  - XML
 
 * **Developers** 
   > Tejas Patel - 2091244
