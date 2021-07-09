@@ -39,6 +39,7 @@
                 android:textColor="#A2AEC2"
                 android:layout_marginLeft="25dp"
                 android:layout_centerHorizontal="true"
+                android:paddingLeft="20dp"
                 android:padding="5dp"/>
 
             <EditText
@@ -51,7 +52,7 @@
                 android:textColor="#A2AEC2"
                 android:layout_marginLeft="25dp"
                 android:layout_toRightOf="@+id/emiltxt"
-
+                android:paddingLeft="20dp"
                 android:padding="5dp"/>
 
             <TextView
