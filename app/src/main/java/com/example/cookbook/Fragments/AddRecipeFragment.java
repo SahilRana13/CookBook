@@ -99,7 +99,7 @@ public class AddRecipeFragment extends Fragment {
         RecipeInfo recipeInfo = new RecipeInfo(rName,cName,rType,rDuration,country,rIngredients,rDirections);
 
 
-        db.collection("Recipe Details")
+        db.collection("User Recipe Details")
                 .document(Objects.requireNonNull(firebaseAuth.getUid()))
                 .collection("Recipe List")
                 .document(""+rName)
