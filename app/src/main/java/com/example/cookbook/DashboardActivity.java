@@ -18,6 +18,7 @@ import com.example.cookbook.Fragments.AddRecipeFragment;
 import com.example.cookbook.Fragments.DiscoverFragment;
 import com.example.cookbook.Fragments.LoginFragment;
 import com.example.cookbook.Fragments.MyRecipeFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -28,12 +29,17 @@ public class DashboardActivity extends AppCompatActivity {
     private NavigationView navi;
     private NavController navController;
     private FirebaseAuth firebaseAuth;
+    private BottomNavigationView bottomNavigationView;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+
+        bottomNavigationView = findViewById(R.id.bottom_nav_view);
 
         navi = findViewById(R.id.nv);
         dl = findViewById(R.id.drawer_layout);
@@ -105,7 +111,35 @@ public class DashboardActivity extends AppCompatActivity {
         });
 
 
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch (item.getItemId()){
+                    case R.id.discoverBottom:
+
+                        navController.navigate(R.id.discoverFragment);
+                        break;
+
+                    case R.id.addRecipeBottom:
+
+                        navController.navigate(R.id.addRecipeFragment);
+                        break;
+
+                    case R.id.myRecipeBottom:
+
+                        navController.navigate(R.id.myRecipeFragment);
+                        break;
+
+                }
+                return true;
+            }
+        });
+
+
     }
+
+
 
 
     @Override
