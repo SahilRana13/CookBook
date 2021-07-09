@@ -22,6 +22,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+
+import java.util.Objects;
 
 public class AddRecipeFragment extends Fragment {
 
@@ -56,6 +59,10 @@ public class AddRecipeFragment extends Fragment {
         recipeIngredients = view.findViewById(R.id.enterIngredients);
         recipeDirections = view.findViewById(R.id.enterDirection);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+
+
         submitRecipe = view.findViewById(R.id.submitRecipeBtn);
 
         submitRecipe.setOnClickListener(new View.OnClickListener() {
@@ -83,30 +90,46 @@ public class AddRecipeFragment extends Fragment {
 
         String rName = recipeName.getText().toString().trim();
         String cName = chefName.getText().toString().trim();
-        String rType = recipeName.getText().toString().trim();
-        String rDuration = chefName.getText().toString().trim();
-        String country = recipeName.getText().toString().trim();
-        String rIngredients = chefName.getText().toString().trim();
-        String rDirections = chefName.getText().toString().trim();
+        String rType = recipeType.getText().toString().trim();
+        String rDuration = recipeDuration.getText().toString().trim();
+        String country = countryName.getText().toString().trim();
+        String rIngredients = recipeDirections.getText().toString().trim();
+        String rDirections = recipeDirections.getText().toString().trim();
 
         RecipeInfo recipeInfo = new RecipeInfo(rName,cName,rType,rDuration,country,rIngredients,rDirections);
 
-        db.collection("Recipe Details")
-                .document(firebaseAuth.getUid())
-                .collection(""+rName)
-                .add(recipeInfo)
-                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentReference> task) {
 
+        db.collection("Recipe Details")
+                .document(Objects.requireNonNull(firebaseAuth.getUid()))
+                .collection("Recipe List")
+                .document(""+rName)
+                .set(recipeInfo)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+
+                        if (task.isSuccessful())
+                        {
+                            Toast.makeText(getActivity(),"Data Sent",Toast.LENGTH_LONG).show();
+
+                        }
+                        else
+                        {
+                            Toast.makeText(getActivity(),"Error!",Toast.LENGTH_LONG).show();
+
+                        }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
 
+                        Toast.makeText(getActivity().getApplicationContext(),"Something Wrong!",Toast.LENGTH_LONG).show();
+
                     }
                 });
+
 
     }
 }
