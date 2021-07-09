@@ -13,4 +13,9 @@
         <item name="android:textColorSecondary">@color/light</item>
     </style>
 
+    <style name="BottomNavigation.ActiveItemTextAppearance" parent="TextAppearance.AppCompat">
+
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

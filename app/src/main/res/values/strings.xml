@@ -49,6 +49,21 @@
     <string name="save">Save Changes</string>
     <string name="emailProfile">Email :</string>
     <string name="nameProfile">Name :</string>
+    <string name="discover">Discover</string>
+    <string name="add_recipe">Add Recipe</string>
+    <string name="my_recipe">My Recipe</string>
+    <string name="recipe_name">Recipe Name :</string>
+    <string name="country">Country :</string>
+    <string name="recipe_type">Recipe Type :</string>
+    <string name="chef_name">Chef Name :</string>
+    <string name="ingredients">Ingredients :</string>
+    <string name="direction">Directions :</string>
+    <string name="duration">Duration :</string>
+    <string name="step_1">Step - 1</string>
+    <string name="add_steps">Add Steps</string>
+    <string name="tap_to_choose_image">Tap to choose Image</string>
+    <string name="click_to_add_images">Click to add Images/Videos</string>
+    <string name="add_images_videos">Add Images/Videos</string>
 
 
 </resources>
