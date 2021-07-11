@@ -93,7 +93,7 @@ public class AddRecipeFragment extends Fragment {
         String rType = recipeType.getText().toString().trim();
         String rDuration = recipeDuration.getText().toString().trim();
         String country = countryName.getText().toString().trim();
-        String rIngredients = recipeDirections.getText().toString().trim();
+        String rIngredients = recipeIngredients.getText().toString().trim();
         String rDirections = recipeDirections.getText().toString().trim();
 
         RecipeInfo recipeInfo = new RecipeInfo(rName,cName,rType,rDuration,country,rIngredients,rDirections);
