@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.example.cookbook.Adapters.RecipeListAdapter;
 import com.example.cookbook.Models.RecipeInfo;
@@ -31,6 +33,7 @@ public class DiscoverFragment extends Fragment {
     DatabaseReference root;
     private RecipeListAdapter adapter;
     private ArrayList<RecipeInfo> list;
+    private RecipeInfo model;
 
 
 
@@ -75,7 +78,7 @@ public class DiscoverFragment extends Fragment {
                     for (DataSnapshot ds: dataSnapshot.getChildren()) {
 
 
-                        RecipeInfo model = ds.getValue(RecipeInfo.class);
+                        model = ds.getValue(RecipeInfo.class);
                         list.add(model);
 
                     }

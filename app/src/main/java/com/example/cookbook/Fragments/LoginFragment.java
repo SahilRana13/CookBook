@@ -89,7 +89,7 @@ public class LoginFragment extends Fragment {
     public void onStart() {
         super.onStart();
         if (firebaseAuth.getCurrentUser() != null) {
-            Intent intent = new Intent(getActivity(), RecipeActivity.class);
+            Intent intent = new Intent(getActivity(), DashboardActivity.class);
             startActivity(intent);
         }
     }
@@ -249,7 +249,7 @@ public class LoginFragment extends Fragment {
         {
 
             Toast.makeText(getActivity(), "Login SuccessFull", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getActivity(), RecipeActivity.class);
+            Intent intent = new Intent(getActivity(), DashboardActivity.class);
             startActivity(intent);
         }
         else
@@ -406,7 +406,7 @@ public class LoginFragment extends Fragment {
                             Toast.makeText(getActivity().getApplicationContext(),"Registration Successful!",Toast.LENGTH_LONG).show();
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = firebaseAuth.getCurrentUser();
-                            Intent intent = new Intent(getContext(),RecipeActivity.class);
+                            Intent intent = new Intent(getContext(),DashboardActivity.class);
                             startActivity(intent);
 
                         }else

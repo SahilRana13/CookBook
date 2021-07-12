@@ -10,6 +10,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.cookbook.Fragments.RecipeDetailsFragment;
 import com.example.cookbook.Fragments.RecipeReviewFragment;
@@ -20,6 +21,7 @@ public class RecipeActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ImageView imageView;
+    private String str;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,9 @@ public class RecipeActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Review"));
 
 
+        str = getIntent().getExtras().get("recipekey").toString();
+
+
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(),FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             @NonNull
             @Override
@@ -44,6 +49,9 @@ public class RecipeActivity extends AppCompatActivity {
                 {
                     case 0:
                         RecipeDetailsFragment detailsFragment = new RecipeDetailsFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("key", str);
+                        detailsFragment.setArguments(bundle);
                         return detailsFragment;
 
                     case 1:
