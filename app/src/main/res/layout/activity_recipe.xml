@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light"
     tools:context=".RecipeActivity">
 
     <ImageView
@@ -17,11 +18,20 @@
 
 
     <com.google.android.material.tabs.TabLayout
-        android:layout_width="match_parent"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:id="@+id/recipeTabLayout"
         android:layout_below="@id/recipeImageView"
-        android:layout_marginTop="60dp"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:layout_margin="8dp"
+        app:tabMode="fixed"
+        app:tabIndicatorGravity="stretch"
+        app:tabSelectedTextColor="#ffffff"
+        app:tabIndicatorColor="@color/dark"
+        android:background="@drawable/tab_indicator"
+        app:tabIndicator="@drawable/tab_indicator2"
+        app:tabIndicatorAnimationMode="elastic"/>
 
     <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
