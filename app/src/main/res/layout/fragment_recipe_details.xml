@@ -17,7 +17,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="270dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginLeft="15dp"
                 android:textColor="#193566"
                 android:textSize="20sp"
@@ -28,10 +28,10 @@
                 android:layout_alignParentStart="true" />
 
             <EditText
-                android:id="@+id/enterRecipeName"
+                android:id="@+id/receiveRecipeName"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="260dp"
+                android:layout_marginTop="10dp"
                 android:textColor="#A2AEC2"
                 android:background="@drawable/textbox"
                 android:drawablePadding="50dp"
@@ -46,7 +46,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="350dp"
+                android:layout_marginTop="100dp"
                 android:layout_marginLeft="15dp"
                 android:textColor="#193566"
                 android:textSize="20sp"
@@ -57,10 +57,10 @@
                 android:layout_alignParentStart="true"/>
 
             <EditText
-                android:id="@+id/enterChefName"
+                android:id="@+id/receiveChefName"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="340dp"
+                android:layout_marginTop="90dp"
                 android:textColor="#A2AEC2"
                 android:background="@drawable/textbox"
                 android:layout_alignParentRight="true"
@@ -76,7 +76,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="430dp"
+                android:layout_marginTop="180dp"
                 android:layout_marginLeft="15dp"
                 android:textColor="#193566"
                 android:textSize="20sp"
@@ -87,10 +87,10 @@
                 android:layout_alignParentStart="true"/>
 
             <EditText
-                android:id="@+id/enterRecipeType"
+                android:id="@+id/receiveRecipeType"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="420dp"
+                android:layout_marginTop="170dp"
                 android:textColor="#A2AEC2"
                 android:background="@drawable/textbox"
                 android:layout_alignParentRight="true"
@@ -106,7 +106,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="510dp"
+                android:layout_marginTop="260dp"
                 android:layout_marginLeft="15dp"
                 android:textColor="#193566"
                 android:textSize="20sp"
@@ -117,10 +117,10 @@
                 android:layout_alignParentStart="true"/>
 
             <EditText
-                android:id="@+id/enterCountry"
+                android:id="@+id/receiveCountry"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="500dp"
+                android:layout_marginTop="250dp"
                 android:textColor="#A2AEC2"
                 android:background="@drawable/textbox"
                 android:layout_alignParentRight="true"
@@ -136,7 +136,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="590dp"
+                android:layout_marginTop="340dp"
                 android:layout_marginLeft="15dp"
                 android:textColor="#193566"
                 android:textSize="20sp"
@@ -147,10 +147,10 @@
                 android:layout_alignParentStart="true"/>
 
             <EditText
-                android:id="@+id/enterDuration"
+                android:id="@+id/receiveDuration"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="580dp"
+                android:layout_marginTop="330dp"
                 android:textColor="#A2AEC2"
                 android:background="@drawable/textbox"
                 android:layout_alignParentRight="true"
@@ -166,7 +166,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="670dp"
+                android:layout_marginTop="420dp"
                 android:layout_marginLeft="15dp"
                 android:textColor="#193566"
                 android:textSize="20sp"
@@ -177,10 +177,10 @@
                 android:layout_alignParentStart="true"/>
 
             <EditText
-                android:id="@+id/enterIngredients"
+                android:id="@+id/receiveIngredients"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="660dp"
+                android:layout_marginTop="410dp"
                 android:textColor="#A2AEC2"
                 android:background="@drawable/textbox"
                 android:layout_alignParentRight="true"
@@ -197,7 +197,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="770dp"
+                android:layout_marginTop="520dp"
                 android:layout_marginLeft="15dp"
                 android:textColor="#193566"
                 android:textSize="20sp"
@@ -208,10 +208,10 @@
                 android:layout_alignParentStart="true"/>
 
             <EditText
-                android:id="@+id/enterDirection"
+                android:id="@+id/receiveDirection"
                 android:layout_width="345dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="820dp"
+                android:layout_marginTop="560dp"
                 android:textColor="#A2AEC2"
                 android:hint="@string/step_1"
                 android:textColorHint="#A9B6C9"
@@ -227,9 +227,10 @@
             <TextView
                 android:id="@+id/whiteSpace"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="40dp"
-                android:layout_below="@+id/submitRecipeBtn"/>
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/receiveDirection"
+                />
 
 
 
