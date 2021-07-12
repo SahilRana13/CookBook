@@ -30,6 +30,7 @@ import com.example.cookbook.DashboardActivity;
 import com.example.cookbook.MainActivity;
 import com.example.cookbook.Models.UserInfo;
 import com.example.cookbook.R;
+import com.example.cookbook.RecipeActivity;
 import com.example.cookbook.SplashScreen;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -248,7 +249,7 @@ public class LoginFragment extends Fragment {
         {
 
             Toast.makeText(getActivity(), "Login SuccessFull", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getActivity(),DashboardActivity.class);
+            Intent intent = new Intent(getActivity(), RecipeActivity.class);
             startActivity(intent);
         }
         else

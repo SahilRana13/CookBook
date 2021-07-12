@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph3"
+    app:startDestination="@id/recipeDetailsFragment">
+
+    <fragment
+        android:id="@+id/recipeDetailsFragment"
+        android:name="com.example.cookbook.Fragments.RecipeDetailsFragment"
+        android:label="fragment_recipe_details"
+        tools:layout="@layout/fragment_recipe_details" />
+    <fragment
+        android:id="@+id/recipeReviewFragment"
+        android:name="com.example.cookbook.Fragments.RecipeReviewFragment"
+        android:label="fragment_recipe_review"
+        tools:layout="@layout/fragment_recipe_review" />
+</navigation>
