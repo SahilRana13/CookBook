@@ -20,6 +20,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -32,6 +34,7 @@ public class AddRecipeFragment extends Fragment {
     private Button submitRecipe;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
+    String rName,cName,rType,rDuration,country,rIngredients,rDirections;
 
     public AddRecipeFragment() {
         // Required empty public constructor
@@ -62,12 +65,14 @@ public class AddRecipeFragment extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-
         submitRecipe = view.findViewById(R.id.submitRecipeBtn);
 
         submitRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
 
                 if (recipeName.getText().toString().trim().length()==0 || chefName.getText().toString().trim().length()==0 || recipeType.getText().toString().trim().length()==0 || recipeDuration.getText().toString().trim().length()==0 || countryName.getText().toString().trim().length()==0 || recipeIngredients.getText().toString().trim().length()==0 || recipeDirections.getText().toString().trim().length()==0 )
                 {
@@ -77,7 +82,17 @@ public class AddRecipeFragment extends Fragment {
                 }
                 else
                 {
+                    rName = recipeName.getText().toString().trim();
+                    cName = chefName.getText().toString().trim();
+                    rType = recipeType.getText().toString().trim();
+                    rDuration = recipeDuration.getText().toString().trim();
+                    country = countryName.getText().toString().trim();
+                    rIngredients = recipeIngredients.getText().toString().trim();
+                    rDirections = recipeDirections.getText().toString().trim();
+
                     AddRecipe();
+
+
                 }
             }
         });
@@ -87,48 +102,52 @@ public class AddRecipeFragment extends Fragment {
 
     private void AddRecipe() {
 
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference reference = firebaseDatabase.getReference().child("User Recipe Details");
+        DatabaseReference recipeListBranch = reference.child(firebaseAuth.getUid()).child(rName).push();
 
-        String rName = recipeName.getText().toString().trim();
-        String cName = chefName.getText().toString().trim();
-        String rType = recipeType.getText().toString().trim();
-        String rDuration = recipeDuration.getText().toString().trim();
-        String country = countryName.getText().toString().trim();
-        String rIngredients = recipeIngredients.getText().toString().trim();
-        String rDirections = recipeDirections.getText().toString().trim();
+        RecipeInfo recipeInfo = new RecipeInfo();
 
-        RecipeInfo recipeInfo = new RecipeInfo(rName,cName,rType,rDuration,country,rIngredients,rDirections);
+        recipeInfo.setRecipeName(rName);
+        recipeInfo.setChefName(cName);
+        recipeInfo.setRecipeType(rType);
+        recipeInfo.setRecipeDuration(rDuration);
+        recipeInfo.setCountryName(country);
+        recipeInfo.setRecipeIngredients(rIngredients);
+        recipeInfo.setRecipeDirections(rDirections);
 
+        recipeListBranch.setValue(recipeInfo);
 
-        db.collection("User Recipe Details")
-                .document(Objects.requireNonNull(firebaseAuth.getUid()))
-                .collection("Recipe List")
-                .document(""+rName)
-                .set(recipeInfo)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
+        Toast.makeText(getActivity(), "Recipe Added", Toast.LENGTH_SHORT).show();
 
 
-                        if (task.isSuccessful())
-                        {
-                            Toast.makeText(getActivity(),"Data Sent",Toast.LENGTH_LONG).show();
-
-                        }
-                        else
-                        {
-                            Toast.makeText(getActivity(),"Error!",Toast.LENGTH_LONG).show();
-
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                        Toast.makeText(getActivity().getApplicationContext(),"Something Wrong!",Toast.LENGTH_LONG).show();
-
-                    }
-                });
+//        db.collection("User Recipe Details")
+//                .document(Objects.requireNonNull(firebaseAuth.getUid()))
+//                .collection(""+rName)
+//                .add(recipeInfo)
+//                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentReference> task) {
+//                        if (task.isSuccessful())
+//                        {
+//                            Toast.makeText(getActivity(),"Data Sent",Toast.LENGTH_LONG).show();
+//
+//                        }
+//                        else
+//                        {
+//                            Toast.makeText(getActivity(),"Error!",Toast.LENGTH_LONG).show();
+//
+//                        }
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//
+//                        Toast.makeText(getActivity().getApplicationContext(),"Something Wrong!",Toast.LENGTH_LONG).show();
+//
+//                    }
+//                });
 
 
     }

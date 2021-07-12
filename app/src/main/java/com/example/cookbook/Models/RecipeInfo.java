@@ -74,4 +74,5 @@ public class RecipeInfo {
         this.recipeDirections = recipeDirections;
     }
 
+
 }
