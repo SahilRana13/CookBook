@@ -51,12 +51,12 @@
         android:layout_below="@id/mySearchBarView"/>
 
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/myRecipeListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/mySearchBarView"
         android:layout_marginTop="20dp">
-    </ListView>
+    </androidx.recyclerview.widget.RecyclerView>
 
 </RelativeLayout>

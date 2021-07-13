@@ -7,12 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cookbook.Fragments.RecipeDetailsFragment;
 import com.example.cookbook.Models.RecipeInfo;
 import com.example.cookbook.R;
 import com.example.cookbook.RecipeActivity;
@@ -20,24 +18,24 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.MyViewHolder> {
+public class MyRecipeListAdapter extends RecyclerView.Adapter<MyRecipeListAdapter.MyViewHolder> {
 
     Context context;
-    ArrayList<RecipeInfo> mList;
+    ArrayList<RecipeInfo> myList;
     String recipetext;
     String recipeImage;
 
 
-    public RecipeListAdapter(Context context, ArrayList<RecipeInfo> mList) {
+    public MyRecipeListAdapter(Context context, ArrayList<RecipeInfo> myList) {
         this.context = context;
-        this.mList = mList;
+        this.myList = myList;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.custom_grid_layout,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.custom_my_recipe_list,parent,false);
 
         return new MyViewHolder(view);
 
@@ -46,31 +44,31 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.My
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        RecipeInfo model = mList.get(position);
+        RecipeInfo model = myList.get(position);
 
         holder.recipeTitle.setText(model.getRecipeName());
         Picasso.get().load(model.getRecipeImageLink()).into(holder.recipeImage);
         //holder.recipeImage.setImageResource(Integer.parseInt(model.getRecipeImageLink()));
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                recipetext = model.getRecipeName();
-
-                //Toast.makeText(v.getContext(), recipetext+" -> " + (position+1), Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(v.getContext(), RecipeActivity.class);
-                intent.putExtra("recipekey",recipetext);
-                context.startActivity(intent);
-
-            }
-        });
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                recipetext = model.getRecipeName();
+//
+//                //Toast.makeText(v.getContext(), recipetext+" -> " + (position+1), Toast.LENGTH_SHORT).show();
+//
+//                Intent intent = new Intent(v.getContext(), RecipeActivity.class);
+//                intent.putExtra("recipekey",recipetext);
+//                context.startActivity(intent);
+//
+//            }
+//        });
     }
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return myList.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder
@@ -82,8 +80,8 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.My
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            recipeTitle = itemView.findViewById(R.id.customTextView);
-            recipeImage = itemView.findViewById(R.id.customImageView);
+            recipeTitle = itemView.findViewById(R.id.myRecipeName);
+            recipeImage = itemView.findViewById(R.id.myRecipeImageView);
 
         }
 

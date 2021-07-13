@@ -25,7 +25,8 @@
                 android:layout_marginTop="30dp"
                 android:background="@drawable/square_border"
                 app:srcCompat="@drawable/ic_perm_identity_black_24dp"
-                tools:ignore="VectorDrawableCompat"/>
+                tools:ignore="VectorDrawableCompat"
+                android:scaleType="fitXY"/>
             <TextView
                 android:id="@+id/selectimage"
                 android:layout_width="wrap_content"

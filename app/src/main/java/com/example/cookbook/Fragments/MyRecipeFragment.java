@@ -6,7 +6,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -18,6 +20,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cookbook.Adapters.MyRecipeListAdapter;
+import com.example.cookbook.Adapters.RecipeListAdapter;
 import com.example.cookbook.Models.RecipeInfo;
 import com.example.cookbook.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -43,7 +47,7 @@ import java.util.ArrayList;
 
 public class MyRecipeFragment extends Fragment {
 
-    ListView listView;
+    private RecyclerView recyclerView;
     ArrayList<String> arList = new ArrayList<>();
     ArrayAdapter<String> adapter;
     RecipeInfo obj;
@@ -52,6 +56,11 @@ public class MyRecipeFragment extends Fragment {
     private FirebaseUser currentUser;
     private FirebaseStorage firebaseStorage;
     private FirebaseFirestore db;
+
+    private MyRecipeListAdapter newAdapter;
+    private ArrayList<RecipeInfo> list;
+    private RecipeInfo model;
+
 
 
     private ImageView myImage;
@@ -79,15 +88,30 @@ public class MyRecipeFragment extends Fragment {
 
         obj = new RecipeInfo();
 
+
+
         myImage = view.findViewById(R.id.myImageView);
         myName = view.findViewById(R.id.myTextView);
 
-        listView = view.findViewById(R.id.myRecipeListView);
+        recyclerView = view.findViewById(R.id.myRecipeListView);
 
         db = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
+
+//        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2,GridLayoutManager.VERTICAL,false);
+//        recyclerView.setHasFixedSize(true);
+//        recyclerView.setLayoutManager(gridLayoutManager);
+//
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+
+        list = new ArrayList<>();
+        newAdapter = new MyRecipeListAdapter(getContext(),list);
+
 
         getProfileData();
         getProfileImage();
@@ -97,7 +121,7 @@ public class MyRecipeFragment extends Fragment {
 
         DatabaseReference databaseReference = firebaseDatabase.getReference();
 
-        final DatabaseReference recipelistbranch = databaseReference.child("User Recipe Details").child(firebaseAuth.getUid());
+        DatabaseReference recipelistbranch = databaseReference.child("User Recipe Details").child(firebaseAuth.getUid());
 
         recipelistbranch.addChildEventListener(new ChildEventListener() {
             @Override
@@ -107,12 +131,15 @@ public class MyRecipeFragment extends Fragment {
                 for (DataSnapshot ds: snapshot.getChildren())
                 {
 
-                    obj = ds.getValue(RecipeInfo.class);
-                    arList.add(obj.getRecipeName());
+//                    obj = ds.getValue(RecipeInfo.class);
+//                    arList.add(obj.getRecipeName());
+
+                    model = ds.getValue(RecipeInfo.class);
+                    list.add(model);
                 }
 
-                listView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
+                recyclerView.setAdapter(newAdapter);
+                newAdapter.notifyDataSetChanged();
 
             }
 

@@ -17,11 +17,12 @@
         >
 
         <ImageView
-            android:id="@+id/imgview"
+            android:id="@+id/myRecipeImageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/ic_photo_library_black_24dp"
             />
 

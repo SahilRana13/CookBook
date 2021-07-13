@@ -26,7 +26,8 @@
                 android:layout_marginTop="50dp"
                 android:background="@drawable/square_border"
                 app:srcCompat="@drawable/ic_perm_identity_black_24dp"
-                tools:ignore="VectorDrawableCompat" />
+                tools:ignore="VectorDrawableCompat"
+                android:scaleType="fitXY"/>
 
             <EditText
                 android:id="@+id/EditProfileName"
