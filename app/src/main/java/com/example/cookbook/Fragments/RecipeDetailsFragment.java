@@ -78,6 +78,7 @@ public class RecipeDetailsFragment extends Fragment {
                     for (DataSnapshot ds1: ds.getChildren())
                     {
 
+
                         DataSnapshot name = ds1.child("recipeName");
 
                         String area_value = name.getValue().toString();

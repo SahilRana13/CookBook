@@ -3,12 +3,12 @@ package com.example.cookbook.Models;
 public class RecipeInfo {
 
 
-    String recipeName,chefName,recipeType,recipeDuration,countryName,recipeIngredients,recipeDirections;
+    private String recipeName,chefName,recipeType,recipeDuration,countryName,recipeIngredients,recipeDirections,recipeImageLink;
 
     public RecipeInfo() {
     }
 
-    public RecipeInfo(String recipeName, String chefName, String recipeType, String recipeDuration, String countryName, String recipeIngredients, String recipeDirections) {
+    public RecipeInfo(String recipeName, String chefName, String recipeType, String recipeDuration, String countryName, String recipeIngredients, String recipeDirections, String recipeImageLink) {
         this.recipeName = recipeName;
         this.chefName = chefName;
         this.recipeType = recipeType;
@@ -16,6 +16,7 @@ public class RecipeInfo {
         this.countryName = countryName;
         this.recipeIngredients = recipeIngredients;
         this.recipeDirections = recipeDirections;
+        this.recipeImageLink = recipeImageLink;
     }
 
     public String getRecipeName() {
@@ -74,5 +75,11 @@ public class RecipeInfo {
         this.recipeDirections = recipeDirections;
     }
 
+    public String getRecipeImageLink() {
+        return recipeImageLink;
+    }
 
+    public void setRecipeImageLink(String recipeImageLink) {
+        this.recipeImageLink = recipeImageLink;
+    }
 }

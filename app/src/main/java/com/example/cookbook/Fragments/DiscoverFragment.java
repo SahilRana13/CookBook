@@ -78,6 +78,7 @@ public class DiscoverFragment extends Fragment {
                     for (DataSnapshot ds: dataSnapshot.getChildren()) {
 
 
+
                         model = ds.getValue(RecipeInfo.class);
                         list.add(model);
 
