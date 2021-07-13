@@ -48,7 +48,6 @@ public class MyRecipeListAdapter extends RecyclerView.Adapter<MyRecipeListAdapte
 
         holder.recipeTitle.setText(model.getRecipeName());
         Picasso.get().load(model.getRecipeImageLink()).into(holder.recipeImage);
-        //holder.recipeImage.setImageResource(Integer.parseInt(model.getRecipeImageLink()));
 
 //        holder.itemView.setOnClickListener(new View.OnClickListener() {
 //            @Override

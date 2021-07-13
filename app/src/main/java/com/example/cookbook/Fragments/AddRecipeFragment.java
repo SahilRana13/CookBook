@@ -150,7 +150,7 @@ public class AddRecipeFragment extends Fragment {
 
         //Upload Image
 
-        StorageReference storageRef=FirebaseStorage.getInstance().getReference().child("Recipe Images/");
+        StorageReference storageRef=FirebaseStorage.getInstance().getReference().child("Recipe Images").child(rName);
         storageRef.putFile(ImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
@@ -164,14 +164,6 @@ public class AddRecipeFragment extends Fragment {
                             //This is your image url do whatever you want with it.
 
                             uploadData(URL);
-//                            DatabaseReference recipeList = reference.child(firebaseAuth.getUid())
-//                                    .child("Recipe Image Link")
-//                                    .child(rName).push();
-
-
-//                            RecipeInfo obj = new RecipeInfo();
-//                            obj.setRecipeImageLink(URL);
-//                            recipeList.setValue(obj);
 
                         }
                     });
@@ -210,22 +202,6 @@ public class AddRecipeFragment extends Fragment {
 
     }
 
-//    private void StoreLink(String url) {
-//
-//        HashMap<String,String> hashMap = new HashMap<>();
-//        hashMap.put("ImgLink",url);
-//
-//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
-//                .child("User Recipe Details")
-//                .child(firebaseAuth.getUid())
-//                .child(rName)
-//                .child("Image Link")
-//                .push();
-//
-//        reference.setValue(hashMap);
-//
-//
-//    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -247,31 +223,6 @@ public class AddRecipeFragment extends Fragment {
 
         super.onActivityResult(requestCode, resultCode, data);
 
-//        if (requestCode == PICK_IMAGE)
-//        {
-//            if (resultCode == RESULT_OK)
-//            {
-//                if (data.getClipData() != null)
-//                {
 //
-//                    int countClipData = data.getClipData().getItemCount();
-//                    int currentImageSelect = 0;
-//
-//                    while(currentImageSelect < countClipData)
-//                    {
-//
-//                        ImageUri = data.getClipData().getItemAt(currentImageSelect).getUri();
-//                        ImageList.add(ImageUri);
-//
-//                        currentImageSelect = currentImageSelect + 1;
-//                    }
-//
-//                }
-//                else
-//                {
-//                    Toast.makeText(getActivity(), "Please select multiple image", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        }
     }
 }

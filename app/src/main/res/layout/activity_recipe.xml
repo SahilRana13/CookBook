@@ -14,6 +14,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:src="@mipmap/ic_launcher"
+        android:scaleType="fitXY"
         />
 
 
@@ -23,8 +24,7 @@
         android:id="@+id/recipeTabLayout"
         android:layout_below="@id/recipeImageView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
-        android:layout_margin="8dp"
+        android:layout_marginTop="50dp"
         app:tabMode="fixed"
         app:tabIndicatorGravity="stretch"
         app:tabSelectedTextColor="#ffffff"
@@ -37,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/recipeViewPager"
-        android:layout_below="@id/recipeTabLayout"/>
+        android:layout_below="@id/recipeTabLayout"
+        android:layout_marginTop="20dp"/>
 
 </RelativeLayout>

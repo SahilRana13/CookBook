@@ -50,15 +50,12 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.My
 
         holder.recipeTitle.setText(model.getRecipeName());
         Picasso.get().load(model.getRecipeImageLink()).into(holder.recipeImage);
-        //holder.recipeImage.setImageResource(Integer.parseInt(model.getRecipeImageLink()));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 recipetext = model.getRecipeName();
-
-                //Toast.makeText(v.getContext(), recipetext+" -> " + (position+1), Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(v.getContext(), RecipeActivity.class);
                 intent.putExtra("recipekey",recipetext);

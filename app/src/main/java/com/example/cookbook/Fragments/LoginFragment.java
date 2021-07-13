@@ -361,34 +361,12 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onFailure(@NonNull Exception e) {
 
-                        Toast.makeText(getActivity(), "Photo Error", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(), "Photo Error", Toast.LENGTH_SHORT).show();
 
                     }
                 });
 
-//        ref.putFile(imagePath)
-//                .addOnSuccessListener(
-//                        new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//
-//                            @Override
-//                            public void onSuccess(
-//                                    UploadTask.TaskSnapshot taskSnapshot)
-//                            {
-//
-//                            }
-//                        })
-//
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e)
-//                    {
-//
-//                        Toast toast = Toast.makeText(getActivity(),"Upload Failed",Toast.LENGTH_LONG);
-//                        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
-//                        toast.show();
-//
-//                    }
-//                });
+
 
 
 

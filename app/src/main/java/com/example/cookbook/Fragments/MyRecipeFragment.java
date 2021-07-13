@@ -48,8 +48,7 @@ import java.util.ArrayList;
 public class MyRecipeFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    ArrayList<String> arList = new ArrayList<>();
-    ArrayAdapter<String> adapter;
+
     RecipeInfo obj;
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
@@ -100,13 +99,10 @@ public class MyRecipeFragment extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
 
-//        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2,GridLayoutManager.VERTICAL,false);
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(gridLayoutManager);
-//
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
+
+
 
 
         list = new ArrayList<>();
@@ -115,9 +111,6 @@ public class MyRecipeFragment extends Fragment {
 
         getProfileData();
         getProfileImage();
-
-
-        adapter = new ArrayAdapter<String>(getActivity(),R.layout.custom_my_recipe_list,R.id.myRecipeName,arList);
 
         DatabaseReference databaseReference = firebaseDatabase.getReference();
 
@@ -130,10 +123,6 @@ public class MyRecipeFragment extends Fragment {
 
                 for (DataSnapshot ds: snapshot.getChildren())
                 {
-
-//                    obj = ds.getValue(RecipeInfo.class);
-//                    arList.add(obj.getRecipeName());
-
                     model = ds.getValue(RecipeInfo.class);
                     list.add(model);
                 }
@@ -222,6 +211,5 @@ public class MyRecipeFragment extends Fragment {
                     }
                 });
 
-        //myImage.setBackground(null);
     }
 }

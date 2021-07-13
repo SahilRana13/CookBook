@@ -35,9 +35,4 @@
         android:name="com.example.cookbook.Fragments.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
-    <fragment
-        android:id="@+id/recipeDescriptionFragment"
-        android:name="com.example.cookbook.Fragments.RecipeDescriptionFragment"
-        android:label="fragment_recipe_description"
-        tools:layout="@layout/fragment_recipe_description" />
 </navigation>
