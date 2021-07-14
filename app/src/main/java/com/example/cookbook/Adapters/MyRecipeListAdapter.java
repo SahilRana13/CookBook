@@ -2,15 +2,24 @@ package com.example.cookbook.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cookbook.Fragments.DiscoverFragment;
+import com.example.cookbook.Fragments.MyRecipeDetailsFragment;
+import com.example.cookbook.Fragments.RecipeDetailsFragment;
 import com.example.cookbook.Models.RecipeInfo;
 import com.example.cookbook.R;
 import com.example.cookbook.RecipeActivity;
@@ -49,20 +58,23 @@ public class MyRecipeListAdapter extends RecyclerView.Adapter<MyRecipeListAdapte
         holder.recipeTitle.setText(model.getRecipeName());
         Picasso.get().load(model.getRecipeImageLink()).into(holder.recipeImage);
 
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                recipetext = model.getRecipeName();
-//
-//                //Toast.makeText(v.getContext(), recipetext+" -> " + (position+1), Toast.LENGTH_SHORT).show();
-//
-//                Intent intent = new Intent(v.getContext(), RecipeActivity.class);
-//                intent.putExtra("recipekey",recipetext);
-//                context.startActivity(intent);
-//
-//            }
-//        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                recipetext = model.getRecipeName();
+
+                Fragment fragment = new MyRecipeDetailsFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("key",model.getRecipeName());
+                fragment.setArguments(bundle);
+                FragmentManager fm = ((AppCompatActivity)context).getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.replace(R.id.Host_Fragment2, fragment);
+                ft.commit();
+
+            }
+        });
     }
 
     @Override

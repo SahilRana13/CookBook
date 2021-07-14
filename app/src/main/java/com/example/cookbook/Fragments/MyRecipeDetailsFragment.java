@@ -1,5 +1,7 @@
 package com.example.cookbook.Fragments;
 
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.cookbook.R;
@@ -19,29 +22,30 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.util.Map;
 
 
-public class RecipeDetailsFragment extends Fragment {
+public class MyRecipeDetailsFragment extends Fragment {
 
     private EditText recipeName,chefName,recipeType,recipeDuration,countryName,recipeIngredients,recipeDirections;
+    private ImageView imageView;
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
+    private String strName;
 
-    private String fileName;
-
-
-    public RecipeDetailsFragment() {
+    public MyRecipeDetailsFragment() {
         // Required empty public constructor
     }
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recipe_details, container, false);
+        return inflater.inflate(R.layout.fragment_my_recipe_details, container, false);
     }
 
     @Override
@@ -51,18 +55,17 @@ public class RecipeDetailsFragment extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
-        recipeName = view.findViewById(R.id.receiveRecipeName);
-        chefName = view.findViewById(R.id.receiveChefName);
-        recipeType = view.findViewById(R.id.receiveRecipeType);
-        recipeDuration = view.findViewById(R.id.receiveDuration);
-        countryName = view.findViewById(R.id.receiveCountry);
-        recipeIngredients = view.findViewById(R.id.receiveIngredients);
-        recipeDirections = view.findViewById(R.id.receiveDirection);
+        imageView = view.findViewById(R.id.receiveMyRecipeImageView);
+        recipeName = view.findViewById(R.id.receiveMyRecipeName);
+        chefName = view.findViewById(R.id.receiveMyChefName);
+        recipeType = view.findViewById(R.id.receiveMyRecipeType);
+        recipeDuration = view.findViewById(R.id.receiveMyDuration);
+        countryName = view.findViewById(R.id.receiveMyCountry);
+        recipeIngredients = view.findViewById(R.id.receiveMyIngredients);
+        recipeDirections = view.findViewById(R.id.receiveMyDirection);
 
-
-        fileName = this.getArguments().getString("key");
-
-        Toast.makeText(getActivity(), fileName, Toast.LENGTH_SHORT).show();
+        Bundle bundle = this.getArguments();
+        strName = bundle.getString("key");
 
 
         DatabaseReference databaseReference = (DatabaseReference) firebaseDatabase.getReference();
@@ -82,7 +85,7 @@ public class RecipeDetailsFragment extends Fragment {
                         DataSnapshot name = ds1.child("recipeName");
 
                         String area_value = name.getValue().toString();
-                        if (area_value.contains(fileName)) {
+                        if (area_value.contains(strName)) {
 
 
                             Map<String, Object> newPost = (Map<String, Object>) ds1.getValue();
@@ -94,6 +97,7 @@ public class RecipeDetailsFragment extends Fragment {
                             String name5 = String.valueOf(newPost.get("recipeIngredients"));
                             String name6 = String.valueOf(newPost.get("recipeName"));
                             String name7 = String.valueOf(newPost.get("recipeType"));
+                            String name8 = String.valueOf(newPost.get("recipeImageLink"));
 
 
                             recipeName.setText(name6);
@@ -103,6 +107,8 @@ public class RecipeDetailsFragment extends Fragment {
                             countryName.setText(name2);
                             recipeIngredients.setText(name5);
                             recipeDirections.setText(name3);
+                            Picasso.get().load(name8).into(imageView);
+
 
 
                         }
@@ -132,7 +138,6 @@ public class RecipeDetailsFragment extends Fragment {
 
             }
         });
-
 
 
     }
