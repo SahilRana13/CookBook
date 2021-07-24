@@ -8,6 +8,16 @@ public class RecipeInfo {
     public RecipeInfo() {
     }
 
+    public RecipeInfo(String recipeName, String chefName, String recipeType, String recipeDuration, String countryName, String recipeIngredients, String recipeDirections) {
+        this.recipeName = recipeName;
+        this.chefName = chefName;
+        this.recipeType = recipeType;
+        this.recipeDuration = recipeDuration;
+        this.countryName = countryName;
+        this.recipeIngredients = recipeIngredients;
+        this.recipeDirections = recipeDirections;
+    }
+
     public RecipeInfo(String recipeName, String chefName, String recipeType, String recipeDuration, String countryName, String recipeIngredients, String recipeDirections, String recipeImageLink) {
         this.recipeName = recipeName;
         this.chefName = chefName;
@@ -16,6 +26,11 @@ public class RecipeInfo {
         this.countryName = countryName;
         this.recipeIngredients = recipeIngredients;
         this.recipeDirections = recipeDirections;
+        this.recipeImageLink = recipeImageLink;
+    }
+
+    public RecipeInfo(String recipeName, String recipeImageLink) {
+        this.recipeName = recipeName;
         this.recipeImageLink = recipeImageLink;
     }
 
