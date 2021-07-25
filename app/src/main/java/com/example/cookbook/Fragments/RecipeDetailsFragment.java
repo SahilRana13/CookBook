@@ -62,7 +62,7 @@ public class RecipeDetailsFragment extends Fragment {
 
         fileName = this.getArguments().getString("key");
 
-        Toast.makeText(getActivity(), fileName, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), fileName, Toast.LENGTH_SHORT).show();
 
 
         DatabaseReference databaseReference = (DatabaseReference) firebaseDatabase.getReference();

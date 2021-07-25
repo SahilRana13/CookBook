@@ -16,18 +16,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
-            <ImageView
+            <ImageSwitcher
                 android:id="@+id/receiveMyRecipeImageView"
                 android:layout_width="180dp"
                 android:layout_height="180dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"
-                android:background="@drawable/square_border"
-                app:srcCompat="@drawable/ic_photo_library_black_24dp"
+                android:background="@drawable/ic_photo_library_black_24dp"
                 tools:ignore="VectorDrawableCompat"
                 android:scaleType="fitXY"
                 android:contentDescription="@string/add_images_videos" />
+
+
+            <ImageButton
+                android:layout_width="100dp"
+                android:layout_height="140dp"
+                android:layout_marginTop="50dp"
+                android:layout_toLeftOf="@+id/receiveMyRecipeImageView"
+                android:background="@drawable/ic_navigate_before_black_24dp"
+                android:id="@+id/btnPreviousImage"
+                android:layout_toStartOf="@+id/receiveMyRecipeImageView" />
+
+
+            <ImageButton
+                android:layout_width="100dp"
+                android:layout_height="140dp"
+                android:layout_marginTop="50dp"
+                android:layout_toRightOf="@+id/receiveMyRecipeImageView"
+                android:background="@drawable/ic_navigate_next_black_24dp"
+                android:id="@+id/btnNextImage"/>
 
 
             <TextView

@@ -310,8 +310,8 @@ public class AddRecipeFragment extends Fragment {
 
 
         HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("recipeName-",rName);
-        hashMap.put("recipeImageLink-",url);
+        hashMap.put("recipeName",rName);
+        hashMap.put("recipeImageLink",url);
 
         recipeListBranch1.push().setValue(hashMap);
 
@@ -328,20 +328,6 @@ public class AddRecipeFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-//        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data.getData() != null)
-//        {
-//
-//            ImageUri = data.getData();
-//            try {
-//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),ImageUri);
-//                //recipeImageView.setImageBitmap(bitmap);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//
-//        }
 
 
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data.getClipData() != null)

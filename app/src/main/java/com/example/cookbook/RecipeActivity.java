@@ -9,12 +9,19 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.interfaces.ItemClickListener;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.cookbook.Fragments.RecipeDetailsFragment;
 import com.example.cookbook.Fragments.RecipeReviewFragment;
+import com.example.cookbook.Models.RecipeInfo;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -22,15 +29,22 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class RecipeActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private ImageView imageView;
+    private ImageSlider imageView;
     private String str;
+    private List<SlideModel> images;
+
+    private ArrayList<Uri> ImageList = new ArrayList<Uri>();
+    private Uri ImageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +55,8 @@ public class RecipeActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.recipeTabLayout);
         viewPager = findViewById(R.id.recipeViewPager);
         imageView = findViewById(R.id.recipeImageView);
+
+        images = new ArrayList<>();
 
         tabLayout.addTab(tabLayout.newTab().setText("Recipe"));
         tabLayout.addTab(tabLayout.newTab().setText("Review"));
@@ -110,7 +126,7 @@ public class RecipeActivity extends AppCompatActivity {
 
         DatabaseReference databaseReference = (DatabaseReference) FirebaseDatabase.getInstance().getReference();
 
-        DatabaseReference childreference = databaseReference.child("User Recipe Details");
+        DatabaseReference childreference = databaseReference.child("User Recipe Images");
 
         childreference.addChildEventListener(new ChildEventListener() {
             @Override
@@ -127,19 +143,14 @@ public class RecipeActivity extends AppCompatActivity {
                         String area_value = name.getValue().toString();
                         if (area_value.contains(str)) {
 
-
-                            Map<String, Object> newPost = (Map<String, Object>) ds1.getValue();
-
-                            String name1 = String.valueOf(newPost.get("recipeImageLink"));
-
-                            Picasso.get().load(name1).into(imageView);
-
-
+                            images.add(new SlideModel(ds1.child("recipeImageLink").getValue().toString(),ScaleTypes.FIT));
+                            imageView.setImageList(images,ScaleTypes.FIT);
 
                         }
                     }
 
                 }
+
 
             }
 
