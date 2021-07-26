@@ -1,11 +1,13 @@
 package com.example.cookbook.Fragments;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -114,6 +116,9 @@ public class MyRecipeFragment extends Fragment {
         newAdapter = new MyRecipeListAdapter(getContext(),list);
 
 
+
+
+
         getProfileData();
         getProfileImage();
 
@@ -158,6 +163,7 @@ public class MyRecipeFragment extends Fragment {
             }
         });
 
+
     }
 
     ItemTouchHelper.SimpleCallback itemTouchHelperCallBack = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -170,23 +176,58 @@ public class MyRecipeFragment extends Fragment {
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
-            DatabaseReference databaseReference1 = firebaseDatabase.getReference();
 
-            DatabaseReference recipelistbranch1 = databaseReference1.child("User Recipe Details")
-                    .child(firebaseAuth.getUid())
-                    .child();
+            AlertDialog.Builder adb=new AlertDialog.Builder(getActivity());
 
-            recipelistbranch1.removeValue();
+            adb.setTitle("Delete?");
+            adb.setMessage("Are you sure you want to delete?");
 
-            list.remove(viewHolder.getAdapterPosition());
-            newAdapter.notifyDataSetChanged();
+            adb.setNegativeButton("Cancel", new AlertDialog.OnClickListener() {
+
+                public void onClick(DialogInterface dialog, int which) {
+
+
+                    newAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
+
+
+                }});
+            adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
+
+                public void onClick(DialogInterface dialog, int which) {
+
+                    RecipeInfo recipeInfo;
+
+                    recipeInfo = list.get(viewHolder.getPosition());
+                    DatabaseReference databaseReference1 = firebaseDatabase.getReference();
+
+                    DatabaseReference recipelistbranch1 = databaseReference1.child("User Recipe Details")
+                            .child(firebaseAuth.getUid())
+                            .child(recipeInfo.getRecipeName());
+
+                    DatabaseReference recipelistbranch2 = databaseReference1.child("User Recipe Images")
+                            .child(firebaseAuth.getUid())
+                            .child(recipeInfo.getRecipeName());
+
+                    recipelistbranch1.removeValue();
+                    recipelistbranch2.removeValue();
+
+                    list.remove(viewHolder.getAdapterPosition());
+                    newAdapter.notifyDataSetChanged();
+
+
+
+
+                }});
+
+
+            adb.show();
+
+
+
+
         }
     };
 
-    public void deleteItem(String model) {
-
-
-    }
 
 
 

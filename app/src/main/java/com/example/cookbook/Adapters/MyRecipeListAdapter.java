@@ -3,6 +3,7 @@ package com.example.cookbook.Adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -35,6 +36,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class MyRecipeListAdapter extends RecyclerView.Adapter<MyRecipeListAdapter.MyViewHolder> {
 
     Context context;
@@ -42,6 +45,9 @@ public class MyRecipeListAdapter extends RecyclerView.Adapter<MyRecipeListAdapte
     public String recipetext;
     String recipeImage;
     public RecipeInfo model;
+
+    //Context myContext = exampleViewHolder.itemView.getContext()
+
 
     public MyRecipeListAdapter() {
     }
@@ -68,29 +74,17 @@ public class MyRecipeListAdapter extends RecyclerView.Adapter<MyRecipeListAdapte
 
 
 
+
+
         holder.recipeTitle.setText(model.getRecipeName());
         Picasso.get().load(model.getRecipeImageLink()).into(holder.recipeImage);
 
-//        holder.itemView.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//
-//                recipetext = myList.get(position).getRecipeName();
-//
-//                MyRecipeFragment fragment = null;
-//                fragment.deleteItem(recipetext);
-//                return true;
-//            }
-//        });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 recipetext = myList.get(position).getRecipeName();
-
-                MyRecipeFragment obj = new MyRecipeFragment();
-                obj.deleteItem(recipetext);
 
                 Fragment fragment = new MyRecipeDetailsFragment();
                 Bundle bundle = new Bundle();
@@ -101,6 +95,19 @@ public class MyRecipeListAdapter extends RecyclerView.Adapter<MyRecipeListAdapte
                 ft.replace(R.id.Host_Fragment2, fragment);
                 ft.commit();
 
+            }
+        });
+
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                recipetext = myList.get(position).getRecipeName();
+
+
+
+                return true;
             }
         });
 
@@ -127,6 +134,7 @@ public class MyRecipeListAdapter extends RecyclerView.Adapter<MyRecipeListAdapte
 
             recipeTitle = itemView.findViewById(R.id.myRecipeName);
             recipeImage = itemView.findViewById(R.id.myRecipeImageView);
+
 
         }
 
