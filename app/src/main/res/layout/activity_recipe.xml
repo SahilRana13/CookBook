@@ -22,7 +22,7 @@
         app:iss_error_image="@drawable/error"
         app:iss_selected_dot="@drawable/default_selected_dot"
         app:iss_unselected_dot="@drawable/default_unselected_dot" />
-    
+
 
     <com.google.android.material.tabs.TabLayout
         android:layout_width="360dp"

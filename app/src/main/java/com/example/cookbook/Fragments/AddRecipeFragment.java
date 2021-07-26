@@ -175,9 +175,9 @@ public class AddRecipeFragment extends Fragment {
                     recipeImageView.setInAnimation(in);
                     position--;
                     recipeImageView.setImageURI(ImageList.get(position));
-                    
+
                 }
-                else 
+                else
                 {
                     //previous.setImageDrawable();
                     Toast.makeText(getActivity(), "No Previous Images", Toast.LENGTH_SHORT).show();
@@ -328,6 +328,7 @@ public class AddRecipeFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
 
 
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data.getClipData() != null)

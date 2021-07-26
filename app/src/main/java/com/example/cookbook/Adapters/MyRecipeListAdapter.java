@@ -1,9 +1,11 @@
 package com.example.cookbook.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -15,14 +17,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cookbook.Fragments.DiscoverFragment;
 import com.example.cookbook.Fragments.MyRecipeDetailsFragment;
+import com.example.cookbook.Fragments.MyRecipeFragment;
 import com.example.cookbook.Fragments.RecipeDetailsFragment;
 import com.example.cookbook.Models.RecipeInfo;
 import com.example.cookbook.R;
 import com.example.cookbook.RecipeActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -31,9 +39,12 @@ public class MyRecipeListAdapter extends RecyclerView.Adapter<MyRecipeListAdapte
 
     Context context;
     ArrayList<RecipeInfo> myList;
-    String recipetext;
+    public String recipetext;
     String recipeImage;
+    public RecipeInfo model;
 
+    public MyRecipeListAdapter() {
+    }
 
     public MyRecipeListAdapter(Context context, ArrayList<RecipeInfo> myList) {
         this.context = context;
@@ -53,20 +64,37 @@ public class MyRecipeListAdapter extends RecyclerView.Adapter<MyRecipeListAdapte
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        RecipeInfo model = myList.get(position);
+        model = myList.get(position);
+
+
 
         holder.recipeTitle.setText(model.getRecipeName());
         Picasso.get().load(model.getRecipeImageLink()).into(holder.recipeImage);
+
+//        holder.itemView.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//
+//                recipetext = myList.get(position).getRecipeName();
+//
+//                MyRecipeFragment fragment = null;
+//                fragment.deleteItem(recipetext);
+//                return true;
+//            }
+//        });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                recipetext = model.getRecipeName();
+                recipetext = myList.get(position).getRecipeName();
+
+                MyRecipeFragment obj = new MyRecipeFragment();
+                obj.deleteItem(recipetext);
 
                 Fragment fragment = new MyRecipeDetailsFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("key",model.getRecipeName());
+                bundle.putString("key",recipetext);
                 fragment.setArguments(bundle);
                 FragmentManager fm = ((AppCompatActivity)context).getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
@@ -75,7 +103,13 @@ public class MyRecipeListAdapter extends RecyclerView.Adapter<MyRecipeListAdapte
 
             }
         });
+
+
+
     }
+
+
+
 
     @Override
     public int getItemCount() {

@@ -1,5 +1,6 @@
 package com.example.cookbook.Fragments;
 
+import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -78,6 +80,7 @@ public class MyRecipeFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_my_recipe, container, false);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -102,6 +105,8 @@ public class MyRecipeFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
+
+        new ItemTouchHelper(itemTouchHelperCallBack).attachToRecyclerView(recyclerView);
 
 
 
@@ -153,7 +158,32 @@ public class MyRecipeFragment extends Fragment {
             }
         });
 
+    }
 
+    ItemTouchHelper.SimpleCallback itemTouchHelperCallBack = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @SuppressLint("ResourceType")
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+            DatabaseReference databaseReference1 = firebaseDatabase.getReference();
+
+            DatabaseReference recipelistbranch1 = databaseReference1.child("User Recipe Details")
+                    .child(firebaseAuth.getUid())
+                    .child();
+
+            recipelistbranch1.removeValue();
+
+            list.remove(viewHolder.getAdapterPosition());
+            newAdapter.notifyDataSetChanged();
+        }
+    };
+
+    public void deleteItem(String model) {
 
 
     }
@@ -212,4 +242,5 @@ public class MyRecipeFragment extends Fragment {
                 });
 
     }
+
 }

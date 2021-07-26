@@ -15,6 +15,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.cookbook.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -24,16 +27,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 
 public class MyRecipeDetailsFragment extends Fragment {
 
     private EditText recipeName,chefName,recipeType,recipeDuration,countryName,recipeIngredients,recipeDirections;
-    private ImageView imageView;
+    private ImageSlider imageView;
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
     private String strName;
+    private List<SlideModel> images;
 
     public MyRecipeDetailsFragment() {
         // Required empty public constructor
@@ -64,8 +70,12 @@ public class MyRecipeDetailsFragment extends Fragment {
         recipeIngredients = view.findViewById(R.id.receiveMyIngredients);
         recipeDirections = view.findViewById(R.id.receiveMyDirection);
 
+        images = new ArrayList<>();
+
+
         Bundle bundle = this.getArguments();
         strName = bundle.getString("key");
+
 
 
         DatabaseReference databaseReference = (DatabaseReference) firebaseDatabase.getReference();
@@ -97,7 +107,7 @@ public class MyRecipeDetailsFragment extends Fragment {
                             String name5 = String.valueOf(newPost.get("recipeIngredients"));
                             String name6 = String.valueOf(newPost.get("recipeName"));
                             String name7 = String.valueOf(newPost.get("recipeType"));
-                            String name8 = String.valueOf(newPost.get("recipeImageLink"));
+                            //String name8 = String.valueOf(newPost.get("recipeImageLink"));
 
 
                             recipeName.setText(name6);
@@ -107,9 +117,16 @@ public class MyRecipeDetailsFragment extends Fragment {
                             countryName.setText(name2);
                             recipeIngredients.setText(name5);
                             recipeDirections.setText(name3);
-                            Picasso.get().load(name8).into(imageView);
 
+//                            for (int i = 0; i < i.size(); i++) {
+//                                String downloadImageUrl = slideLists.get(i).getImageUrl();
+//                                flipImages(downloadImageUrl);
+//                            }
 
+//                            Toast.makeText(getActivity(), images.size(), Toast.LENGTH_SHORT).show();
+//
+//                            images.add(new SlideModel(ds1.child("recipeImageLink").getValue().toString(), ScaleTypes.FIT));
+//                            imageView.setImageList(images,ScaleTypes.FIT);
 
                         }
                     }
@@ -139,6 +156,55 @@ public class MyRecipeDetailsFragment extends Fragment {
             }
         });
 
+
+        DatabaseReference childreference1 = databaseReference.child("User Recipe Images");
+
+
+        childreference1.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                for (DataSnapshot ds: dataSnapshot.getChildren())
+                {
+                    for (DataSnapshot ds1: ds.getChildren())
+                    {
+
+
+                        DataSnapshot name = ds1.child("recipeName");
+
+                        String area_value = name.getValue().toString();
+                        if (area_value.contains(strName)) {
+
+                            images.add(new SlideModel(ds1.child("recipeImageLink").getValue().toString(), ScaleTypes.FIT));
+                            imageView.setImageList(images,ScaleTypes.FIT);
+
+                        }
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 }

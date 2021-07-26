@@ -43,9 +43,6 @@ public class RecipeActivity extends AppCompatActivity {
     private String str;
     private List<SlideModel> images;
 
-    private ArrayList<Uri> ImageList = new ArrayList<Uri>();
-    private Uri ImageUri;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +60,7 @@ public class RecipeActivity extends AppCompatActivity {
 
 
         str = getIntent().getExtras().get("recipekey").toString();
+
 
 
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(),FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
