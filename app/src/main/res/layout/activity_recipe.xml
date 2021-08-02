@@ -24,11 +24,32 @@
         app:iss_unselected_dot="@drawable/default_unselected_dot" />
 
 
+    <RatingBar
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/avgRatingBar"
+        android:layout_below="@id/recipeImageView"
+        android:layout_centerHorizontal="true"
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        android:numStars="5"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/numOfUsers"
+        android:layout_below="@id/recipeImageView"
+        android:layout_marginLeft="280dp"
+        android:layout_marginTop="15dp"
+        android:textSize="15dp"
+        android:text="(2015)" />
+
     <com.google.android.material.tabs.TabLayout
         android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:id="@+id/recipeTabLayout"
-        android:layout_below="@id/recipeImageView"
+        android:layout_below="@id/avgRatingBar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         app:tabMode="fixed"
