@@ -79,6 +79,9 @@ public class RecipeActivity extends AppCompatActivity {
 
                     case 1:
                         RecipeReviewFragment reviewFragment = new RecipeReviewFragment();
+                        Bundle bundle1 = new Bundle();
+                        bundle1.putString("key", str);
+                        reviewFragment.setArguments(bundle1);
                         return reviewFragment;
 
                     default:

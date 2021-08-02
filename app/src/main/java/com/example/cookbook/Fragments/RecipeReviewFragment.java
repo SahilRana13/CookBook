@@ -13,7 +13,15 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
+import com.example.cookbook.Models.RecipeInfo;
 import com.example.cookbook.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class RecipeReviewFragment extends Fragment {
@@ -21,6 +29,12 @@ public class RecipeReviewFragment extends Fragment {
     RatingBar ratingBar;
     Button submitButton;
     float rateValue;
+    private String rName;
+
+    private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore db;
+
+
 
     public RecipeReviewFragment() {
         // Required empty public constructor
@@ -43,6 +57,10 @@ public class RecipeReviewFragment extends Fragment {
         ratingBar = view.findViewById(R.id.ratingBar);
         submitButton = view.findViewById(R.id.submitRecipeReviewBtn);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+
+        rName = this.getArguments().getString("key");
 
 
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
@@ -65,6 +83,30 @@ public class RecipeReviewFragment extends Fragment {
                 else if(rateValue<=5 && rateValue>4)
                     //ratecount.setText("BEST"+ rateValue+ "/5");
                     Toast.makeText(getActivity(), "Best-"+rateValue, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                DatabaseReference reference = firebaseDatabase.getReference().child("User Recipe Ratings");
+
+
+                DatabaseReference childBranch = reference
+                        .child(rName)
+                        .child(firebaseAuth.getUid());
+
+                String string = String.valueOf(rateValue);
+
+                RecipeInfo recipeInfo = new RecipeInfo(string);
+
+                recipeInfo.setRecipeRatings(string);
+
+                childBranch.setValue(recipeInfo);
+
             }
         });
     }
