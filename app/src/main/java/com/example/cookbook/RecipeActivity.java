@@ -13,6 +13,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.denzcoskun.imageslider.ImageSlider;
@@ -23,11 +25,13 @@ import com.example.cookbook.Fragments.RecipeDetailsFragment;
 import com.example.cookbook.Fragments.RecipeReviewFragment;
 import com.example.cookbook.Models.RecipeInfo;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -42,6 +46,12 @@ public class RecipeActivity extends AppCompatActivity {
     private ImageSlider imageView;
     private String str;
     private List<SlideModel> images;
+    private RatingBar getRatingBar;
+    private TextView userCount;
+
+    private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +62,11 @@ public class RecipeActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.recipeTabLayout);
         viewPager = findViewById(R.id.recipeViewPager);
         imageView = findViewById(R.id.recipeImageView);
+        getRatingBar = findViewById(R.id.avgRatingBar);
+        userCount = findViewById(R.id.numOfUsers);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         images = new ArrayList<>();
 
@@ -118,6 +133,67 @@ public class RecipeActivity extends AppCompatActivity {
 
 
         getImageData();
+        getRatingData();
+    }
+
+    private void getRatingData() {
+
+        DatabaseReference databaseReference = (DatabaseReference) FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference childreference = databaseReference.child("User Recipe Ratings");
+
+        childreference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+
+                for (DataSnapshot ds: snapshot.getChildren())
+                {
+
+                        String area_value = ds.getValue().toString();
+                        if (area_value.contains(str)) {
+
+//                            for (DataSnapshot ds1: ds.getChildren())
+//                            {
+//                                ds1.getValue().toString();
+//                                Toast.makeText(RecipeActivity.this, "Ratings-", Toast.LENGTH_SHORT).show();
+//                            }
+//
+//                            images.add(new SlideModel(ds1.child("recipeImageLink").getValue().toString(),ScaleTypes.FIT));
+//                            imageView.setImageList(images,ScaleTypes.FIT);
+
+                            Toast.makeText(RecipeActivity.this, area_value, Toast.LENGTH_SHORT).show();
+
+                        }
+
+
+                }
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
     }
 
     private void getImageData() {
