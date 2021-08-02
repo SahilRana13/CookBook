@@ -17,11 +17,13 @@
         android:layout_marginTop="50dp"/>
 
     <RatingBar
+        android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="43dp"
         android:layout_marginRight="15dp"
-        android:layout_toRightOf="@+id/ratingText"/>
+        android:layout_toRightOf="@+id/ratingText"
+       />
     <Button
         android:id="@+id/submitRecipeReviewBtn"
         android:layout_width="150dp"
