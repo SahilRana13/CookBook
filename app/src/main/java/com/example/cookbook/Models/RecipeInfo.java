@@ -5,6 +5,7 @@ public class RecipeInfo {
 
     private String recipeName,chefName,recipeType,recipeDuration,countryName,recipeIngredients,recipeDirections,recipeImageLink,recipeRatings;
 
+
     public RecipeInfo() {
     }
 

@@ -29,6 +29,7 @@ import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import com.example.cookbook.Models.RecipeInfo;
+import com.example.cookbook.Models.RecipeSearchInfo;
 import com.example.cookbook.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -70,6 +71,9 @@ public class AddRecipeFragment extends Fragment {
     //String URL;
     private int upload_count = 0;
     private int j = 0;
+
+    //Sahil's
+    DatabaseReference mref;
 
     public AddRecipeFragment() {
         // Required empty public constructor
@@ -135,9 +139,8 @@ public class AddRecipeFragment extends Fragment {
                     rIngredients = recipeIngredients.getText().toString().trim();
                     rDirections = recipeDirections.getText().toString().trim();
 
+                    saveData(); //sahil's
                     AddRecipe();
-
-
                 }
             }
         });
@@ -211,6 +214,8 @@ public class AddRecipeFragment extends Fragment {
 
 
     }
+
+
 
 
     private void AddRecipe()
@@ -363,5 +368,18 @@ public class AddRecipeFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
 //
+    }
+
+    private void saveData() {
+
+        String r_name = recipeName.getText().toString();
+        String c_name = chefName.getText().toString();
+
+        //Saving Recipe name
+        RecipeSearchInfo recipeSearchInfo = new RecipeSearchInfo(r_name,c_name);
+        mref = FirebaseDatabase.getInstance().getReference("recipe_names");
+
+        String recipeID = mref.push().getKey();
+        mref.child(recipeID).setValue(recipeSearchInfo);
     }
 }
