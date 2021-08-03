@@ -53,8 +53,8 @@ public class DatabaseLayout extends AppCompatActivity {
             ArrayList<String> names = new ArrayList<>();
             for (DataSnapshot ds : snapshot.getChildren())
             {
-                RecipeSearchInfo recipeSearchInfo = new RecipeSearchInfo(ds.child("r_name").getValue(String.class),
-                        ds.child("c_name").getValue(String.class));
+                RecipeSearchInfo recipeSearchInfo = new RecipeSearchInfo(ds.child("rName").getValue(String.class),
+                        ds.child("chefName").getValue(String.class));
                 names.add(recipeSearchInfo.getrName() + "\n" + recipeSearchInfo.getChefName());
             }
             ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,names);

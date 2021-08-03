@@ -1,5 +1,6 @@
 package com.example.cookbook.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,13 +9,19 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.cookbook.Adapters.RecipeListAdapter;
+import com.example.cookbook.DatabaseLayout;
 import com.example.cookbook.Models.RecipeInfo;
 import com.example.cookbook.R;
 import com.google.firebase.database.ChildEventListener;
@@ -22,6 +29,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -35,6 +43,13 @@ public class DiscoverFragment extends Fragment {
     private ArrayList<RecipeInfo> list;
     private RecipeInfo model,model_1;
     private int count = 1;
+
+
+    //Sahil's
+    private Button databasebutton;
+    DatabaseReference mref;
+    private ListView recipeList;
+    private AutoCompleteTextView autoCompleteTextView;
 
 
     public DiscoverFragment() {
@@ -64,6 +79,38 @@ public class DiscoverFragment extends Fragment {
 
         list = new ArrayList<>();
         adapter = new RecipeListAdapter(getContext(),list);
+
+        //Sahil's
+        mref = FirebaseDatabase.getInstance().getReference("recipe_chef's_names");
+        recipeList = view.findViewById(R.id.autocomplete_search_list);
+        autoCompleteTextView = view.findViewById(R.id.homeSearchBar);
+        databasebutton = view.findViewById(R.id.database_button);
+
+        ValueEventListener event = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                populateSearch(snapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+        mref.addListenerForSingleValueEvent(event);
+
+
+        databasebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), DatabaseLayout.class);
+                startActivity(intent);
+                Toast.makeText(getContext(), "Database Layout", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //
 
 
         root = db.getReference().child("User Recipe Details");
@@ -110,5 +157,27 @@ public class DiscoverFragment extends Fragment {
         });
 
 
+    }
+
+    private void populateSearch(DataSnapshot snapshot) {
+
+        ArrayList<String> nameList = new ArrayList<>();
+
+        if (snapshot.exists())
+        {
+            for (DataSnapshot ds:snapshot.getChildren())
+            {
+                String name = ds.child("rName").getValue(String.class);
+                String cname = ds.child("chefName").getValue(String.class);
+                nameList.add(name);
+                nameList.add(cname);
+            }
+            ArrayAdapter adapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1,nameList);
+            autoCompleteTextView.setAdapter(adapter);
+        }
+        else
+        {
+            Log.d("Recipe or Chef's Names", "Data not found");
+        }
     }
 }
