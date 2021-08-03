@@ -31,6 +31,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -136,53 +137,55 @@ public class RecipeActivity extends AppCompatActivity {
         getRatingData();
     }
 
+
     private void getRatingData() {
+
+
+
 
         DatabaseReference databaseReference = (DatabaseReference) FirebaseDatabase.getInstance().getReference();
 
-        DatabaseReference childreference = databaseReference.child("User Recipe Ratings");
+        DatabaseReference childreference = databaseReference.child("User Recipe Ratings").child(str);
 
-        childreference.addChildEventListener(new ChildEventListener() {
+
+        childreference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                double total = 0.0;
+                double count = 0.0;
+                double average = 0.0;
 
                 for (DataSnapshot ds: snapshot.getChildren())
                 {
 
-                        String area_value = ds.getValue().toString();
-                        if (area_value.contains(str)) {
+                    double rating = Double.parseDouble(ds.child("recipeRatings").getValue().toString());
+                    total = total + rating;
+                    count = count + 1.0;
+                    average = total / count;
 
-//                            for (DataSnapshot ds1: ds.getChildren())
-//                            {
-//                                ds1.getValue().toString();
-//                                Toast.makeText(RecipeActivity.this, "Ratings-", Toast.LENGTH_SHORT).show();
-//                            }
+//                    if (ds.getKey().equals("recipeRatings"))
+//                    {
 //
-//                            images.add(new SlideModel(ds1.child("recipeImageLink").getValue().toString(),ScaleTypes.FIT));
-//                            imageView.setImageList(images,ScaleTypes.FIT);
+//                        arrayList.add(ds.getValue().toString());
+//
+//
+//                    }
 
-                            Toast.makeText(RecipeActivity.this, area_value, Toast.LENGTH_SHORT).show();
-
-                        }
 
 
                 }
 
-            }
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Toast.makeText(RecipeActivity.this, String.valueOf(average), Toast.LENGTH_SHORT).show();
 
-            }
 
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
 
-            }
+                getRatingBar.setRating(Float.valueOf(String.valueOf(average)));
 
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                int value = (int)Math.round(count);
+                userCount.setText("("+value+")");
+
 
             }
 
@@ -192,9 +195,8 @@ public class RecipeActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
+
 
     private void getImageData() {
 
