@@ -1,12 +1,16 @@
 package com.example.cookbook.Fragments;
 
+import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -24,6 +28,7 @@ import com.example.cookbook.Adapters.RecipeListAdapter;
 import com.example.cookbook.DatabaseLayout;
 import com.example.cookbook.Models.RecipeInfo;
 import com.example.cookbook.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,6 +44,7 @@ public class DiscoverFragment extends Fragment {
     RecyclerView recyclerView;
     FirebaseDatabase db;
     DatabaseReference root;
+    private FirebaseAuth firebaseAuth;
     private RecipeListAdapter adapter;
     private ArrayList<RecipeInfo> list;
     private RecipeInfo model,model_1;
@@ -72,6 +78,11 @@ public class DiscoverFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recipeRecyclerView);
         db = FirebaseDatabase.getInstance();
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        new ItemTouchHelper(itemTouchHelperCallBack).attachToRecyclerView(recyclerView);
+
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2,GridLayoutManager.VERTICAL,false);
         recyclerView.setHasFixedSize(true);
@@ -158,6 +169,69 @@ public class DiscoverFragment extends Fragment {
 
 
     }
+
+
+    ItemTouchHelper.SimpleCallback itemTouchHelperCallBack = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @SuppressLint("ResourceType")
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+
+            AlertDialog.Builder adb=new AlertDialog.Builder(getActivity());
+
+            adb.setTitle("Delete?");
+            adb.setMessage("Are you sure you want to delete?");
+
+            adb.setNegativeButton("No", new AlertDialog.OnClickListener() {
+
+                public void onClick(DialogInterface dialog, int which) {
+
+
+                    adapter.notifyItemChanged(viewHolder.getAdapterPosition());
+
+
+                }});
+            adb.setPositiveButton("Yes", new AlertDialog.OnClickListener() {
+
+                public void onClick(DialogInterface dialog, int which) {
+
+                        RecipeInfo recipeInfo;
+
+                        recipeInfo = list.get(viewHolder.getPosition());
+                        DatabaseReference databaseReference1 = db.getReference();
+
+                        DatabaseReference recipelistbranch1 = databaseReference1.child("User Recipe Details")
+                                .child(firebaseAuth.getUid())
+                                .child(recipeInfo.getRecipeName());
+
+                        DatabaseReference recipelistbranch2 = databaseReference1.child("User Recipe Images")
+                                .child(firebaseAuth.getUid())
+                                .child(recipeInfo.getRecipeName());
+
+                        recipelistbranch1.removeValue();
+                        recipelistbranch2.removeValue();
+
+                        list.remove(viewHolder.getAdapterPosition());
+                        adapter.notifyDataSetChanged();
+
+
+
+
+                }});
+
+
+            adb.show();
+
+
+
+
+        }
+    };
 
     private void populateSearch(DataSnapshot snapshot) {
 
