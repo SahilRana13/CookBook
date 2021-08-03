@@ -377,7 +377,7 @@ public class AddRecipeFragment extends Fragment {
 
         //Saving Recipe name
         RecipeSearchInfo recipeSearchInfo = new RecipeSearchInfo(r_name,c_name);
-        mref = FirebaseDatabase.getInstance().getReference("recipe_names");
+        mref = FirebaseDatabase.getInstance().getReference("recipe_chef's_names");
 
         String recipeID = mref.push().getKey();
         mref.child(recipeID).setValue(recipeSearchInfo);
