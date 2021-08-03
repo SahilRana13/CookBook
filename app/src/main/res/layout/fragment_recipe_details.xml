@@ -218,7 +218,6 @@
                 android:background="@drawable/textbox"
                 android:drawablePadding="20dp"
                 android:paddingLeft="15dp"
-                android:maxLines="6"
                 android:scrollbars="vertical"
                 android:enabled="false"
                 android:layout_centerHorizontal="true"

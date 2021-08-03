@@ -3,6 +3,7 @@ package com.example.cookbook.Fragments;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -81,7 +82,14 @@ public class DiscoverFragment extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        new ItemTouchHelper(itemTouchHelperCallBack).attachToRecyclerView(recyclerView);
+        Log.e(firebaseAuth.getCurrentUser().getEmail(),"--Tejas--");
+
+        if (firebaseAuth.getCurrentUser().getEmail().equalsIgnoreCase("tjp083@gmail.com"))
+        {
+            new ItemTouchHelper(itemTouchHelperCallBack).attachToRecyclerView(recyclerView);
+
+        }
+
 
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2,GridLayoutManager.VERTICAL,false);
@@ -205,17 +213,66 @@ public class DiscoverFragment extends Fragment {
                         recipeInfo = list.get(viewHolder.getPosition());
                         DatabaseReference databaseReference1 = db.getReference();
 
-                        DatabaseReference recipelistbranch1 = databaseReference1.child("User Recipe Details")
-                                .child(firebaseAuth.getUid())
-                                .child(recipeInfo.getRecipeName());
+                        DatabaseReference recipelistbranch1 = databaseReference1.child("User Recipe Details");
 
-                        DatabaseReference recipelistbranch2 = databaseReference1.child("User Recipe Images")
-                                .child(firebaseAuth.getUid())
-                                .child(recipeInfo.getRecipeName());
+//                        recipelistbranch1.addChildEventListener(new ChildEventListener() {
+//                            @Override
+//                            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//
+//                                for (DataSnapshot ds1 : snapshot.getChildren())
+//                                {
+//
+//                                    for (DataSnapshot ds2 : ds1.getChildren())
+//                                    {
+//                                        if (ds2.child("recipeName").getValue().toString().equalsIgnoreCase(recipeInfo.getRecipeName()))
+//                                        {
+//
+//
+//                                            recipelistbranch1.child(String.valueOf(snapshot.getChildren()))
+//                                                .child(recipeInfo.getRecipeName().toString()).removeValue();
+//
+//                                            Log.e("DELETED -> ",recipeInfo.getRecipeName().toString());
+//
+//
+//                                        }
+//
+//                                    }
+//
+//                                }
+//
+//
+//
+//                            }
+//
+//                            @Override
+//                            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError error) {
+//
+//                            }
+//                        });
 
-                        recipelistbranch1.removeValue();
-                        recipelistbranch2.removeValue();
 
+//                        DatabaseReference recipelistbranch2 = databaseReference1.child("User Recipe Images")
+//                                .child(firebaseAuth.getUid())
+//                                .child(recipeInfo.getRecipeName());
+//
+//                        recipelistbranch1.removeValue();
+//                        recipelistbranch2.removeValue();
+//
                         list.remove(viewHolder.getAdapterPosition());
                         adapter.notifyDataSetChanged();
 

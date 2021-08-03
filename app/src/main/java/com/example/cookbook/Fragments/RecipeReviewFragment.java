@@ -87,6 +87,7 @@ public class RecipeReviewFragment extends Fragment {
         });
 
 
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,6 +104,8 @@ public class RecipeReviewFragment extends Fragment {
 
                 RecipeInfo recipeInfo = new RecipeInfo(string);
 
+
+                recipeInfo.setRecipeName(rName);
                 recipeInfo.setRecipeRatings(string);
 
                 childBranch.setValue(recipeInfo);
