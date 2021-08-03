@@ -40,4 +40,9 @@
         android:name="com.example.cookbook.Fragments.MyRecipeDetailsFragment"
         android:label="fragment_my_recipe_details"
         tools:layout="@layout/fragment_my_recipe_details" />
+    <fragment
+        android:id="@+id/zoomProfileFragment"
+        android:name="com.example.cookbook.ZoomProfileFragment"
+        android:label="fragment_zoom_profile"
+        tools:layout="@layout/fragment_zoom_profile" />
 </navigation>

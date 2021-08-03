@@ -97,6 +97,8 @@ public class DiscoverFragment extends Fragment {
         autoCompleteTextView = view.findViewById(R.id.homeSearchBar);
         databasebutton = view.findViewById(R.id.database_button);
 
+
+
         ValueEventListener event = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -112,14 +114,15 @@ public class DiscoverFragment extends Fragment {
         mref.addListenerForSingleValueEvent(event);
 
 
-        databasebutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), DatabaseLayout.class);
-                startActivity(intent);
-                Toast.makeText(getContext(), "Database Layout", Toast.LENGTH_SHORT).show();
-            }
-        });
+
+//        databasebutton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getActivity(), DatabaseLayout.class);
+//                startActivity(intent);
+//                Toast.makeText(getContext(), "Database Layout", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         //
 
