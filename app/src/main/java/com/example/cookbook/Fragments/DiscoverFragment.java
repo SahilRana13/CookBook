@@ -215,64 +215,6 @@ public class DiscoverFragment extends Fragment {
 
                         DatabaseReference recipelistbranch1 = databaseReference1.child("User Recipe Details");
 
-//                        recipelistbranch1.addChildEventListener(new ChildEventListener() {
-//                            @Override
-//                            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//
-//                                for (DataSnapshot ds1 : snapshot.getChildren())
-//                                {
-//
-//                                    for (DataSnapshot ds2 : ds1.getChildren())
-//                                    {
-//                                        if (ds2.child("recipeName").getValue().toString().equalsIgnoreCase(recipeInfo.getRecipeName()))
-//                                        {
-//
-//
-//                                            recipelistbranch1.child(String.valueOf(snapshot.getChildren()))
-//                                                .child(recipeInfo.getRecipeName().toString()).removeValue();
-//
-//                                            Log.e("DELETED -> ",recipeInfo.getRecipeName().toString());
-//
-//
-//                                        }
-//
-//                                    }
-//
-//                                }
-//
-//
-//
-//                            }
-//
-//                            @Override
-//                            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onCancelled(@NonNull DatabaseError error) {
-//
-//                            }
-//                        });
-
-
-//                        DatabaseReference recipelistbranch2 = databaseReference1.child("User Recipe Images")
-//                                .child(firebaseAuth.getUid())
-//                                .child(recipeInfo.getRecipeName());
-//
-//                        recipelistbranch1.removeValue();
-//                        recipelistbranch2.removeValue();
-//
                         list.remove(viewHolder.getAdapterPosition());
                         adapter.notifyDataSetChanged();
 
