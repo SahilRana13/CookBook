@@ -258,7 +258,6 @@
                 android:background="@drawable/textbox"
                 android:drawablePadding="20dp"
                 android:paddingLeft="15dp"
-                android:maxLines="6"
                 android:layout_centerHorizontal="true"
                 android:inputType="textMultiLine"/>
 

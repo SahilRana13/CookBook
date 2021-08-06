@@ -3,6 +3,7 @@ package com.example.cookbook.Fragments;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -81,7 +82,14 @@ public class DiscoverFragment extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        new ItemTouchHelper(itemTouchHelperCallBack).attachToRecyclerView(recyclerView);
+        Log.e(firebaseAuth.getCurrentUser().getEmail(),"--Tejas--");
+
+        if (firebaseAuth.getCurrentUser().getEmail().equalsIgnoreCase("tjp083@gmail.com"))
+        {
+            new ItemTouchHelper(itemTouchHelperCallBack).attachToRecyclerView(recyclerView);
+
+        }
+
 
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2,GridLayoutManager.VERTICAL,false);
@@ -208,16 +216,7 @@ public class DiscoverFragment extends Fragment {
                         recipeInfo = list.get(viewHolder.getPosition());
                         DatabaseReference databaseReference1 = db.getReference();
 
-                        DatabaseReference recipelistbranch1 = databaseReference1.child("User Recipe Details")
-                                .child(firebaseAuth.getUid())
-                                .child(recipeInfo.getRecipeName());
-
-                        DatabaseReference recipelistbranch2 = databaseReference1.child("User Recipe Images")
-                                .child(firebaseAuth.getUid())
-                                .child(recipeInfo.getRecipeName());
-
-                        recipelistbranch1.removeValue();
-                        recipelistbranch2.removeValue();
+                        DatabaseReference recipelistbranch1 = databaseReference1.child("User Recipe Details");
 
                         list.remove(viewHolder.getAdapterPosition());
                         adapter.notifyDataSetChanged();
