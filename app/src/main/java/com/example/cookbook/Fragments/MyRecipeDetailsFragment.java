@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.example.cookbook.Models.RecipeInfo;
 import com.example.cookbook.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -25,6 +26,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -118,15 +120,8 @@ public class MyRecipeDetailsFragment extends Fragment {
                             recipeIngredients.setText(name5);
                             recipeDirections.setText(name3);
 
-//                            for (int i = 0; i < i.size(); i++) {
-//                                String downloadImageUrl = slideLists.get(i).getImageUrl();
-//                                flipImages(downloadImageUrl);
-//                            }
 
-//                            Toast.makeText(getActivity(), images.size(), Toast.LENGTH_SHORT).show();
-//
-//                            images.add(new SlideModel(ds1.child("recipeImageLink").getValue().toString(), ScaleTypes.FIT));
-//                            imageView.setImageList(images,ScaleTypes.FIT);
+                            sendHistory(name1,name2,name3,name4,name5,name6,name7);
 
                         }
                     }
@@ -206,5 +201,37 @@ public class MyRecipeDetailsFragment extends Fragment {
             }
         });
 
+    }
+
+    private void sendHistory(String name1, String name2, String name3, String name4, String name5, String name6, String name7) {
+
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference reference1 = firebaseDatabase.getReference().child("Recent Viewed Item").child(firebaseAuth.getUid());
+
+        reference1.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(!snapshot.hasChild(name6)){
+                    DatabaseReference recentListBranch = reference1.child(name6).push();
+                    RecipeInfo recipeInfo = new RecipeInfo(name6,name1,name7,name4,name2,name5,name3);
+
+                    recentListBranch.setValue(recipeInfo);
+                    return;
+                }
+                else{
+                    reference1.removeValue();
+                    DatabaseReference recentListBranch = reference1.child(name6).push();
+                    RecipeInfo recipeInfo = new RecipeInfo(name6,name1,name7,name4,name2,name5,name3);
+
+                    recentListBranch.setValue(recipeInfo);
+                    return;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
