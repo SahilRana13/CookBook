@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.cookbook.Models.RecipeInfo;
 import com.example.cookbook.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -19,6 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Map;
 
@@ -94,6 +96,8 @@ public class RecipeDetailsFragment extends Fragment {
                             String name5 = String.valueOf(newPost.get("recipeIngredients"));
                             String name6 = String.valueOf(newPost.get("recipeName"));
                             String name7 = String.valueOf(newPost.get("recipeType"));
+                            String name8 = String.valueOf(newPost.get("recipeImageLink"));
+
 
 
                             recipeName.setText(name6);
@@ -103,6 +107,9 @@ public class RecipeDetailsFragment extends Fragment {
                             countryName.setText(name2);
                             recipeIngredients.setText(name5);
                             recipeDirections.setText(name3);
+
+                            sendHistory(name1,name2,name3,name4,name5,name6,name7,name8);
+
 
 
                         }
@@ -135,5 +142,41 @@ public class RecipeDetailsFragment extends Fragment {
 
 
 
+    }
+
+
+    private void sendHistory(String name1, String name2, String name3, String name4, String name5, String name6, String name7,String link) {
+
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference reference1 = firebaseDatabase.getReference().child("Recent Viewed Item").child(firebaseAuth.getUid());
+
+        reference1.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                RecipeInfo recipeInfo = new RecipeInfo(name6,name1,name7,name4,name2,name5,name3,link);
+
+                if(!snapshot.hasChild(name6)){
+
+                    reference1.child(name6).push().setValue(recipeInfo);
+                    return;
+                }
+                else if (snapshot.hasChild(name6)){
+                    reference1.child(name6).removeValue();
+
+                    reference1.child(name6).push().setValue(recipeInfo);
+                    return;
+                }
+                else
+                {
+                    Toast.makeText(getActivity(), "Error!!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

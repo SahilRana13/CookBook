@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -99,11 +101,20 @@ public class DiscoverFragment extends Fragment {
         list = new ArrayList<>();
         adapter = new RecipeListAdapter(getContext(),list);
 
+
+        recyclerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Log.e("Text-","");
+            }
+        });
+
         //Sahil's
         mref = FirebaseDatabase.getInstance().getReference("recipe_chef's_names");
         recipeList = view.findViewById(R.id.autocomplete_search_list);
         autoCompleteTextView = view.findViewById(R.id.homeSearchBar);
-        databasebutton = view.findViewById(R.id.database_button);
+        //databasebutton = view.findViewById(R.id.database_button);
 
 
 
@@ -182,6 +193,9 @@ public class DiscoverFragment extends Fragment {
     }
 
 
+
+
+
     ItemTouchHelper.SimpleCallback itemTouchHelperCallBack = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -214,6 +228,8 @@ public class DiscoverFragment extends Fragment {
                         RecipeInfo recipeInfo;
 
                         recipeInfo = list.get(viewHolder.getPosition());
+
+                        Toast.makeText(getActivity(), recipeInfo.getRecipeName(), Toast.LENGTH_SHORT).show();
                         DatabaseReference databaseReference1 = db.getReference();
 
                         DatabaseReference recipelistbranch1 = databaseReference1.child("User Recipe Details");
@@ -234,6 +250,8 @@ public class DiscoverFragment extends Fragment {
 
         }
     };
+
+
 
     private void populateSearch(DataSnapshot snapshot) {
 

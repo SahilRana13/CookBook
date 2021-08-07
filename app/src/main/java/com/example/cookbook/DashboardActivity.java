@@ -79,7 +79,7 @@ public class DashboardActivity extends AppCompatActivity {
 
                     case R.id.MyRecentRecipe :
 
-                        navController.navigate(R.id.myRecipeFragment);
+                        navController.navigate(R.id.recentlyViewedFragment);
                         break;
 
                     case R.id.MyFavRecipe :

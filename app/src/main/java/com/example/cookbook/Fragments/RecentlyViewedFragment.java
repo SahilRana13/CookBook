@@ -1,7 +1,5 @@
 package com.example.cookbook.Fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -34,8 +32,7 @@ public class RecentlyViewedFragment extends Fragment {
     DatabaseReference root1;
     private RecipeListAdapter adapter1;
     private ArrayList<RecipeInfo> list1;
-    private RecipeInfo model1,model_1;
-    private int count = 1;
+    private RecipeInfo model1;
 
     public RecentlyViewedFragment() {
         // Required empty public constructor
