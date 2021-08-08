@@ -14,7 +14,7 @@
     <string name="search">Rechercher une recette</string>
 
     <!-- Add recipe fragment-->
-    <string name="title">Nom de la recette</string>
+    <string name="title">Titre</string>
     <string name="ingredients">Ingrédients</string>
     <string name="type">Taper</string>
     <string name="duration">Durée(Minutes)</string>
@@ -33,4 +33,23 @@
     <string name="emailProfile">E-mail</string>
     <string name="nameProfile">Nom</string>
     <string name="save">Sauvegarder les modifications</string>
+    <string name="discover">Découvrir</string>
+    <string name="add_recipe">Ajouter une recette</string>
+    <string name="my_recipe">Ma recette</string>
+    <string name="recipe_name">Recipe Name :</string>
+    <string name="country">De campagne :</string>
+    <string name="recipe_type">Type de recette :</string>
+    <string name="chef_name">Nom du chef :</string>
+    <string name="step_1">Étape 1</string>
+    <string name="tap_to_choose_image">Appuyez pour choisir l\'image</string>
+    <string name="add_steps">Ajouter des étapes</string>
+    <string name="click_to_add_images">" Cliquez pour ajouter des images"</string>
+    <string name="add_images_videos">Ajouter des images/vidéos</string>
+    <string name="cookie_sandwitch">Cookie Sandwitch</string>
+    <string name="top_recipes">Meilleures recettes</string>
+    <string name="edit_recipe">Modifier la recette</string>
+    <string name="save_recipe">Enregistrer la recette</string>
+    <string name="your_ratings">" -: Vos notes :- "</string>
+    <string name="create">Créer</string>
+    <string name="type">" Taper"</string>
 </resources>
