@@ -43,7 +43,7 @@
     <string name="emailProfile">Email :</string>
     <string name="nameProfile">Name :</string>
     <string name="discover">Discover</string>
-    <string name="add_recipe" translatable="false">Add Recipe</string>
+    <string name="add_recipe">Add Recipe</string>
     <string name="my_recipe">My Recipe</string>
     <string name="recipe_name">Recipe Name :</string>
     <string name="country">Country :</string>
@@ -64,7 +64,7 @@
     <string name="your_ratings">-: Your Ratings :-</string>
     <string name="create">Create</string>
     <string name="title">Title</string>
-    <string name="type">Type</string>
+    <string name="type" translatable="false">Type</string>
 
 
 </resources>
