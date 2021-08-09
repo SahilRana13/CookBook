@@ -164,6 +164,7 @@
 
 
             <TextView
+                android:id="@+id/textView_ingredient"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="420dp"
@@ -178,6 +179,7 @@
 
             <EditText
                 android:id="@+id/receiveIngredients"
+                android:layout_alignRight="@id/textView_ingredient"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="410dp"
@@ -190,14 +192,17 @@
                 android:drawablePadding="20dp"
                 android:paddingLeft="15dp"
                 android:enabled="false"
-                android:maxLines="4"
+
                 android:inputType="textMultiLine"/>
+            <!--android:maxLines="4"-->
 
 
             <TextView
+                android:id="@+id/textView_direction"
+                android:layout_below="@id/receiveIngredients"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="520dp"
+                android:layout_marginTop="50dp"
                 android:layout_marginLeft="15dp"
                 android:textColor="#193566"
                 android:textSize="20sp"
@@ -209,9 +214,10 @@
 
             <EditText
                 android:id="@+id/receiveDirection"
+                android:layout_below="@id/textView_direction"
                 android:layout_width="345dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="560dp"
+                android:layout_marginTop="30dp"
                 android:textColor="#A2AEC2"
                 android:hint="@string/step_1"
                 android:textColorHint="#A9B6C9"
