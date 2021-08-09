@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -43,6 +44,11 @@ public class MyRecipeDetailsFragment extends Fragment {
     private FirebaseDatabase firebaseDatabase;
     private String strName;
     private List<SlideModel> images;
+    private Button updateRecipeButton;
+
+    String name1,name2,name3,name4,name5,name6,name7,name8;
+    String rName,cName,rType,rDuration,country,rIngredients,rDirections;
+
 
     public MyRecipeDetailsFragment() {
         // Required empty public constructor
@@ -72,12 +78,34 @@ public class MyRecipeDetailsFragment extends Fragment {
         countryName = view.findViewById(R.id.receiveMyCountry);
         recipeIngredients = view.findViewById(R.id.receiveMyIngredients);
         recipeDirections = view.findViewById(R.id.receiveMyDirection);
+        updateRecipeButton = view.findViewById(R.id.saveUpdateMyRecipeBtn);
 
         images = new ArrayList<>();
 
 
         Bundle bundle = this.getArguments();
         strName = bundle.getString("key");
+
+
+
+
+        updateRecipeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                rName = recipeName.getText().toString().trim();
+                cName = chefName.getText().toString().trim();
+                rType = recipeType.getText().toString().trim();
+                rDuration = recipeDuration.getText().toString().trim();
+                country = countryName.getText().toString().trim();
+                rIngredients = recipeIngredients.getText().toString().trim();
+                rDirections = recipeDirections.getText().toString().trim();
+
+                updateRecipe(rName,cName,rType,rDuration,country,rIngredients,rDirections);
+
+
+            }
+        });
 
         DatabaseReference databaseReference = (DatabaseReference) firebaseDatabase.getReference();
 
@@ -101,14 +129,14 @@ public class MyRecipeDetailsFragment extends Fragment {
 
                             Map<String, Object> newPost = (Map<String, Object>) ds1.getValue();
 
-                            String name1 = String.valueOf(newPost.get("chefName"));
-                            String name2 = String.valueOf(newPost.get("countryName"));
-                            String name3 = String.valueOf(newPost.get("recipeDirections"));
-                            String name4 = String.valueOf(newPost.get("recipeDuration"));
-                            String name5 = String.valueOf(newPost.get("recipeIngredients"));
-                            String name6 = String.valueOf(newPost.get("recipeName"));
-                            String name7 = String.valueOf(newPost.get("recipeType"));
-                            //String name8 = String.valueOf(newPost.get("recipeImageLink"));
+                            name1 = String.valueOf(newPost.get("chefName"));
+                            name2 = String.valueOf(newPost.get("countryName"));
+                            name3 = String.valueOf(newPost.get("recipeDirections"));
+                            name4 = String.valueOf(newPost.get("recipeDuration"));
+                            name5 = String.valueOf(newPost.get("recipeIngredients"));
+                            name6 = String.valueOf(newPost.get("recipeName"));
+                            name7 = String.valueOf(newPost.get("recipeType"));
+                            name8 = String.valueOf(newPost.get("recipeImageLink"));
 
 
                             recipeName.setText(name6);
@@ -198,6 +226,45 @@ public class MyRecipeDetailsFragment extends Fragment {
 
             }
         });
+
+    }
+
+    private void updateRecipe(String rName, String cName, String rType, String rDuration, String country, String rIngredients, String rDirections) {
+
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference reference = firebaseDatabase.getReference().child("User Recipe Details");
+
+        DatabaseReference recipeListBranch = reference.child(firebaseAuth.getUid());
+
+        //RecipeInfo recipeInfo = new RecipeInfo(rName,cName,rType,rDuration,country,rIngredients,rDirections);
+
+        RecipeInfo recipeInfo = new RecipeInfo(rName,cName,rType,rDuration,country,rIngredients,rDirections,name8);
+
+
+        recipeListBranch.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if(snapshot.hasChild(strName)){
+
+                    recipeListBranch.child(strName).removeValue();
+
+                    recipeListBranch.child(strName).push().setValue(recipeInfo);
+                    return;
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
+
 
     }
 
