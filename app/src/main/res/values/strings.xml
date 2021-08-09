@@ -65,6 +65,7 @@
     <string name="create">Create</string>
     <string name="title">Title</string>
     <string name="type" translatable="false">Type</string>
+    <string name="favourite">Favourite</string>
 
 
 </resources>

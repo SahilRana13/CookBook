@@ -11,6 +11,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -52,6 +55,10 @@ public class RecipeActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
+    int i = 1;
+
+    String name1,name2,name3,name4,name5,name6,name7,name8;
+
 
 
     @Override
@@ -250,5 +257,80 @@ public class RecipeActivity extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.option_menu,menu);
+
+        DatabaseReference databaseReference = (DatabaseReference) FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference childreference2 = databaseReference.child("User Favourite Recipes")
+                .child(firebaseAuth.getUid());
+
+        childreference2.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if(snapshot.hasChild(str))
+                {
+
+                    menu.findItem(R.id.addFavourite).setIcon(R.drawable.ic_favorite_black_24dp);
+                    i++;
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+        return true;
+
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        DatabaseReference databaseReference = (DatabaseReference) FirebaseDatabase.getInstance().getReference();
+
+
+        if (item.getItemId() == R.id.addFavourite) {
+
+            i++;
+
+            DatabaseReference childreference1 = databaseReference.child("User Favourite Recipes")
+                    .child(firebaseAuth.getUid());
+
+
+            if (i% 2 == 0)
+            {
+                item.setIcon(R.drawable.ic_baseline_favorite_24);
+
+
+                RecipeInfo recipeInfo = new RecipeInfo(name6,name1,name7,name4,name2,name5,name3,name8);
+
+                childreference1.child(str).push().setValue(recipeInfo);
+
+            }
+            else
+            {
+                item.setIcon(R.drawable.ic_baseline_favorite_border_24);
+
+                childreference1.child(str).removeValue();
+
+            }
+
+
+        }
+
+
+
+        return super.onOptionsItemSelected(item);
     }
 }
