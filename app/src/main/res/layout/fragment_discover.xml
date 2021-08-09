@@ -13,13 +13,22 @@
         android:id="@+id/homeSearchBar"
         android:background="@drawable/email"
         android:layout_centerHorizontal="true"
-        android:hint="Search Recipe"
+        android:hint="Search Recipe/Chef Name"
         android:textColor="#193566"
         android:textColorHint="#A9B6C9"
         android:paddingLeft="25dp"
         android:drawablePadding="20dp"
         android:layout_marginTop="20dp"
         android:singleLine="true"/>
+
+    <Button
+        android:id="@+id/button_search_discover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/homeSearchBar"
+        android:layout_marginTop="10dp"/>
 
 
 
@@ -34,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/myTextView"
-        android:layout_below="@+id/homeSearchBar"
+        android:layout_below="@+id/button_search_discover"
 
         android:text="Top Recipes"
         android:textColor="@color/dark"

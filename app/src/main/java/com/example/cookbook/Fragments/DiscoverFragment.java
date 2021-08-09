@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +56,9 @@ public class DiscoverFragment extends Fragment {
     private RecipeInfo model,model_1;
     private int count = 1;
 
+    private NavController navController;
+    private Button searchButton;
+
 
     //Sahil's
     private Button databasebutton;
@@ -78,6 +84,9 @@ public class DiscoverFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         getActivity().setTitle("Discover Recipes");
+
+        navController = Navigation.findNavController(getActivity(),R.id.Host_Fragment2);
+        searchButton = view.findViewById(R.id.button_search_discover);
 
         recyclerView = view.findViewById(R.id.recipeRecyclerView);
         db = FirebaseDatabase.getInstance();
@@ -133,15 +142,29 @@ public class DiscoverFragment extends Fragment {
         mref.addListenerForSingleValueEvent(event);
 
 
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                if (autoCompleteTextView.getText().toString().trim().length()==0)
+                {
+                    Toast toast = Toast.makeText(getActivity(),"Enter Recipe/Chef Name",Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
+                }
+                else
+                {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("recipe",autoCompleteTextView.getText().toString());
+                    SearchPageFragment fragment = new SearchPageFragment();
+                    fragment.setArguments(bundle);
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.Host_Fragment2,fragment).commit();
 
-//        databasebutton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), DatabaseLayout.class);
-//                startActivity(intent);
-//                Toast.makeText(getContext(), "Database Layout", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+
+                    //navController.navigate(R.id.searchPageFragment);
+                }
+            }
+        });
 
         //
 
@@ -191,9 +214,6 @@ public class DiscoverFragment extends Fragment {
 
 
     }
-
-
-
 
 
     ItemTouchHelper.SimpleCallback itemTouchHelperCallBack = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {

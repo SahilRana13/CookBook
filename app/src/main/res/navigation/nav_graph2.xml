@@ -45,4 +45,9 @@
         android:name="com.example.cookbook.Fragments.ZoomProfileFragment"
         android:label="fragment_zoom_profile"
         tools:layout="@layout/fragment_zoom_profile" />
+    <fragment
+        android:id="@+id/searchPageFragment"
+        android:name="com.example.cookbook.Fragments.SearchPageFragment"
+        android:label="fragment_search_page"
+        tools:layout="@layout/fragment_search_page" />
 </navigation>
