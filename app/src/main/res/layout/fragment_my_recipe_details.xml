@@ -238,23 +238,6 @@
 
 
             <Button
-                android:id="@+id/updateMyRecipeBtn"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:text="@string/edit_recipe"
-                android:textSize="20sp"
-                android:textAllCaps="false"
-                android:textStyle="bold"
-                android:textColor="#ECF0F3"
-                android:layout_below="@+id/receiveMyDirection"
-                android:layout_marginTop="60dp"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/button_background"
-                android:layout_marginStart="20dp" />
-
-
-
-            <Button
                 android:id="@+id/saveUpdateMyRecipeBtn"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
@@ -263,20 +246,18 @@
                 android:textAllCaps="false"
                 android:textStyle="bold"
                 android:textColor="#ECF0F3"
+                android:layout_centerHorizontal="true"
                 android:layout_below="@+id/receiveMyDirection"
                 android:layout_marginTop="60dp"
-                android:layout_marginRight="20dp"
-                android:layout_alignParentRight="true"
                 android:background="@drawable/button_background"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="20dp" />
+                />
 
             <TextView
                 android:id="@+id/whiteSpace"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="40dp"
-                android:layout_below="@+id/updateMyRecipeBtn"/>
+                android:layout_below="@+id/saveUpdateMyRecipeBtn"/>
 
 
 
