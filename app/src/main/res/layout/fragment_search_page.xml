@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.SearchPageFragment"
     android:background="@color/light">
-
     <TextView
         android:id="@+id/text_view_search_page"
         android:layout_width="wrap_content"
@@ -37,3 +36,4 @@
 
 
 </RelativeLayout>
+
