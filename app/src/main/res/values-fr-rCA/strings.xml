@@ -17,8 +17,6 @@
     <string name="title">Titre</string>
     <string name="ingredients">Ingrédients</string>
     <string name="type">Taper</string>
-    <string name="duration">Durée(Minutes)</string>
-    <string name="direction">Direction</string>
 
     <!-- My recipe fragment-->
     <string name="UserName">Nom d\'utilisateur</string>
@@ -36,7 +34,7 @@
     <string name="discover">Découvrir</string>
     <string name="add_recipe">Ajouter une recette</string>
     <string name="my_recipe">Ma recette</string>
-    <string name="recipe_name">Recipe Name :</string>
+    <string name="recipe_name">" Nom de la recette:"</string>
     <string name="country">De campagne :</string>
     <string name="recipe_type">Type de recette :</string>
     <string name="chef_name">Nom du chef :</string>
@@ -51,4 +49,13 @@
     <string name="save_recipe">Enregistrer la recette</string>
     <string name="your_ratings">" -: Vos notes :- "</string>
     <string name="create">Créer</string>
+    <string name="recently_viewed">Vu récemment</string>
+    <string name="logout">Se déconnecter</string>
+    <string name="direction">Les directions :</string>
+    <string name="duration">Durée :</string>
+    <string name="favourite">Favori</string>
+    <string name="home">Domicile</string>
+    <string name="profile">Profil</string>
+    <string name="recipes">Recettes</string>
+    <string name="general">Générale</string>
 </resources>

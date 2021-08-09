@@ -3,12 +3,12 @@
 
 
     <item android:id="@+id/General"
-        android:title="General">
+        android:title="@string/general">
         <menu>
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/Home"
-                    android:title="Home"
+                    android:title="@string/home"
                     android:icon="@drawable/ic_home_black_24dp"
 
                     />
@@ -16,7 +16,7 @@
 
                 <item
                     android:id="@+id/Profile"
-                    android:title="Profile"
+                    android:title="@string/profile"
                     android:icon="@drawable/ic_perm_identity_black_24dp"/>
 
             </group>
@@ -24,19 +24,19 @@
     </item>
 
     <item android:id="@+id/Recipe"
-        android:title="Recipes">
+        android:title="@string/recipes">
         <menu>
             <group android:checkableBehavior="single">
 
                 <item
                     android:id="@+id/MyRecentRecipe"
-                    android:title="Recently viewed"
+                    android:title="@string/recently_viewed"
                     android:icon="@drawable/ic_format_list_bulleted_black_24dp"/>
 
 
                 <item
                     android:id="@+id/MyFavRecipe"
-                    android:title="Favourite"
+                    android:title="@string/favourite"
                     android:icon="@drawable/ic_favorite_black_24dp"/>
 
 
@@ -46,7 +46,7 @@
 
     <item
         android:id="@+id/Logout"
-        android:title="Logout"
+        android:title="@string/logout"
         android:icon="@drawable/ic_power_settings_new_black_24dp"/>
 
 
