@@ -36,6 +36,8 @@ public class SearchPageFragment extends Fragment {
     private ArrayList<RecipeInfo> list;
     private RecipeInfo model,model_1;
     private int count = 1;
+    private int searchNumber =0;
+
 
     public SearchPageFragment() {
         // Required empty public constructor
@@ -78,12 +80,12 @@ public class SearchPageFragment extends Fragment {
         if (bundle!=null)
         {
             search = bundle.getString("recipe");
-            tv.setText(search);
+            //tv.setText(search);
         }
-        else
+        /*else
         {
             tv.setText("Search Result");
-        }
+        }*/
 
         root = db.getReference().child("User Recipe Details");
 
@@ -100,11 +102,14 @@ public class SearchPageFragment extends Fragment {
                         {
                             model = ds.getValue(RecipeInfo.class);
                             list.add(model);
+                            searchNumber++;
                         }
                     }
                     recyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                 }
+
+                tv.setText(searchNumber+" Search Results for\n'"+finalSearch+"'");
             }
 
             @Override

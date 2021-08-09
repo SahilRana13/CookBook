@@ -52,7 +52,7 @@ public class FavouriteRecipeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getActivity().setTitle("Favourite Recipes");
+        getActivity().setTitle(R.string.FavouriteRecipe);
 
 
         recyclerView1 = view.findViewById(R.id.favouriteRecyclerView);

@@ -78,8 +78,8 @@ public class RecipeActivity extends AppCompatActivity {
 
         images = new ArrayList<>();
 
-        tabLayout.addTab(tabLayout.newTab().setText("Recipe"));
-        tabLayout.addTab(tabLayout.newTab().setText("Review"));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.recipee));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.REVIEW));
 
 
         str = getIntent().getExtras().get("recipekey").toString();

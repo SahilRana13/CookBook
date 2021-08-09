@@ -87,7 +87,7 @@ public class MyRecipeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getActivity().setTitle("My Recipes");
+        getActivity().setTitle(R.string.MyRecipe);
 
 
         obj = new RecipeInfo();

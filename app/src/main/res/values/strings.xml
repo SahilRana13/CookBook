@@ -72,6 +72,13 @@
     <string name="profile">Profile</string>
     <string name="recipes">Recipes</string>
     <string name="general">General</string>
-
-
+    <string name="REVIEW">REVIEW</string>
+    <string name="recipee">Recipe</string>
+    <string name="DiscoverRecipes">DiscoverRecipes</string>
+    <string name="AddRecipe">AddRecipe</string>
+    <string name="MyRecipe">MyRecipe</string>
+    <string name="Profile">Profile</string>
+    <string name="RecentlyViewRecipe">RecentlyViewRecipe</string>
+    <string name="FavouriteRecipe">FavouriteRecipe</string>
+    <string name="Login">Login</string>
 </resources>

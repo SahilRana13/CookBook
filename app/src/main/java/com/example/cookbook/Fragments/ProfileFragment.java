@@ -67,7 +67,7 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getActivity().setTitle("Profile");
+        getActivity().setTitle(R.string.Profile);
 
         dp = view.findViewById(R.id.ProfileImage);
         editTool = view.findViewById(R.id.editNameTool);

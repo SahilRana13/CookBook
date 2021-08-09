@@ -28,7 +28,6 @@
     <string name="forgot_your_password">Mot de passe oublié?</string>
     <string name="please_enter_your_registered_email_id_below">Veuillez entrer votre identifiant de messagerie enregistré ci-dessous</string>
     <string name="submit">Soumettre</string>
-    <string name="emailProfile">E-mail</string>
     <string name="nameProfile">Nom</string>
     <string name="save">Sauvegarder les modifications</string>
     <string name="discover">Découvrir</string>
@@ -58,4 +57,14 @@
     <string name="profile">Profil</string>
     <string name="recipes">Recettes</string>
     <string name="general">Générale</string>
+    <string name="REVIEW">REVOIR</string>
+    <string name="recipee">Recette</string>
+    <string name="DiscoverRecipes">DécouvrirRecettes</string>
+    <string name="FavouriteRecipe">" Recette favorite"</string>
+    <string name="emailProfile">E-mail :</string>
+    <string name="AddRecipe">Ajouter une recette</string>
+    <string name="MyRecipe">Ma recette</string>
+    <string name="Profile">" Profil"</string>
+    <string name="RecentlyViewRecipe">RécemmentAfficher la recette</string>
+    <string name="Login">Connexion</string>
 </resources>
