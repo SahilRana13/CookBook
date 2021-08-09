@@ -45,7 +45,7 @@
         android:id="@+id/myTextView"
         android:layout_below="@+id/button_search_discover"
 
-        android:text="Top Recipes"
+        android:text="@string/top_recipes"
         android:textColor="@color/dark"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
