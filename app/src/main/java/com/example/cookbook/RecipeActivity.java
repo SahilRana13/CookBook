@@ -142,6 +142,67 @@ public class RecipeActivity extends AppCompatActivity {
 
         getImageData();
         getRatingData();
+
+
+
+        DatabaseReference databaseReference = (DatabaseReference) FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference childreference = databaseReference.child("User Recipe Details");
+
+        childreference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                for (DataSnapshot ds: dataSnapshot.getChildren())
+                {
+                    for (DataSnapshot ds1: ds.getChildren())
+                    {
+
+
+                        DataSnapshot name = ds1.child("recipeName");
+
+                        String area_value = name.getValue().toString();
+                        if (area_value.contains(str)) {
+
+
+                            Map<String, Object> newPost = (Map<String, Object>) ds1.getValue();
+
+                            name1 = String.valueOf(newPost.get("chefName"));
+                            name2 = String.valueOf(newPost.get("countryName"));
+                            name3 = String.valueOf(newPost.get("recipeDirections"));
+                            name4 = String.valueOf(newPost.get("recipeDuration"));
+                            name5 = String.valueOf(newPost.get("recipeIngredients"));
+                            name6 = String.valueOf(newPost.get("recipeName"));
+                            name7 = String.valueOf(newPost.get("recipeType"));
+                            name8 = String.valueOf(newPost.get("recipeImageLink"));
+
+                        }
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 
