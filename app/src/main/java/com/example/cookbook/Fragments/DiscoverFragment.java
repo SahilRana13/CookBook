@@ -127,6 +127,7 @@ public class DiscoverFragment extends Fragment {
 
 
 
+
         ValueEventListener event = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
