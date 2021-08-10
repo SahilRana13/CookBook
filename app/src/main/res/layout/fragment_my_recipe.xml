@@ -28,7 +28,7 @@
         android:textStyle="bold"/>
 
 
-    <EditText
+    <!--<EditText
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:id="@+id/mySearchBarView"
@@ -40,7 +40,14 @@
         android:textColorHint="#A9B6C9"
         android:paddingLeft="25dp"
         android:drawablePadding="20dp"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:singleLine="true"/>-->
+
+    <!--<ListView
+        android:id="@+id/myRecipe_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mySearchBarView"/>-->
 
     <View
         android:layout_width="350dp"
@@ -48,14 +55,14 @@
         android:background="@color/dark"
         android:layout_marginTop="15dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/mySearchBarView"/>
+        android:layout_below="@id/myTextView"/>
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/myRecipeListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/mySearchBarView"
+        android:layout_below="@+id/myTextView"
         android:layout_marginTop="20dp">
     </androidx.recyclerview.widget.RecyclerView>
 

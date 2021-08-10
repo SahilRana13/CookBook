@@ -8,11 +8,11 @@
     tools:context=".Fragments.DiscoverFragment">
 
     <AutoCompleteTextView
-        android:layout_width="300dp"
+        android:layout_width="320dp"
         android:layout_height="60dp"
         android:id="@+id/homeSearchBar"
         android:background="@drawable/email"
-        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
         android:hint="Search Recipe/Chef Name"
         android:textColor="#193566"
         android:textColorHint="#A9B6C9"
@@ -21,14 +21,15 @@
         android:layout_marginTop="20dp"
         android:singleLine="true"/>
 
-    <Button
+    <TextView
         android:id="@+id/button_search_discover"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/homeSearchBar"
-        android:layout_marginTop="10dp"/>
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:drawableLeft="@drawable/ic_baseline_search_24"
+        android:layout_marginLeft="350dp"
+        android:textColor="#000000"
+        android:paddingLeft="10dp"
+        android:layout_marginTop="20dp"/>
 
 
 
@@ -47,7 +48,7 @@
 
         android:text="@string/top_recipes"
         android:textColor="@color/dark"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="15dp"
         android:textSize="20sp"
         android:textStyle="bold"

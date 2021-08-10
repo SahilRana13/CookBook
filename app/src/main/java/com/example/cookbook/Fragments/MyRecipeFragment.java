@@ -14,11 +14,16 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -39,6 +44,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -46,6 +52,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 
 
@@ -68,6 +75,12 @@ public class MyRecipeFragment extends Fragment {
 
     private ImageView myImage;
     private TextView myName;
+
+    private AutoCompleteTextView autoCompleteTextView;
+    private ListView recipeList;
+    DatabaseReference mref;
+    public String recipe;
+    private EditText myRecipeSearch;
 
 
     public MyRecipeFragment() {
@@ -92,8 +105,6 @@ public class MyRecipeFragment extends Fragment {
 
         obj = new RecipeInfo();
 
-
-
         myImage = view.findViewById(R.id.myImageView);
         myName = view.findViewById(R.id.myTextView);
 
@@ -107,23 +118,15 @@ public class MyRecipeFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-
         new ItemTouchHelper(itemTouchHelperCallBack).attachToRecyclerView(recyclerView);
-
-
 
         list = new ArrayList<>();
         newAdapter = new MyRecipeListAdapter(getContext(),list);
-
-
-
-
 
         getProfileData();
         getProfileImage();
 
         DatabaseReference databaseReference = firebaseDatabase.getReference();
-
         DatabaseReference recipelistbranch = databaseReference.child("User Recipe Details").child(firebaseAuth.getUid());
 
         recipelistbranch.addChildEventListener(new ChildEventListener() {
@@ -163,8 +166,52 @@ public class MyRecipeFragment extends Fragment {
             }
         });
 
+        /*autoCompleteTextView = view.findViewById(R.id.mySearchBarView);
+        recipeList = view.findViewById(R.id.myRecipe_list);*//*
+        recipe = autoCompleteTextView.getText().toString();*/
+        mref = FirebaseDatabase.getInstance().getReference("User Recipe Details").child(firebaseAuth.getUid());
+        /*myRecipeSearch = view.findViewById(R.id.mySearchBarView);*/
 
+        /*ValueEventListener event = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                populateSearch(snapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+        mref.addListenerForSingleValueEvent(event);*/
     }
+
+    /*private void populateSearch(DataSnapshot snapshot) {
+
+        ArrayList<String> nameList = new ArrayList<>();
+
+        if (snapshot.exists())
+        {
+            for (DataSnapshot ds:snapshot.getChildren())
+            {
+                for (DataSnapshot ds1:ds.getChildren())
+                {
+                    for (DataSnapshot ds2:ds1.getChildren())
+                    {
+                        String name = ds2.child("recipeName").getValue(String.class);
+                        nameList.add(name);
+                    }
+                }
+
+            }
+            ArrayAdapter adapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1,nameList);
+            autoCompleteTextView.setAdapter(adapter);
+        }
+        else
+        {
+            Log.d("Recipe or Chef's Names", "Data not found");
+        }
+    }*/
 
     ItemTouchHelper.SimpleCallback itemTouchHelperCallBack = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
         @Override
@@ -227,9 +274,6 @@ public class MyRecipeFragment extends Fragment {
 
         }
     };
-
-
-
 
     private void getProfileData() {
 

@@ -27,7 +27,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cookbook.Adapters.RecipeListAdapter;
@@ -40,6 +42,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -57,7 +60,7 @@ public class DiscoverFragment extends Fragment {
     private int count = 1;
 
     private NavController navController;
-    private Button searchButton;
+    private TextView searchButton;
 
 
     //Sahil's
@@ -124,9 +127,6 @@ public class DiscoverFragment extends Fragment {
         recipeList = view.findViewById(R.id.autocomplete_search_list);
         autoCompleteTextView = view.findViewById(R.id.homeSearchBar);
         //databasebutton = view.findViewById(R.id.database_button);
-
-
-
 
         ValueEventListener event = new ValueEventListener() {
             @Override
@@ -289,10 +289,37 @@ public class DiscoverFragment extends Fragment {
             }
             ArrayAdapter adapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1,nameList);
             autoCompleteTextView.setAdapter(adapter);
+            autoCompleteTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String name = autoCompleteTextView.getText().toString();
+                    search(name);
+                }
+            });
         }
         else
         {
             Log.d("Recipe or Chef's Names", "Data not found");
         }
+    }
+
+    private void search(String name) {
+
+        Query query = mref.orderByChild("rname").equalTo(name);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (snapshot.exists())
+                {
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
