@@ -42,9 +42,6 @@
     <string name="save">Save Changes</string>
     <string name="emailProfile">Email :</string>
     <string name="nameProfile">Name :</string>
-    <string name="discover">Discover</string>
-    <string name="add_recipe">Add Recipe</string>
-    <string name="my_recipe">My Recipe</string>
     <string name="recipe_name">Recipe Name :</string>
     <string name="country">Country :</string>
     <string name="recipe_type">Recipe Type :</string>
@@ -66,6 +63,22 @@
     <string name="title">Title</string>
     <string name="type">Type</string>
     <string name="favourite">Favourite</string>
-
-
+    <string name="my_recipe">My Recipe</string>
+    <string name="add_recipe">Add Recipe</string>
+    <string name="discover">Discover</string>
+    <string name="recently_viewed">Recently viewed</string>
+    <string name="logout">Logout</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="recipes">Recipes</string>
+    <string name="general">General</string>
+    <string name="REVIEW">REVIEW</string>
+    <string name="recipee">Recipe</string>
+    <string name="DiscoverRecipes">DiscoverRecipes</string>
+    <string name="AddRecipe">AddRecipe</string>
+    <string name="MyRecipe">MyRecipe</string>
+    <string name="Profile">Profile</string>
+    <string name="RecentlyViewRecipe">RecentlyViewRecipe</string>
+    <string name="FavouriteRecipe">FavouriteRecipe</string>
+    <string name="Login">Login</string>
 </resources>

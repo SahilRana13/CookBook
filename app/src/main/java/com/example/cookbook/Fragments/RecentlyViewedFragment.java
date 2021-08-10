@@ -50,7 +50,7 @@ public class RecentlyViewedFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getActivity().setTitle("Recently Viewed Recipes");
+        getActivity().setTitle(R.string.RecentlyViewRecipe);
 
         recyclerView1 = view.findViewById(R.id.recentRecyclerView);
         db1 = FirebaseDatabase.getInstance();

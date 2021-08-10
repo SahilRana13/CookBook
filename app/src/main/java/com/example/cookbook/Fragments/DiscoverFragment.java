@@ -86,7 +86,7 @@ public class DiscoverFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getActivity().setTitle("Discover Recipes");
+        getActivity().setTitle(R.string.DiscoverRecipes);
 
         navController = Navigation.findNavController(getActivity(),R.id.Host_Fragment2);
         searchButton = view.findViewById(R.id.button_search_discover);

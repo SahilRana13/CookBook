@@ -91,7 +91,7 @@ public class AddRecipeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getActivity().setTitle("Add Recipe");
+        getActivity().setTitle(R.string.AddRecipe);
 
         recipeImageView = view.findViewById(R.id.addRecipeImageView);
 

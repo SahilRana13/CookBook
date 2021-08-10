@@ -105,7 +105,7 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getActivity().setTitle("Login");
+        getActivity().setTitle(R.string.Login);
 
         imageView1 = view.findViewById(R.id.iconLogin);
         loginButton = view.findViewById(R.id.MainLoginBtn);

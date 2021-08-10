@@ -3,15 +3,15 @@
 
         <item
             android:id="@+id/discoverRecipe"
-            android:title="Discover"
+            android:title="@string/discover"
             android:icon="@drawable/ic_search_black_24dp"/>
         <item
             android:id="@+id/addRecipe"
-            android:title="Add Recipe"
+            android:title="@string/add_recipe"
             android:icon="@drawable/ic_add_black_24dp"/>
         <item
             android:id="@+id/myRecipe"
-            android:title="My Recipe"
+            android:title="@string/my_recipe"
             android:icon="@drawable/ic_person_black_24dp"/>
 
 </menu>
