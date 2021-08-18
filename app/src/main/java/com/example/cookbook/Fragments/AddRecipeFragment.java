@@ -21,11 +21,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
@@ -69,7 +71,9 @@ public class AddRecipeFragment extends Fragment {
     ArrayList<Uri> ImageList = new ArrayList<Uri>();
     private Uri ImageUri;
     private int position = 0;
-    //String URL;
+    String[] types = { "Select","Breakfast", "Brunch", "Lunch", "Dinner", "Snacks", "Appetisers", "Desserts", "Baking", "Drinks", "Other"};
+    private Spinner spinner;
+
     private int upload_count = 0;
     private int j = 0;
 
@@ -95,9 +99,11 @@ public class AddRecipeFragment extends Fragment {
 
         recipeImageView = view.findViewById(R.id.addRecipeImageView);
 
+
+        spinner = view.findViewById(R.id.enterRecipeTypeSpinner);
+
         recipeName = view.findViewById(R.id.enterRecipeName);
         chefName = view.findViewById(R.id.enterChefName);
-        recipeType = view.findViewById(R.id.enterRecipeType);
         recipeDuration = view.findViewById(R.id.enterDuration);
         countryName = view.findViewById(R.id.enterCountry);
         recipeIngredients = view.findViewById(R.id.enterIngredients);
@@ -116,6 +122,11 @@ public class AddRecipeFragment extends Fragment {
         Animation in = AnimationUtils.loadAnimation(getContext(),android.R.anim.slide_in_left);
         Animation out = AnimationUtils.loadAnimation(getContext(),android.R.anim.slide_out_right);
 
+        ArrayAdapter aa = new ArrayAdapter(getActivity(),android.R.layout.simple_spinner_item,types);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        spinner.setAdapter(aa);
+
 
         submitRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,7 +135,7 @@ public class AddRecipeFragment extends Fragment {
 
 
 
-                if (recipeName.getText().toString().trim().length()==0 || chefName.getText().toString().trim().length()==0 || recipeType.getText().toString().trim().length()==0 || recipeDuration.getText().toString().trim().length()==0 || countryName.getText().toString().trim().length()==0 || recipeIngredients.getText().toString().trim().length()==0 || recipeDirections.getText().toString().trim().length()==0 )
+                if (recipeName.getText().toString().trim().length()==0 || chefName.getText().toString().trim().length()==0 || spinner.getSelectedItemPosition()==0 || recipeDuration.getText().toString().trim().length()==0 || countryName.getText().toString().trim().length()==0 || recipeIngredients.getText().toString().trim().length()==0 || recipeDirections.getText().toString().trim().length()==0 )
                 {
                     Toast toast = Toast.makeText(getActivity(),"Enter All Details",Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
@@ -134,7 +145,7 @@ public class AddRecipeFragment extends Fragment {
                 {
                     rName = recipeName.getText().toString().trim();
                     cName = chefName.getText().toString().trim();
-                    rType = recipeType.getText().toString().trim();
+                    rType = spinner.getSelectedItem().toString().trim();
                     rDuration = recipeDuration.getText().toString().trim();
                     country = countryName.getText().toString().trim();
                     rIngredients = recipeIngredients.getText().toString().trim();

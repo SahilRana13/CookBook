@@ -11,7 +11,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".DatabaseLayout"></activity>
         <activity android:name=".RecipeActivity" />
-        <activity android:name=".DashboardActivity" />
+        <activity android:name=".DashboardActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".SplashScreen"
             android:theme="@style/Theme.AppCompat.NoActionBar">
