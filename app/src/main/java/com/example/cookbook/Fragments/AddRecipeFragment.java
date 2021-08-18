@@ -46,6 +46,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.yesterselga.countrypicker.CountryPicker;
+import com.yesterselga.countrypicker.CountryPickerListener;
+import com.yesterselga.countrypicker.Theme;
 
 import java.io.IOException;
 import java.net.URI;
@@ -79,6 +82,8 @@ public class AddRecipeFragment extends Fragment {
 
     //Sahil's
     DatabaseReference mref;
+
+    CountryPicker picker;
 
     public AddRecipeFragment() {
         // Required empty public constructor
@@ -127,6 +132,27 @@ public class AddRecipeFragment extends Fragment {
         //Setting the ArrayAdapter data on the Spinner
         spinner.setAdapter(aa);
 
+
+        picker = CountryPicker.newInstance("Select Country", Theme.DARK);  // Set Dialog Title and Theme
+
+        picker.setListener(new CountryPickerListener() {
+            @Override
+            public void onSelectCountry(String var1, String var2, String var3, int var4) {
+
+                countryName.setText(var1);
+
+                picker.dismiss();
+
+            }
+        });
+
+        countryName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                picker.show(getActivity().getSupportFragmentManager(), "COUNTRY_PICKER");
+            }
+        });
 
         submitRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
