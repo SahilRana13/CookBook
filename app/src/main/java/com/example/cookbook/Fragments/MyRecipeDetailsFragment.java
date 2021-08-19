@@ -138,13 +138,24 @@ public class MyRecipeDetailsFragment extends Fragment {
                             name7 = String.valueOf(newPost.get("recipeType"));
                             name8 = String.valueOf(newPost.get("recipeImageLink"));
 
+                            String[] arrOfStr = name5.split("\n");
+
+
+                            StringBuilder s1 = new StringBuilder();
+
+                            for (String a : arrOfStr)
+                            {
+                                s1.append("\u2022 ").append(a).append("\n");
+                            }
+
+
 
                             recipeName.setText(name6);
                             chefName.setText(name1);
                             recipeType.setText(name7);
                             recipeDuration.setText(name4);
                             countryName.setText(name2);
-                            recipeIngredients.setText(name5);
+                            recipeIngredients.setText(s1.toString());
                             recipeDirections.setText(name3);
 
 
