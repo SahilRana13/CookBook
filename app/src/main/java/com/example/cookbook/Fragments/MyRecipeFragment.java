@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -81,6 +83,7 @@ public class MyRecipeFragment extends Fragment {
     DatabaseReference mref;
     public String recipe;
     private EditText myRecipeSearch;
+    private NavController navController;
 
 
     public MyRecipeFragment() {
@@ -125,6 +128,17 @@ public class MyRecipeFragment extends Fragment {
 
         getProfileData();
         getProfileImage();
+
+        navController = Navigation.findNavController(getActivity(),R.id.Host_Fragment2);
+
+
+        myImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                navController.navigate(R.id.expandProfilePictureFragment);
+            }
+        });
 
         DatabaseReference databaseReference = firebaseDatabase.getReference();
         DatabaseReference recipelistbranch = databaseReference.child("User Recipe Details").child(firebaseAuth.getUid());

@@ -111,6 +111,14 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        dp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                navController.navigate(R.id.expandProfilePictureFragment);
+            }
+        });
+
     }
 
     private void getData() {
@@ -182,11 +190,11 @@ public class ProfileFragment extends Fragment {
     private void getImage() {
 
 
-        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(getActivity().getApplicationContext());
-        if(signInAccount != null){
-
-            Picasso.get().load(signInAccount.getPhotoUrl()).into(dp);
-        }
+//        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(getActivity().getApplicationContext());
+//        if(signInAccount != null){
+//
+//            Picasso.get().load(signInAccount.getPhotoUrl()).into(dp);
+//        }
 
 
         StorageReference storageReference = firebaseStorage.getReference();
