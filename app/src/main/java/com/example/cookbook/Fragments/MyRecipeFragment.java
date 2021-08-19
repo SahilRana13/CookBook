@@ -279,26 +279,59 @@ public class MyRecipeFragment extends Fragment {
 
         currentUser = firebaseAuth.getCurrentUser();
 
-        DocumentReference docRef = db.collection("User Profile Information").document(currentUser.getUid());
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference reference = firebaseDatabase.getReference().child("User Profile Details");
 
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        DatabaseReference userDetails = reference.child(firebaseAuth.getUid());
+
+        userDetails.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
-                if (documentSnapshot.exists())
-                {
-                    String sName = documentSnapshot.getString("name");
-                    myName.setText(sName);
-                }
+                myName.setText(snapshot.child("name").getValue().toString().trim());
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
 
-                Toast.makeText(getActivity(), "Something Wrong", Toast.LENGTH_SHORT).show();
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
+//
+//        DocumentReference docRef = db.collection("User Profile Information").document(currentUser.getUid());
+//
+//        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//            @Override
+//            public void onSuccess(DocumentSnapshot documentSnapshot) {
+//
+//                if (documentSnapshot.exists())
+//                {
+//                    String sName = documentSnapshot.getString("name");
+//                    myName.setText(sName);
+//                }
+//
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//
+//                Toast.makeText(getActivity(), "Something Wrong", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 
     }

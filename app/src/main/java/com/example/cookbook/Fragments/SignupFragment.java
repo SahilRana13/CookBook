@@ -35,6 +35,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -280,39 +282,64 @@ public class SignupFragment extends Fragment {
         String name = user_name.getText().toString().trim();
         String email = user_email.getText().toString().trim();
 
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference reference = firebaseDatabase.getReference().child("User Profile Details");
+
+        DatabaseReference userDetails = reference.child(firebaseAuth.getUid()).push();
+
+
         UserInfo obj1 = new UserInfo(name,email);
 
-        db.collection("User Profile Information")
-                .document(firebaseAuth.getUid())
-                .set(obj1)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
 
-                        if (task.isSuccessful())
-                        {
-                            Toast.makeText(getActivity().getApplicationContext(),"Registration Successful!",Toast.LENGTH_LONG).show();
-                            FirebaseAuth.getInstance().signOut();
-                            getActivity().finish();
-                            startActivity(new Intent(getActivity(),MainActivity.class));
+        userDetails.setValue(obj1).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful())
+                {
+                    Toast.makeText(getActivity().getApplicationContext(),"Registration Successful!",Toast.LENGTH_LONG).show();
+                    FirebaseAuth.getInstance().signOut();
+                    getActivity().finish();
+                    startActivity(new Intent(getActivity(),MainActivity.class));
 
 
-                        }else
-                        {
-                            Toast.makeText(getActivity().getApplicationContext(),"FireStore Error!",Toast.LENGTH_LONG).show();
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                        Toast.makeText(getActivity(), "Something Wrong", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-
-
+                }else
+                {
+                    Toast.makeText(getActivity().getApplicationContext(),"Database Error!",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+//
+//        db.collection("User Profile Information")
+//                .document(firebaseAuth.getUid())
+//                .set(obj1)
+//                .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//
+//                        if (task.isSuccessful())
+//                        {
+//                            Toast.makeText(getActivity().getApplicationContext(),"Registration Successful!",Toast.LENGTH_LONG).show();
+//                            FirebaseAuth.getInstance().signOut();
+//                            getActivity().finish();
+//                            startActivity(new Intent(getActivity(),MainActivity.class));
+//
+//
+//                        }else
+//                        {
+//                            Toast.makeText(getActivity().getApplicationContext(),"FireStore Error!",Toast.LENGTH_LONG).show();
+//                        }
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//
+//                        Toast.makeText(getActivity(), "Something Wrong", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//
+//
+//
     }
 
 

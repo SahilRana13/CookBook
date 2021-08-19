@@ -30,6 +30,12 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -111,29 +117,64 @@ public class ProfileFragment extends Fragment {
 
         currentUser = firebaseAuth.getCurrentUser();
 
-        DocumentReference docRef = db.collection("User Profile Information").document(currentUser.getUid());
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference reference = firebaseDatabase.getReference().child("User Profile Details");
 
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        DatabaseReference userDetails = reference.child(firebaseAuth.getUid());
+
+        userDetails.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
-                if (documentSnapshot.exists())
-                {
-                    String resultEmail = documentSnapshot.getString("email");
-                    String resultName = documentSnapshot.getString("name");
+                email.setText(snapshot.child("email").getValue().toString().trim());
+                editName.setText(snapshot.child("name").getValue().toString().trim());
+            }
 
-                    email.setText(resultEmail);
-                    editName.setText(resultName);
-                }
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
 
-                Toast.makeText(getActivity(), "Something Wrong", Toast.LENGTH_SHORT).show();
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
+
+//
+//        DocumentReference docRef = db.collection("User Profile Information").document(currentUser.getUid());
+//
+//        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//            @Override
+//            public void onSuccess(DocumentSnapshot documentSnapshot) {
+//
+//                if (documentSnapshot.exists())
+//                {
+//                    String resultEmail = documentSnapshot.getString("email");
+//                    String resultName = documentSnapshot.getString("name");
+//
+//                    email.setText(resultEmail);
+//                    editName.setText(resultName);
+//                }
+//
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//
+//                Toast.makeText(getActivity(), "Something Wrong", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 
     }
@@ -166,39 +207,95 @@ public class ProfileFragment extends Fragment {
 
     private void updateData() {
 
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference reference = firebaseDatabase.getReference().child("User Profile Details");
+
+        DatabaseReference userDetails = reference.child(firebaseAuth.getUid());
+
+
         String name = editName.getText().toString().trim();
+        String email = firebaseAuth.getCurrentUser().getEmail().toString().trim();
 
-        UserInfo userInfo = new UserInfo(name);
-
-
-
-        db.collection("User Profile Information")
-                .document(firebaseAuth.getUid())
-                .update("name",name)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
+        UserInfo userInfo = new UserInfo(name,email);
 
 
-                        navController.navigate(R.id.profileFragment);
-                        Toast toast = Toast.makeText(getActivity(),"Profile Updated",Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
-                        toast.show();
-                       // progressDialog.dismiss();
-                        //getActivity().recreate();
 
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
 
-                        Toast toast = Toast.makeText(getActivity(),"Error : "+e.getMessage(),Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
-                        toast.show();
-                        //progressDialog.dismiss();
-                    }
-                });
+        userDetails.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                userDetails.removeValue();
+
+                userDetails.push().setValue(userInfo);
+
+                Toast toast = Toast.makeText(getActivity(),"Profile Updated",Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+//
+//        userDetails.addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//
+//                email.setText(snapshot.child("email").getValue().toString().trim());
+//                editName.setText(snapshot.child("name").getValue().toString().trim());
+//            }
+//
+//            @Override
+//            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//
+//            }
+//
+//            @Override
+//            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//
+//        db.collection("User Profile Information")
+//                .document(firebaseAuth.getUid())
+//                .update("name",name)
+//                .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//
+//
+//                        navController.navigate(R.id.profileFragment);
+//                        Toast toast = Toast.makeText(getActivity(),"Profile Updated",Toast.LENGTH_LONG);
+//                        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+//                        toast.show();
+//                       // progressDialog.dismiss();
+//                        //getActivity().recreate();
+//
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//
+//                        Toast toast = Toast.makeText(getActivity(),"Error : "+e.getMessage(),Toast.LENGTH_LONG);
+//                        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+//                        toast.show();
+//                        //progressDialog.dismiss();
+//                    }
+//                });
     }
 
 

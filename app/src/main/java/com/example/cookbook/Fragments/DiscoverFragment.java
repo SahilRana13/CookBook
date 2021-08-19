@@ -181,7 +181,6 @@ public class DiscoverFragment extends Fragment {
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.Host_Fragment2,fragment).commit();
 
 
-                    //navController.navigate(R.id.searchPageFragment);
                 }
             }
         });
@@ -258,7 +257,7 @@ public class DiscoverFragment extends Fragment {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View v) {
-                
+
                 btnAll.setBackground(drawable);
                 btnAll.setTextColor(Color.parseColor("#ECF0F3"));
 
