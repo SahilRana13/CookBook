@@ -106,19 +106,30 @@ public class RecipeDetailsFragment extends Fragment {
                             recipeDuration.setText(name4);
                             countryName.setText(name2);
 
-                            String[] arrOfStr = name5.split("\n");
+                            String[] arrOfStr = name5.split("(\n)|(,)|(\\.)");
+                            String[] arrOfStr1 = name3.split("(\\. )|(\n)|(\r)");
 
 
                             StringBuilder s1 = new StringBuilder();
+                            StringBuilder s2 = new StringBuilder();
 
-                            for (String a : arrOfStr)
+                            for (String a1 : arrOfStr)
                             {
-                                s1.append("\u2022 ").append(a).append("\n");
+                                s1.append("\u2022 ").append(a1).append("\n");
+                            }
+
+                            for (String a2 : arrOfStr1)
+                            {
+                                if (!a2.isEmpty())
+                                {
+                                    s2.append("\u2022 ").append(a2).append("\n\n");
+                                }
+
                             }
 
 
-                            recipeIngredients.setText(s1.toString());
-                            recipeDirections.setText(name3);
+                            recipeIngredients.setText(s1.toString().trim());
+                            recipeDirections.setText(s2.toString().trim());
 
                             sendHistory(name1,name2,name3,name4,name5,name6,name7,name8);
 
