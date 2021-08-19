@@ -3,6 +3,8 @@ package com.example.cookbook.Fragments;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.nfc.Tag;
 import android.os.Bundle;
 
@@ -46,6 +48,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 
 public class DiscoverFragment extends Fragment {
@@ -58,6 +61,7 @@ public class DiscoverFragment extends Fragment {
     private ArrayList<RecipeInfo> list;
     private RecipeInfo model,model_1;
     private int count = 1;
+    private Button btnAll, btnBreakfast, btnBrunch, btnLunch, btnDinner, btnSnacks, btnAppetisers, btnDesserts, btnBaking, btnDrinks, btnOther;
 
     private NavController navController;
     private TextView searchButton;
@@ -82,6 +86,7 @@ public class DiscoverFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_discover, container, false);
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -90,6 +95,20 @@ public class DiscoverFragment extends Fragment {
 
         navController = Navigation.findNavController(getActivity(),R.id.Host_Fragment2);
         searchButton = view.findViewById(R.id.button_search_discover);
+
+        btnAll = view.findViewById(R.id.r1);
+        btnBreakfast = view.findViewById(R.id.r2);
+        btnBrunch = view.findViewById(R.id.r3);
+        btnLunch = view.findViewById(R.id.r4);
+        btnDinner = view.findViewById(R.id.r5);
+        btnSnacks = view.findViewById(R.id.r6);
+        btnAppetisers = view.findViewById(R.id.r7);
+        btnDesserts = view.findViewById(R.id.r8);
+        btnBaking = view.findViewById(R.id.r9);
+        btnDrinks = view.findViewById(R.id.r10);
+        btnOther = view.findViewById(R.id.r11);
+
+        Drawable drawable = getResources().getDrawable(R.drawable.button_background);
 
         recyclerView = view.findViewById(R.id.recipeRecyclerView);
         db = FirebaseDatabase.getInstance();
@@ -114,17 +133,17 @@ public class DiscoverFragment extends Fragment {
         adapter = new RecipeListAdapter(getContext(),list);
 
 
-        recyclerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Log.e("Text-","");
-            }
-        });
+//        recyclerView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                Log.e("Text-","");
+//            }
+//        });
 
         //Sahil's
         mref = FirebaseDatabase.getInstance().getReference("recipe_chef's_names");
-        recipeList = view.findViewById(R.id.autocomplete_search_list);
+        //recipeList = view.findViewById(R.id.autocomplete_search_list);
         autoCompleteTextView = view.findViewById(R.id.homeSearchBar);
         //databasebutton = view.findViewById(R.id.database_button);
 
@@ -169,6 +188,28 @@ public class DiscoverFragment extends Fragment {
 
         //
 
+        btnBreakfast.setBackground(null);
+        btnAppetisers.setBackground(null);
+        btnBaking.setBackground(null);
+        btnBrunch.setBackground(null);
+        btnDesserts.setBackground(null);
+        btnDinner.setBackground(null);
+        btnDrinks.setBackground(null);
+        btnLunch.setBackground(null);
+        btnOther.setBackground(null);
+        btnSnacks.setBackground(null);
+
+        btnBreakfast.setTextColor(Color.parseColor("#193566"));
+        btnAppetisers.setTextColor(Color.parseColor("#193566"));
+        btnBaking.setTextColor(Color.parseColor("#193566"));
+        btnBrunch.setTextColor(Color.parseColor("#193566"));
+        btnDesserts.setTextColor(Color.parseColor("#193566"));
+        btnDinner.setTextColor(Color.parseColor("#193566"));
+        btnDrinks.setTextColor(Color.parseColor("#193566"));
+        btnLunch.setTextColor(Color.parseColor("#193566"));
+        btnOther.setTextColor(Color.parseColor("#193566"));
+        btnSnacks.setTextColor(Color.parseColor("#193566"));
+
 
         root = db.getReference().child("User Recipe Details");
 
@@ -212,6 +253,882 @@ public class DiscoverFragment extends Fragment {
 
             }
         });
+
+        btnAll.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onClick(View v) {
+                
+                btnAll.setBackground(drawable);
+                btnAll.setTextColor(Color.parseColor("#ECF0F3"));
+
+                btnBreakfast.setBackground(null);
+                btnAppetisers.setBackground(null);
+                btnBaking.setBackground(null);
+                btnBrunch.setBackground(null);
+                btnDesserts.setBackground(null);
+                btnDinner.setBackground(null);
+                btnDrinks.setBackground(null);
+                btnLunch.setBackground(null);
+                btnOther.setBackground(null);
+                btnSnacks.setBackground(null);
+
+                btnBreakfast.setTextColor(Color.parseColor("#193566"));
+                btnAppetisers.setTextColor(Color.parseColor("#193566"));
+                btnBaking.setTextColor(Color.parseColor("#193566"));
+                btnBrunch.setTextColor(Color.parseColor("#193566"));
+                btnDesserts.setTextColor(Color.parseColor("#193566"));
+                btnDinner.setTextColor(Color.parseColor("#193566"));
+                btnDrinks.setTextColor(Color.parseColor("#193566"));
+                btnLunch.setTextColor(Color.parseColor("#193566"));
+                btnOther.setTextColor(Color.parseColor("#193566"));
+                btnSnacks.setTextColor(Color.parseColor("#193566"));
+
+
+                root.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        for (DataSnapshot dataSnapshot: snapshot.getChildren())
+                        {
+
+
+                            for (DataSnapshot ds: dataSnapshot.getChildren()) {
+
+                                model = ds.getValue(RecipeInfo.class);
+                                list.add(model);
+
+                            }
+
+                            recyclerView.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+            }
+        });
+
+        btnBreakfast.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                list.clear();
+                adapter.notifyDataSetChanged();
+
+                btnBreakfast.setBackground(drawable);
+                btnBreakfast.setTextColor(Color.parseColor("#ECF0F3"));
+
+                btnAll.setBackground(null);
+                btnAppetisers.setBackground(null);
+                btnBaking.setBackground(null);
+                btnBrunch.setBackground(null);
+                btnDesserts.setBackground(null);
+                btnDinner.setBackground(null);
+                btnDrinks.setBackground(null);
+                btnLunch.setBackground(null);
+                btnOther.setBackground(null);
+                btnSnacks.setBackground(null);
+
+                btnAll.setTextColor(Color.parseColor("#193566"));
+                btnAppetisers.setTextColor(Color.parseColor("#193566"));
+                btnBaking.setTextColor(Color.parseColor("#193566"));
+                btnBrunch.setTextColor(Color.parseColor("#193566"));
+                btnDesserts.setTextColor(Color.parseColor("#193566"));
+                btnDinner.setTextColor(Color.parseColor("#193566"));
+                btnDrinks.setTextColor(Color.parseColor("#193566"));
+                btnLunch.setTextColor(Color.parseColor("#193566"));
+                btnOther.setTextColor(Color.parseColor("#193566"));
+                btnSnacks.setTextColor(Color.parseColor("#193566"));
+
+                root.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        for (DataSnapshot dataSnapshot: snapshot.getChildren())
+                        {
+
+
+                            for (DataSnapshot ds: dataSnapshot.getChildren()) {
+
+                                if (ds.child("recipeType").getValue().toString().equalsIgnoreCase("breakfast"))
+                                {
+
+                                    model = ds.getValue(RecipeInfo.class);
+                                    list.add(model);
+                                }
+
+                            }
+
+                            recyclerView.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+                        }                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+            }
+        });
+
+        btnBrunch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                list.clear();
+                adapter.notifyDataSetChanged();
+
+                btnBrunch.setBackground(drawable);
+                btnBrunch.setTextColor(Color.parseColor("#ECF0F3"));
+
+                btnBreakfast.setBackground(null);
+                btnAppetisers.setBackground(null);
+                btnBaking.setBackground(null);
+                btnAll.setBackground(null);
+                btnDesserts.setBackground(null);
+                btnDinner.setBackground(null);
+                btnDrinks.setBackground(null);
+                btnLunch.setBackground(null);
+                btnOther.setBackground(null);
+                btnSnacks.setBackground(null);
+
+                btnBreakfast.setTextColor(Color.parseColor("#193566"));
+                btnAppetisers.setTextColor(Color.parseColor("#193566"));
+                btnBaking.setTextColor(Color.parseColor("#193566"));
+                btnAll.setTextColor(Color.parseColor("#193566"));
+                btnDesserts.setTextColor(Color.parseColor("#193566"));
+                btnDinner.setTextColor(Color.parseColor("#193566"));
+                btnDrinks.setTextColor(Color.parseColor("#193566"));
+                btnLunch.setTextColor(Color.parseColor("#193566"));
+                btnOther.setTextColor(Color.parseColor("#193566"));
+                btnSnacks.setTextColor(Color.parseColor("#193566"));
+
+                root.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        for (DataSnapshot dataSnapshot: snapshot.getChildren())
+                        {
+
+
+                            for (DataSnapshot ds: dataSnapshot.getChildren()) {
+
+                                if (ds.child("recipeType").getValue().toString().equalsIgnoreCase("brunch"))
+                                {
+
+                                    model = ds.getValue(RecipeInfo.class);
+                                    list.add(model);
+                                }
+
+                            }
+
+                            recyclerView.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+                        }                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+            }
+        });
+
+        btnLunch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                list.clear();
+                adapter.notifyDataSetChanged();
+
+                btnLunch.setBackground(drawable);
+                btnLunch.setTextColor(Color.parseColor("#ECF0F3"));
+
+                btnBreakfast.setBackground(null);
+                btnAppetisers.setBackground(null);
+                btnBaking.setBackground(null);
+                btnBrunch.setBackground(null);
+                btnDesserts.setBackground(null);
+                btnDinner.setBackground(null);
+                btnDrinks.setBackground(null);
+                btnAll.setBackground(null);
+                btnOther.setBackground(null);
+                btnSnacks.setBackground(null);
+
+                btnBreakfast.setTextColor(Color.parseColor("#193566"));
+                btnAppetisers.setTextColor(Color.parseColor("#193566"));
+                btnBaking.setTextColor(Color.parseColor("#193566"));
+                btnBrunch.setTextColor(Color.parseColor("#193566"));
+                btnDesserts.setTextColor(Color.parseColor("#193566"));
+                btnDinner.setTextColor(Color.parseColor("#193566"));
+                btnDrinks.setTextColor(Color.parseColor("#193566"));
+                btnAll.setTextColor(Color.parseColor("#193566"));
+                btnOther.setTextColor(Color.parseColor("#193566"));
+                btnSnacks.setTextColor(Color.parseColor("#193566"));
+
+                root.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        for (DataSnapshot dataSnapshot: snapshot.getChildren())
+                        {
+
+
+                            for (DataSnapshot ds: dataSnapshot.getChildren()) {
+
+                                if (ds.child("recipeType").getValue().toString().equalsIgnoreCase("lunch"))
+                                {
+
+                                    model = ds.getValue(RecipeInfo.class);
+                                    list.add(model);
+                                }
+
+                            }
+
+                            recyclerView.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+                        }                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+            }
+        });
+
+        btnDinner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                list.clear();
+                adapter.notifyDataSetChanged();
+
+                btnDinner.setBackground(drawable);
+                btnDinner.setTextColor(Color.parseColor("#ECF0F3"));
+
+                btnBreakfast.setBackground(null);
+                btnAppetisers.setBackground(null);
+                btnBaking.setBackground(null);
+                btnBrunch.setBackground(null);
+                btnDesserts.setBackground(null);
+                btnAll.setBackground(null);
+                btnDrinks.setBackground(null);
+                btnLunch.setBackground(null);
+                btnOther.setBackground(null);
+                btnSnacks.setBackground(null);
+
+                btnBreakfast.setTextColor(Color.parseColor("#193566"));
+                btnAppetisers.setTextColor(Color.parseColor("#193566"));
+                btnBaking.setTextColor(Color.parseColor("#193566"));
+                btnBrunch.setTextColor(Color.parseColor("#193566"));
+                btnDesserts.setTextColor(Color.parseColor("#193566"));
+                btnAll.setTextColor(Color.parseColor("#193566"));
+                btnDrinks.setTextColor(Color.parseColor("#193566"));
+                btnLunch.setTextColor(Color.parseColor("#193566"));
+                btnOther.setTextColor(Color.parseColor("#193566"));
+                btnSnacks.setTextColor(Color.parseColor("#193566"));
+
+                root.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        for (DataSnapshot dataSnapshot: snapshot.getChildren())
+                        {
+
+
+                            for (DataSnapshot ds: dataSnapshot.getChildren()) {
+
+                                if (ds.child("recipeType").getValue().toString().equalsIgnoreCase("dinner"))
+                                {
+
+                                    model = ds.getValue(RecipeInfo.class);
+                                    list.add(model);
+                                }
+
+                            }
+
+                            recyclerView.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+            }
+        });
+
+        btnSnacks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                list.clear();
+                adapter.notifyDataSetChanged();
+
+                btnSnacks.setBackground(drawable);
+                btnSnacks.setTextColor(Color.parseColor("#ECF0F3"));
+
+                btnBreakfast.setBackground(null);
+                btnAppetisers.setBackground(null);
+                btnBaking.setBackground(null);
+                btnBrunch.setBackground(null);
+                btnDesserts.setBackground(null);
+                btnDinner.setBackground(null);
+                btnDrinks.setBackground(null);
+                btnLunch.setBackground(null);
+                btnOther.setBackground(null);
+                btnAll.setBackground(null);
+
+                btnBreakfast.setTextColor(Color.parseColor("#193566"));
+                btnAppetisers.setTextColor(Color.parseColor("#193566"));
+                btnBaking.setTextColor(Color.parseColor("#193566"));
+                btnBrunch.setTextColor(Color.parseColor("#193566"));
+                btnDesserts.setTextColor(Color.parseColor("#193566"));
+                btnDinner.setTextColor(Color.parseColor("#193566"));
+                btnDrinks.setTextColor(Color.parseColor("#193566"));
+                btnLunch.setTextColor(Color.parseColor("#193566"));
+                btnOther.setTextColor(Color.parseColor("#193566"));
+                btnAll.setTextColor(Color.parseColor("#193566"));
+
+                root.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        for (DataSnapshot dataSnapshot: snapshot.getChildren())
+                        {
+
+
+                            for (DataSnapshot ds: dataSnapshot.getChildren()) {
+
+                                if (ds.child("recipeType").getValue().toString().equalsIgnoreCase("snacks"))
+                                {
+
+                                    model = ds.getValue(RecipeInfo.class);
+                                    list.add(model);
+                                }
+
+                            }
+
+                            recyclerView.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+                        }                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+            }
+        });
+
+        btnAppetisers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                list.clear();
+                adapter.notifyDataSetChanged();
+
+                btnAppetisers.setBackground(drawable);
+                btnAppetisers.setTextColor(Color.parseColor("#ECF0F3"));
+
+                btnBreakfast.setBackground(null);
+                btnAll.setBackground(null);
+                btnBaking.setBackground(null);
+                btnBrunch.setBackground(null);
+                btnDesserts.setBackground(null);
+                btnDinner.setBackground(null);
+                btnDrinks.setBackground(null);
+                btnLunch.setBackground(null);
+                btnOther.setBackground(null);
+                btnSnacks.setBackground(null);
+
+                btnBreakfast.setTextColor(Color.parseColor("#193566"));
+                btnAll.setTextColor(Color.parseColor("#193566"));
+                btnBaking.setTextColor(Color.parseColor("#193566"));
+                btnBrunch.setTextColor(Color.parseColor("#193566"));
+                btnDesserts.setTextColor(Color.parseColor("#193566"));
+                btnDinner.setTextColor(Color.parseColor("#193566"));
+                btnDrinks.setTextColor(Color.parseColor("#193566"));
+                btnLunch.setTextColor(Color.parseColor("#193566"));
+                btnOther.setTextColor(Color.parseColor("#193566"));
+                btnSnacks.setTextColor(Color.parseColor("#193566"));
+
+                root.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        for (DataSnapshot dataSnapshot: snapshot.getChildren())
+                        {
+
+
+                            for (DataSnapshot ds: dataSnapshot.getChildren()) {
+
+                                if (ds.child("recipeType").getValue().toString().equalsIgnoreCase("Appetisers"))
+                                {
+
+                                    model = ds.getValue(RecipeInfo.class);
+                                    list.add(model);
+                                }
+
+                            }
+
+                            recyclerView.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+                        }                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+            }
+        });
+
+        btnDesserts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                list.clear();
+                adapter.notifyDataSetChanged();
+
+                btnDesserts.setBackground(drawable);
+                btnDesserts.setTextColor(Color.parseColor("#ECF0F3"));
+
+                btnBreakfast.setBackground(null);
+                btnAppetisers.setBackground(null);
+                btnBaking.setBackground(null);
+                btnBrunch.setBackground(null);
+                btnAll.setBackground(null);
+                btnDinner.setBackground(null);
+                btnDrinks.setBackground(null);
+                btnLunch.setBackground(null);
+                btnOther.setBackground(null);
+                btnSnacks.setBackground(null);
+
+                btnBreakfast.setTextColor(Color.parseColor("#193566"));
+                btnAppetisers.setTextColor(Color.parseColor("#193566"));
+                btnBaking.setTextColor(Color.parseColor("#193566"));
+                btnBrunch.setTextColor(Color.parseColor("#193566"));
+                btnAll.setTextColor(Color.parseColor("#193566"));
+                btnDinner.setTextColor(Color.parseColor("#193566"));
+                btnDrinks.setTextColor(Color.parseColor("#193566"));
+                btnLunch.setTextColor(Color.parseColor("#193566"));
+                btnOther.setTextColor(Color.parseColor("#193566"));
+                btnSnacks.setTextColor(Color.parseColor("#193566"));
+
+                root.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        for (DataSnapshot dataSnapshot: snapshot.getChildren())
+                        {
+
+
+                            for (DataSnapshot ds: dataSnapshot.getChildren()) {
+
+                                if (ds.child("recipeType").getValue().toString().equalsIgnoreCase("desserts"))
+                                {
+
+                                    model = ds.getValue(RecipeInfo.class);
+                                    list.add(model);
+                                }
+
+                            }
+
+                            recyclerView.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+                        }                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+            }
+        });
+
+        btnBaking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                list.clear();
+                adapter.notifyDataSetChanged();
+
+                btnBaking.setBackground(drawable);
+                btnBaking.setTextColor(Color.parseColor("#ECF0F3"));
+
+                btnBreakfast.setBackground(null);
+                btnAppetisers.setBackground(null);
+                btnAll.setBackground(null);
+                btnBrunch.setBackground(null);
+                btnDesserts.setBackground(null);
+                btnDinner.setBackground(null);
+                btnDrinks.setBackground(null);
+                btnLunch.setBackground(null);
+                btnOther.setBackground(null);
+                btnSnacks.setBackground(null);
+
+                btnBreakfast.setTextColor(Color.parseColor("#193566"));
+                btnAppetisers.setTextColor(Color.parseColor("#193566"));
+                btnAll.setTextColor(Color.parseColor("#193566"));
+                btnBrunch.setTextColor(Color.parseColor("#193566"));
+                btnDesserts.setTextColor(Color.parseColor("#193566"));
+                btnDinner.setTextColor(Color.parseColor("#193566"));
+                btnDrinks.setTextColor(Color.parseColor("#193566"));
+                btnLunch.setTextColor(Color.parseColor("#193566"));
+                btnOther.setTextColor(Color.parseColor("#193566"));
+                btnSnacks.setTextColor(Color.parseColor("#193566"));
+
+                root.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        for (DataSnapshot dataSnapshot: snapshot.getChildren())
+                        {
+
+
+                            for (DataSnapshot ds: dataSnapshot.getChildren()) {
+
+                                if (ds.child("recipeType").getValue().toString().equalsIgnoreCase("baking"))
+                                {
+
+                                    model = ds.getValue(RecipeInfo.class);
+                                    list.add(model);
+                                }
+
+                            }
+
+                            recyclerView.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+                        }                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+            }
+        });
+
+        btnDrinks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+                list.clear();
+                adapter.notifyDataSetChanged();
+
+                btnDrinks.setBackground(drawable);
+                btnDrinks.setTextColor(Color.parseColor("#ECF0F3"));
+
+                btnBreakfast.setBackground(null);
+                btnAppetisers.setBackground(null);
+                btnBaking.setBackground(null);
+                btnBrunch.setBackground(null);
+                btnDesserts.setBackground(null);
+                btnDinner.setBackground(null);
+                btnAll.setBackground(null);
+                btnLunch.setBackground(null);
+                btnOther.setBackground(null);
+                btnSnacks.setBackground(null);
+
+                btnBreakfast.setTextColor(Color.parseColor("#193566"));
+                btnAppetisers.setTextColor(Color.parseColor("#193566"));
+                btnBaking.setTextColor(Color.parseColor("#193566"));
+                btnBrunch.setTextColor(Color.parseColor("#193566"));
+                btnDesserts.setTextColor(Color.parseColor("#193566"));
+                btnDinner.setTextColor(Color.parseColor("#193566"));
+                btnAll.setTextColor(Color.parseColor("#193566"));
+                btnLunch.setTextColor(Color.parseColor("#193566"));
+                btnOther.setTextColor(Color.parseColor("#193566"));
+                btnSnacks.setTextColor(Color.parseColor("#193566"));
+
+                root.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        for (DataSnapshot dataSnapshot: snapshot.getChildren())
+                        {
+
+
+                            for (DataSnapshot ds: dataSnapshot.getChildren()) {
+
+                                if (ds.child("recipeType").getValue().toString().equalsIgnoreCase("Drinks"))
+                                {
+
+                                    model = ds.getValue(RecipeInfo.class);
+                                    list.add(model);
+                                }
+
+                            }
+
+                            recyclerView.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+                        }                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+            }
+        });
+
+        btnOther.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+                list.clear();
+                adapter.notifyDataSetChanged();
+
+                btnOther.setBackground(drawable);
+                btnOther.setTextColor(Color.parseColor("#ECF0F3"));
+
+                btnBreakfast.setBackground(null);
+                btnAppetisers.setBackground(null);
+                btnBaking.setBackground(null);
+                btnBrunch.setBackground(null);
+                btnDesserts.setBackground(null);
+                btnDinner.setBackground(null);
+                btnDrinks.setBackground(null);
+                btnLunch.setBackground(null);
+                btnAll.setBackground(null);
+                btnSnacks.setBackground(null);
+
+                btnBreakfast.setTextColor(Color.parseColor("#193566"));
+                btnAppetisers.setTextColor(Color.parseColor("#193566"));
+                btnBaking.setTextColor(Color.parseColor("#193566"));
+                btnBrunch.setTextColor(Color.parseColor("#193566"));
+                btnDesserts.setTextColor(Color.parseColor("#193566"));
+                btnDinner.setTextColor(Color.parseColor("#193566"));
+                btnDrinks.setTextColor(Color.parseColor("#193566"));
+                btnLunch.setTextColor(Color.parseColor("#193566"));
+                btnAll.setTextColor(Color.parseColor("#193566"));
+                btnSnacks.setTextColor(Color.parseColor("#193566"));
+
+                root.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        for (DataSnapshot dataSnapshot: snapshot.getChildren())
+                        {
+
+
+                            for (DataSnapshot ds: dataSnapshot.getChildren()) {
+
+                                if (ds.child("recipeType").getValue().toString().equalsIgnoreCase("Other"))
+                                {
+
+                                    model = ds.getValue(RecipeInfo.class);
+                                    list.add(model);
+                                }
+
+                            }
+
+                            recyclerView.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+                        }                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+            }
+        });
+
 
 
     }

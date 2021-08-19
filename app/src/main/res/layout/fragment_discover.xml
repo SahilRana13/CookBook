@@ -21,6 +21,148 @@
         android:layout_marginTop="20dp"
         android:singleLine="true"/>
 
+    <HorizontalScrollView
+        android:id="@+id/recipeTypeView"
+        android:layout_width="match_parent"
+        android:layout_height="60sp"
+        android:layout_below="@id/homeSearchBar"
+        android:layout_marginTop="10dp"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <Button
+                android:id="@+id/r1"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:text="All"
+                android:textAllCaps="false"
+                android:textColor="@color/light"
+                android:textStyle="bold"
+                android:background="@drawable/button_background"/>
+
+            <Button
+                android:id="@+id/r2"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:text="Breakfast"
+                android:textAllCaps="false"
+                android:textColor="@color/light"
+                android:textStyle="bold"
+                android:layout_toRightOf="@+id/r1"
+                android:background="@drawable/button_background"/>
+
+            <Button
+                android:id="@+id/r3"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:text="Brunch"
+                android:textAllCaps="false"
+                android:textColor="@color/light"
+                android:textStyle="bold"
+                android:layout_toRightOf="@+id/r2"
+                android:background="@drawable/button_background"/>
+
+            <Button
+                android:id="@+id/r4"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:text="Lunch"
+                android:textAllCaps="false"
+                android:textColor="@color/light"
+                android:textStyle="bold"
+                android:layout_toRightOf="@+id/r3"
+                android:background="@drawable/button_background"/>
+
+            <Button
+                android:id="@+id/r5"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:text="Dinner"
+                android:textAllCaps="false"
+                android:textColor="@color/light"
+                android:textStyle="bold"
+                android:layout_toRightOf="@+id/r4"
+                android:background="@drawable/button_background"/>
+            <Button
+                android:id="@+id/r6"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:text="Snacks"
+                android:textAllCaps="false"
+                android:textColor="@color/light"
+                android:textStyle="bold"
+                android:layout_toRightOf="@+id/r5"
+                android:background="@drawable/button_background"/>
+            <Button
+                android:id="@+id/r7"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:text="Appetisers"
+                android:textAllCaps="false"
+                android:textColor="@color/light"
+                android:textStyle="bold"
+                android:layout_toRightOf="@+id/r6"
+                android:background="@drawable/button_background"/>
+            <Button
+                android:id="@+id/r8"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:text="Desserts"
+                android:textAllCaps="false"
+                android:textColor="@color/light"
+                android:textStyle="bold"
+                android:layout_toRightOf="@+id/r7"
+                android:background="@drawable/button_background"/>
+            <Button
+                android:id="@+id/r9"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:text="Baking"
+                android:textAllCaps="false"
+                android:textColor="@color/light"
+                android:textStyle="bold"
+                android:layout_toRightOf="@+id/r8"
+                android:background="@drawable/button_background"/>
+            <Button
+                android:id="@+id/r10"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:text="Drinks"
+                android:textAllCaps="false"
+                android:textColor="@color/light"
+                android:textStyle="bold"
+                android:layout_toRightOf="@+id/r9"
+                android:background="@drawable/button_background"/>
+
+            <Button
+                android:id="@+id/r11"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:text="Other"
+                android:textAllCaps="false"
+                android:textColor="@color/light"
+                android:textStyle="bold"
+                android:layout_toRightOf="@+id/r10"
+                android:background="@drawable/button_background"/>
+
+        </RelativeLayout>
+    </HorizontalScrollView>
+
     <TextView
         android:id="@+id/button_search_discover"
         android:layout_width="40dp"
@@ -33,18 +175,11 @@
 
 
 
-    <ListView
-        android:id="@+id/autocomplete_search_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/myTextView"/>
-
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/myTextView"
-        android:layout_below="@+id/button_search_discover"
+        android:layout_below="@+id/recipeTypeView"
 
         android:text="@string/top_recipes"
         android:textColor="@color/dark"
