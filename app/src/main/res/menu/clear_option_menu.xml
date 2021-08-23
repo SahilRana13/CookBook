@@ -4,6 +4,9 @@
 
     <item
         android:id="@+id/clearList"
-        android:title="Clear All"/>
+        android:title="Clear List"
+        app:showAsAction="never"/>
+
+
 
 </menu>

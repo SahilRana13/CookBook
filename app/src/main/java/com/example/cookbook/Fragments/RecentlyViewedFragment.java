@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -50,6 +53,12 @@ public class RecentlyViewedFragment extends Fragment implements SwipeRefreshLayo
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -69,6 +78,8 @@ public class RecentlyViewedFragment extends Fragment implements SwipeRefreshLayo
         list1 = new ArrayList<>();
         adapter1 = new RecipeListAdapter(getContext(),list1);
 
+        root1 = db1.getReference().child("Recent Viewed Item").child(FirebaseAuth.getInstance().getUid());
+
         getRecentRecipes();
 
 
@@ -76,7 +87,7 @@ public class RecentlyViewedFragment extends Fragment implements SwipeRefreshLayo
 
     private void getRecentRecipes() {
 
-        root1 = db1.getReference().child("Recent Viewed Item").child(FirebaseAuth.getInstance().getUid());
+        swipeRefreshLayout.setRefreshing(false);
 
         root1.addChildEventListener(new ChildEventListener() {
             @Override
@@ -90,7 +101,7 @@ public class RecentlyViewedFragment extends Fragment implements SwipeRefreshLayo
                 }
                 recyclerView1.setAdapter(adapter1);
                 adapter1.notifyDataSetChanged();
-                swipeRefreshLayout.setRefreshing(false);
+
             }
 
             @Override
@@ -114,6 +125,32 @@ public class RecentlyViewedFragment extends Fragment implements SwipeRefreshLayo
             }
         });
     }
+
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.clear_option_menu,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() == R.id.clearList) {
+
+            root1.removeValue();
+            list1.clear();
+            adapter1.notifyDataSetChanged();
+            getRecentRecipes();
+
+            // Not implemented here
+        }
+
+        return super.onOptionsItemSelected(item);
+
+    }
+
 
     @Override
     public void onRefresh() {
