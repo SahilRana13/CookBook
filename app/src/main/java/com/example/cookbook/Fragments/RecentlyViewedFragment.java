@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 
-public class RecentlyViewedFragment extends Fragment {
+public class RecentlyViewedFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     RecyclerView recyclerView1;
     FirebaseDatabase db1;
@@ -33,6 +34,8 @@ public class RecentlyViewedFragment extends Fragment {
     private RecipeListAdapter adapter1;
     private ArrayList<RecipeInfo> list1;
     private RecipeInfo model1;
+    private SwipeRefreshLayout swipeRefreshLayout;
+
 
     public RecentlyViewedFragment() {
         // Required empty public constructor
@@ -55,12 +58,23 @@ public class RecentlyViewedFragment extends Fragment {
         recyclerView1 = view.findViewById(R.id.recentRecyclerView);
         db1 = FirebaseDatabase.getInstance();
 
+        swipeRefreshLayout = view.findViewById(R.id.recentSwipeRefresh);
+
+        swipeRefreshLayout.setOnRefreshListener(this);
+
         GridLayoutManager gridLayoutManager1 = new GridLayoutManager(getActivity(),2,GridLayoutManager.VERTICAL,false);
         recyclerView1.setHasFixedSize(true);
         recyclerView1.setLayoutManager(gridLayoutManager1);
 
         list1 = new ArrayList<>();
         adapter1 = new RecipeListAdapter(getContext(),list1);
+
+        getRecentRecipes();
+
+
+    }
+
+    private void getRecentRecipes() {
 
         root1 = db1.getReference().child("Recent Viewed Item").child(FirebaseAuth.getInstance().getUid());
 
@@ -76,6 +90,7 @@ public class RecentlyViewedFragment extends Fragment {
                 }
                 recyclerView1.setAdapter(adapter1);
                 adapter1.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
@@ -98,6 +113,14 @@ public class RecentlyViewedFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onRefresh() {
+
+        list1.clear();
+        adapter1.notifyDataSetChanged();
+        getRecentRecipes();
 
     }
 }
