@@ -27,7 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 
-public class FavouriteRecipeFragment extends Fragment {
+public class  FavouriteRecipeFragment extends Fragment {
 
     RecyclerView recyclerView1;
     FirebaseDatabase db1;

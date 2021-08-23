@@ -17,6 +17,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -51,7 +52,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 
-public class DiscoverFragment extends Fragment {
+public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     RecyclerView recyclerView;
     FirebaseDatabase db;
@@ -65,7 +66,7 @@ public class DiscoverFragment extends Fragment {
 
     private NavController navController;
     private TextView searchButton;
-
+    private SwipeRefreshLayout swipeRefreshLayout; 
 
     //Sahil's
     private Button databasebutton;
@@ -108,6 +109,8 @@ public class DiscoverFragment extends Fragment {
         btnDrinks = view.findViewById(R.id.r10);
         btnOther = view.findViewById(R.id.r11);
 
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
+        
         Drawable drawable = getResources().getDrawable(R.drawable.button_background);
 
         recyclerView = view.findViewById(R.id.recipeRecyclerView);
@@ -124,6 +127,7 @@ public class DiscoverFragment extends Fragment {
         }
 
 
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2,GridLayoutManager.VERTICAL,false);
         recyclerView.setHasFixedSize(true);
@@ -209,49 +213,8 @@ public class DiscoverFragment extends Fragment {
         btnOther.setTextColor(Color.parseColor("#193566"));
         btnSnacks.setTextColor(Color.parseColor("#193566"));
 
+        getRecipeData();
 
-        root = db.getReference().child("User Recipe Details");
-
-        root.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-                for (DataSnapshot dataSnapshot: snapshot.getChildren())
-                {
-
-
-                    for (DataSnapshot ds: dataSnapshot.getChildren()) {
-
-                        model = ds.getValue(RecipeInfo.class);
-                        list.add(model);
-
-                    }
-
-                recyclerView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
         btnAll.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
@@ -1132,6 +1095,55 @@ public class DiscoverFragment extends Fragment {
 
     }
 
+    private void getRecipeData() {
+
+        root = db.getReference().child("User Recipe Details");
+
+        root.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                for (DataSnapshot dataSnapshot: snapshot.getChildren())
+                {
+
+
+                    for (DataSnapshot ds: dataSnapshot.getChildren()) {
+
+                        model = ds.getValue(RecipeInfo.class);
+                        list.add(model);
+
+                    }
+
+                    recyclerView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
 
     ItemTouchHelper.SimpleCallback itemTouchHelperCallBack = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
         @Override
@@ -1237,5 +1249,13 @@ public class DiscoverFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onRefresh() {
+
+        list.clear();
+        adapter.notifyDataSetChanged();
+        getRecipeData();
     }
 }
