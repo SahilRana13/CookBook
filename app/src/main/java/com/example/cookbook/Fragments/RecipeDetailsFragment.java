@@ -4,12 +4,17 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.cookbook.Models.RecipeInfo;
@@ -32,6 +37,11 @@ public class RecipeDetailsFragment extends Fragment {
     private FirebaseDatabase firebaseDatabase;
 
     private String fileName;
+
+
+    ImageButton arrow,arrow2,arrow3;
+    LinearLayout hiddenView,hiddenView2,hiddenView3;
+    CardView cardView,cardView2,cardView3;
 
 
     public RecipeDetailsFragment() {
@@ -61,10 +71,114 @@ public class RecipeDetailsFragment extends Fragment {
         recipeIngredients = view.findViewById(R.id.receiveIngredients);
         recipeDirections = view.findViewById(R.id.receiveDirection);
 
+        cardView = view.findViewById(R.id.base_cardview);
+        arrow = view.findViewById(R.id.arrow_button);
+        hiddenView = view.findViewById(R.id.hidden_view);
+
+        cardView2 = view.findViewById(R.id.base_cardview2);
+        arrow2 = view.findViewById(R.id.arrow_button2);
+        hiddenView2 = view.findViewById(R.id.hidden_view2);
+
+        cardView3 = view.findViewById(R.id.base_cardview3);
+        arrow3 = view.findViewById(R.id.arrow_button3);
+        hiddenView3 = view.findViewById(R.id.hidden_view3);
+
 
         fileName = this.getArguments().getString("key");
 
         //Toast.makeText(getActivity(), fileName, Toast.LENGTH_SHORT).show();
+
+
+        arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // If the CardView is already expanded, set its visibility
+                //  to gone and change the expand less icon to expand more.
+                if (hiddenView.getVisibility() == View.VISIBLE) {
+
+                    // The transition of the hiddenView is carried out
+                    //  by the TransitionManager class.
+                    // Here we use an object of the AutoTransition
+                    // Class to create a default transition.
+                    TransitionManager.beginDelayedTransition(cardView,
+                            new AutoTransition());
+                    hiddenView.setVisibility(View.GONE);
+                    arrow.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+                }
+
+                // If the CardView is not expanded, set its visibility
+                // to visible and change the expand more icon to expand less.
+                else {
+
+                    TransitionManager.beginDelayedTransition(cardView,
+                            new AutoTransition());
+                    hiddenView.setVisibility(View.VISIBLE);
+                    arrow.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
+                }
+            }
+        });
+
+        arrow2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // If the CardView is already expanded, set its visibility
+                //  to gone and change the expand less icon to expand more.
+                if (hiddenView2.getVisibility() == View.VISIBLE) {
+
+                    // The transition of the hiddenView is carried out
+                    //  by the TransitionManager class.
+                    // Here we use an object of the AutoTransition
+                    // Class to create a default transition.
+                    TransitionManager.beginDelayedTransition(cardView2,
+                            new AutoTransition());
+                    hiddenView2.setVisibility(View.GONE);
+                    arrow2.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+                }
+
+                // If the CardView is not expanded, set its visibility
+                // to visible and change the expand more icon to expand less.
+                else {
+
+                    TransitionManager.beginDelayedTransition(cardView2,
+                            new AutoTransition());
+                    hiddenView2.setVisibility(View.VISIBLE);
+                    arrow2.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
+                }
+            }
+        });
+
+        arrow3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // If the CardView is already expanded, set its visibility
+                //  to gone and change the expand less icon to expand more.
+                if (hiddenView3.getVisibility() == View.VISIBLE) {
+
+                    // The transition of the hiddenView is carried out
+                    //  by the TransitionManager class.
+                    // Here we use an object of the AutoTransition
+                    // Class to create a default transition.
+                    TransitionManager.beginDelayedTransition(cardView3,
+                            new AutoTransition());
+                    hiddenView3.setVisibility(View.GONE);
+                    arrow3.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+                }
+
+                // If the CardView is not expanded, set its visibility
+                // to visible and change the expand more icon to expand less.
+                else {
+
+                    TransitionManager.beginDelayedTransition(cardView3,
+                            new AutoTransition());
+                    hiddenView3.setVisibility(View.VISIBLE);
+                    arrow3.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
+                }
+            }
+        });
+
 
 
         DatabaseReference databaseReference = (DatabaseReference) firebaseDatabase.getReference();

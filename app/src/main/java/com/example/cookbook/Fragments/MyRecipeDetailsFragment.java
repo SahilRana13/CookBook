@@ -6,14 +6,19 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.denzcoskun.imageslider.ImageSlider;
@@ -45,6 +50,7 @@ public class MyRecipeDetailsFragment extends Fragment {
     private String strName;
     private List<SlideModel> images;
     private Button updateRecipeButton;
+
 
     String name1,name2,name3,name4,name5,name6,name7,name8;
     String rName,cName,rType,rDuration,country,rIngredients,rDirections;
@@ -80,12 +86,12 @@ public class MyRecipeDetailsFragment extends Fragment {
         recipeDirections = view.findViewById(R.id.receiveMyDirection);
         updateRecipeButton = view.findViewById(R.id.saveUpdateMyRecipeBtn);
 
+
         images = new ArrayList<>();
 
 
         Bundle bundle = this.getArguments();
         strName = bundle.getString("key");
-
 
 
 
