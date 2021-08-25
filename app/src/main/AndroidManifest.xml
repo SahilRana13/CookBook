@@ -13,9 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DatabaseLayout"></activity>
+        <activity android:name=".DatabaseLayout" />
         <activity android:name=".RecipeActivity" />
-        <activity android:name=".DashboardActivity"
+        <activity
+            android:name=".DashboardActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".SplashScreen"

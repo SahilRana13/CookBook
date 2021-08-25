@@ -43,18 +43,30 @@ public class DashboardActivity extends AppCompatActivity {
 
         navi = findViewById(R.id.nv);
         dl = findViewById(R.id.drawer_layout);
-        t = new ActionBarDrawerToggle(this,dl,R.string.nav_drawer_open,R.string.nav_drawer_close);
+
+
 
         firebaseAuth = FirebaseAuth.getInstance();
 
 
         navController = Navigation.findNavController(DashboardActivity.this,R.id.Host_Fragment2);
 
+        if (firebaseAuth.getCurrentUser().getEmail().equalsIgnoreCase("tjp083@gmail.com"))
+        {
+            navi.inflateMenu(R.menu.admin_drawer_menu);
+        }
+        else
+        {
+            navi.inflateMenu(R.menu.drawer_menu);
+        }
+
+        t = new ActionBarDrawerToggle(this,dl,R.string.nav_drawer_open,R.string.nav_drawer_close);
 
         dl.addDrawerListener(t);
         t.syncState();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         if (savedInstanceState == null)
         {
@@ -71,6 +83,10 @@ public class DashboardActivity extends AppCompatActivity {
 
                 switch (item.getItemId())
                 {
+                    case R.id.AdminHome :
+
+                        navController.navigate(R.id.discoverFragment);
+                        break;
 
                     case R.id.Home :
 

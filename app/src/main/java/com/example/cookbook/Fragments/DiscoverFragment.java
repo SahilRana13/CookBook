@@ -3,11 +3,9 @@ package com.example.cookbook.Fragments;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.nfc.Tag;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,24 +19,19 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cookbook.Adapters.RecipeListAdapter;
-import com.example.cookbook.DatabaseLayout;
 import com.example.cookbook.Models.RecipeInfo;
 import com.example.cookbook.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,7 +44,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 
 public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
@@ -1308,16 +1300,43 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                 public void onClick(DialogInterface dialog, int which) {
 
-                        RecipeInfo recipeInfo;
+                    RecipeInfo recipeInfo;
 
-                        recipeInfo = list.get(viewHolder.getPosition());
+                    recipeInfo = list.get(viewHolder.getPosition());
+                    DatabaseReference databaseReference1 = db.getReference();
 
-                        Toast.makeText(getActivity(), recipeInfo.getRecipeName(), Toast.LENGTH_SHORT).show();
-                        DatabaseReference databaseReference1 = db.getReference();
+                    DatabaseReference recipelistbranch1 = databaseReference1.child("User Recipe Details");
 
-                        DatabaseReference recipelistbranch1 = databaseReference1.child("User Recipe Details");
+                    recipelistbranch1.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        list.remove(viewHolder.getAdapterPosition());
+                            for (DataSnapshot snapshot1: snapshot.getChildren())
+                            {
+                                for (DataSnapshot snapshot2:snapshot1.getChildren())
+                                {
+
+                                    if (snapshot2.getKey().toString().trim().equalsIgnoreCase(recipeInfo.getRecipeName()))
+                                    {
+                                        recipelistbranch1.child(snapshot1.getKey()).child(recipeInfo.getRecipeName()).removeValue();
+
+                                    }
+
+                                }
+
+                            }
+
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                    list.remove(viewHolder.getAdapterPosition());
                         adapter.notifyDataSetChanged();
 
 
