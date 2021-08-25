@@ -1,5 +1,7 @@
 package com.example.cookbook.Fragments;
 
+import android.app.ProgressDialog;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -27,6 +29,8 @@ public class ExpandProfilePictureFragment extends Fragment {
     private ImageView imageView;
     private FirebaseStorage firebaseStorage;
     private FirebaseAuth firebaseAuth;
+    private ProgressDialog progressDialog;
+
 
 
     public ExpandProfilePictureFragment() {
@@ -51,6 +55,13 @@ public class ExpandProfilePictureFragment extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
 
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progressdialog);
+
 
 
         getImage();
@@ -69,10 +80,11 @@ public class ExpandProfilePictureFragment extends Fragment {
                     public void onSuccess(Uri uri) {
 
                         Picasso.get().load(uri).into(imageView);
+                        progressDialog.dismiss();
 
                     }
                 });
 
-        //imageView.setBackground(null);
+        imageView.setBackground(null);
     }
 }

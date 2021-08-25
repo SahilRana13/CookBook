@@ -137,54 +137,6 @@
                 android:fontFamily="sans-serif"
                 android:textSize="17dp"/>
 
-            <View android:background="#A9B6C9"
-                android:layout_width = "150dp"
-                android:layout_height="1dp"
-                android:layout_below="@id/signUpLogin"
-                android:layout_marginTop="30dp"
-                android:id="@+id/leftLine"
-                android:layout_marginLeft="20dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/orText"
-                android:text="@string/or"
-                android:layout_below="@+id/signUpLogin"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:textSize="15sp"/>
-
-
-            <View android:background="#A9B6C9"
-                android:layout_width = "150dp"
-                android:layout_height="1dp"
-                android:layout_below="@id/signUpLogin"
-                android:layout_marginTop="30dp"
-                android:layout_alignRight="@+id/leftLine"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="20dp"/>
-
-
-            <Button
-                android:id="@+id/google_signIn"
-                android:layout_width="wrap_content"
-                android:layout_height="55dp"
-                android:background="@drawable/button_background"
-                android:drawableLeft="@drawable/google"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="70dp"
-                android:layout_marginBottom="50dp"
-                android:text="@string/sign_in_with_google"
-                android:layout_below="@+id/signUpLogin"
-                android:textAllCaps="false"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:textColor="#ECF0F3"
-                android:padding="10dp"
-                android:drawablePadding="0dp"
-                android:drawableStart="@drawable/google" />
-
         </RelativeLayout>
 
     </ScrollView>

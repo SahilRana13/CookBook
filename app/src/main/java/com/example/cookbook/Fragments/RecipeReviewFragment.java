@@ -1,5 +1,7 @@
 package com.example.cookbook.Fragments;
 
+import android.app.ProgressDialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -34,6 +36,8 @@ public class RecipeReviewFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
 
+    private ProgressDialog progressDialog;
+
 
 
     public RecipeReviewFragment() {
@@ -56,6 +60,10 @@ public class RecipeReviewFragment extends Fragment {
 
         ratingBar = view.findViewById(R.id.ratingBar);
         submitButton = view.findViewById(R.id.submitRecipeReviewBtn);
+
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         firebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
@@ -92,6 +100,9 @@ public class RecipeReviewFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+                progressDialog.show();
+                progressDialog.setContentView(R.layout.progressdialog);
+
                 FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
                 DatabaseReference reference = firebaseDatabase.getReference().child("User Recipe Ratings");
 
@@ -109,6 +120,7 @@ public class RecipeReviewFragment extends Fragment {
                 recipeInfo.setRecipeRatings(string);
 
                 childBranch.setValue(recipeInfo);
+                progressDialog.dismiss();
 
             }
         });

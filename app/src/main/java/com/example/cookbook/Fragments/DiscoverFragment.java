@@ -1,9 +1,11 @@
 package com.example.cookbook.Fragments;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -65,8 +67,9 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
     private Button btnAll, btnBreakfast, btnBrunch, btnLunch, btnDinner, btnSnacks, btnAppetisers, btnDesserts, btnBaking, btnDrinks, btnOther;
 
     private NavController navController;
-    private TextView searchButton;
-    private SwipeRefreshLayout swipeRefreshLayout; 
+    private TextView searchButton,nullText;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private ProgressDialog progressDialog;
 
     //Sahil's
     private Button databasebutton;
@@ -96,6 +99,14 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         navController = Navigation.findNavController(getActivity(),R.id.Host_Fragment2);
         searchButton = view.findViewById(R.id.button_search_discover);
+        nullText = view.findViewById(R.id.nullText);
+
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progressdialog);
 
         btnAll = view.findViewById(R.id.r1);
         btnBreakfast = view.findViewById(R.id.r2);
@@ -118,13 +129,14 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        Log.e(firebaseAuth.getCurrentUser().getEmail(),"--Tejas--");
+        Log.e(firebaseAuth.getCurrentUser().getEmail(),"--(Admin)--");
 
         if (firebaseAuth.getCurrentUser().getEmail().equalsIgnoreCase("tjp083@gmail.com"))
         {
             new ItemTouchHelper(itemTouchHelperCallBack).attachToRecyclerView(recyclerView);
 
         }
+
 
 
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -136,14 +148,6 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
         list = new ArrayList<>();
         adapter = new RecipeListAdapter(getContext(),list);
 
-
-//        recyclerView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                Log.e("Text-","");
-//            }
-//        });
 
         //Sahil's
         mref = FirebaseDatabase.getInstance().getReference("recipe_chef's_names");
@@ -221,6 +225,9 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
             @Override
             public void onClick(View v) {
 
+                progressDialog.show();
+                progressDialog.setContentView(R.layout.progressdialog);
+
                 btnAll.setBackground(drawable);
                 btnAll.setTextColor(Color.parseColor("#ECF0F3"));
 
@@ -264,6 +271,15 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                             recyclerView.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
+                            progressDialog.dismiss();
+                        }
+                        if (list.size() == 0)
+                        {
+                            nullText.setVisibility(View.VISIBLE);
+                        }
+                        else
+                        {
+                            nullText.setVisibility(View.INVISIBLE);
                         }
                     }
 
@@ -295,6 +311,9 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
         btnBreakfast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                progressDialog.show();
+                progressDialog.setContentView(R.layout.progressdialog);
 
                 list.clear();
                 adapter.notifyDataSetChanged();
@@ -345,7 +364,16 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                             recyclerView.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
-                        }                    }
+                            progressDialog.dismiss();
+                        }
+                        if (list.size() == 0)
+                        {
+                            nullText.setVisibility(View.VISIBLE);
+                        }else
+                        {
+                            nullText.setVisibility(View.INVISIBLE);
+                        }
+                    }
 
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -375,6 +403,9 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
         btnBrunch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                progressDialog.show();
+                progressDialog.setContentView(R.layout.progressdialog);
 
                 list.clear();
                 adapter.notifyDataSetChanged();
@@ -425,7 +456,16 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                             recyclerView.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
-                        }                    }
+                            progressDialog.dismiss();
+                        }
+                        if (list.size() == 0)
+                        {
+                            nullText.setVisibility(View.VISIBLE);
+                        }else
+                        {
+                            nullText.setVisibility(View.INVISIBLE);
+                        }
+                    }
 
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -454,6 +494,9 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
         btnLunch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                progressDialog.show();
+                progressDialog.setContentView(R.layout.progressdialog);
 
 
                 list.clear();
@@ -505,7 +548,16 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                             recyclerView.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
-                        }                    }
+                            progressDialog.dismiss();
+                        }
+                        if (list.size() == 0)
+                        {
+                            nullText.setVisibility(View.VISIBLE);
+                        }else
+                        {
+                            nullText.setVisibility(View.INVISIBLE);
+                        }
+                    }
 
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -534,6 +586,9 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
         btnDinner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                progressDialog.show();
+                progressDialog.setContentView(R.layout.progressdialog);
 
                 list.clear();
                 adapter.notifyDataSetChanged();
@@ -584,6 +639,14 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                             recyclerView.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
+                            progressDialog.dismiss();
+                        }
+                        if (list.size() == 0)
+                        {
+                            nullText.setVisibility(View.VISIBLE);
+                        }else
+                        {
+                            nullText.setVisibility(View.INVISIBLE);
                         }
                     }
 
@@ -614,6 +677,9 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
         btnSnacks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                progressDialog.show();
+                progressDialog.setContentView(R.layout.progressdialog);
 
 
                 list.clear();
@@ -665,7 +731,16 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                             recyclerView.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
-                        }                    }
+                            progressDialog.dismiss();
+                        }
+                        if (list.size() == 0)
+                        {
+                            nullText.setVisibility(View.VISIBLE);
+                        }else
+                        {
+                            nullText.setVisibility(View.INVISIBLE);
+                        }
+                    }
 
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -694,6 +769,9 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
         btnAppetisers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                progressDialog.show();
+                progressDialog.setContentView(R.layout.progressdialog);
 
 
                 list.clear();
@@ -745,7 +823,16 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                             recyclerView.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
-                        }                    }
+                            progressDialog.dismiss();
+                        }
+                        if (list.size() == 0)
+                        {
+                            nullText.setVisibility(View.VISIBLE);
+                        }else
+                        {
+                            nullText.setVisibility(View.INVISIBLE);
+                        }
+                    }
 
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -774,6 +861,9 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
         btnDesserts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                progressDialog.show();
+                progressDialog.setContentView(R.layout.progressdialog);
 
                 list.clear();
                 adapter.notifyDataSetChanged();
@@ -824,7 +914,16 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                             recyclerView.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
-                        }                    }
+                            progressDialog.dismiss();
+                        }
+                        if (list.size() == 0)
+                        {
+                            nullText.setVisibility(View.VISIBLE);
+                        }else
+                        {
+                            nullText.setVisibility(View.INVISIBLE);
+                        }
+                    }
 
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -853,6 +952,9 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
         btnBaking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                progressDialog.show();
+                progressDialog.setContentView(R.layout.progressdialog);
 
                 list.clear();
                 adapter.notifyDataSetChanged();
@@ -903,7 +1005,16 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                             recyclerView.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
-                        }                    }
+                            progressDialog.dismiss();
+                        }
+                        if (list.size() == 0)
+                        {
+                            nullText.setVisibility(View.VISIBLE);
+                        }else
+                        {
+                            nullText.setVisibility(View.INVISIBLE);
+                        }
+                    }
 
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -933,6 +1044,8 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
             @Override
             public void onClick(View v) {
 
+                progressDialog.show();
+                progressDialog.setContentView(R.layout.progressdialog);
 
 
                 list.clear();
@@ -984,7 +1097,16 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                             recyclerView.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
-                        }                    }
+                            progressDialog.dismiss();
+                        }
+                        if (list.size() == 0)
+                        {
+                            nullText.setVisibility(View.VISIBLE);
+                        }else
+                        {
+                            nullText.setVisibility(View.INVISIBLE);
+                        }
+                    }
 
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -1014,7 +1136,8 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
             @Override
             public void onClick(View v) {
 
-
+                progressDialog.show();
+                progressDialog.setContentView(R.layout.progressdialog);
 
                 list.clear();
                 adapter.notifyDataSetChanged();
@@ -1065,7 +1188,17 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                             recyclerView.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
-                        }                    }
+                            progressDialog.dismiss();
+                        }
+
+                        if (list.size() == 0)
+                        {
+                            nullText.setVisibility(View.VISIBLE);
+                        }else
+                        {
+                            nullText.setVisibility(View.INVISIBLE);
+                        }
+                    }
 
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -1116,6 +1249,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                     recyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
+                    progressDialog.dismiss();
 
                     swipeRefreshLayout.setRefreshing(false);
                 }

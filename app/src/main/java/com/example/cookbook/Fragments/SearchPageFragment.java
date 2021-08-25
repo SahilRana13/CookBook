@@ -1,5 +1,7 @@
 package com.example.cookbook.Fragments;
 
+import android.app.ProgressDialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -38,6 +40,9 @@ public class SearchPageFragment extends Fragment {
     private int count = 1;
     private int searchNumber =0;
 
+    private ProgressDialog progressDialog;
+
+
 
     public SearchPageFragment() {
         // Required empty public constructor
@@ -63,7 +68,15 @@ public class SearchPageFragment extends Fragment {
         getActivity().setTitle("Search Page");
 
         tv = view.findViewById(R.id.text_view_search_page);
-        
+
+
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progressdialog);
+
         recyclerView = view.findViewById(R.id.recycle_view_search_page);
         db = FirebaseDatabase.getInstance();
 
@@ -110,6 +123,7 @@ public class SearchPageFragment extends Fragment {
                 }
 
                 tv.setText(searchNumber+" Search Results for\n'"+finalSearch+"'");
+                progressDialog.dismiss();
             }
 
             @Override

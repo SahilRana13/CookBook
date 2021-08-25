@@ -1,7 +1,9 @@
 package com.example.cookbook.Fragments;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -74,11 +76,13 @@ public class MyRecipeFragment extends Fragment {
     private RecipeInfo model;
 
 
+    private ProgressDialog progressDialog;
+
+
 
     private ImageView myImage;
     private TextView myName;
 
-    private AutoCompleteTextView autoCompleteTextView;
     private ListView recipeList;
     DatabaseReference mref;
     public String recipe;
@@ -111,6 +115,13 @@ public class MyRecipeFragment extends Fragment {
         myImage = view.findViewById(R.id.myImageView);
         myName = view.findViewById(R.id.myTextView);
 
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progressdialog);
+
         recyclerView = view.findViewById(R.id.myRecipeListView);
 
         db = FirebaseFirestore.getInstance();
@@ -128,6 +139,7 @@ public class MyRecipeFragment extends Fragment {
 
         getProfileData();
         getProfileImage();
+        getRecipeList();
 
         navController = Navigation.findNavController(getActivity(),R.id.Host_Fragment2);
 
@@ -139,6 +151,11 @@ public class MyRecipeFragment extends Fragment {
                 navController.navigate(R.id.expandProfilePictureFragment);
             }
         });
+
+    }
+
+    private void getRecipeList() {
+
 
         DatabaseReference databaseReference = firebaseDatabase.getReference();
         DatabaseReference recipelistbranch = databaseReference.child("User Recipe Details").child(firebaseAuth.getUid());
@@ -180,52 +197,8 @@ public class MyRecipeFragment extends Fragment {
             }
         });
 
-        /*autoCompleteTextView = view.findViewById(R.id.mySearchBarView);
-        recipeList = view.findViewById(R.id.myRecipe_list);*//*
-        recipe = autoCompleteTextView.getText().toString();*/
-        mref = FirebaseDatabase.getInstance().getReference("User Recipe Details").child(firebaseAuth.getUid());
-        /*myRecipeSearch = view.findViewById(R.id.mySearchBarView);*/
-
-        /*ValueEventListener event = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                populateSearch(snapshot);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        };
-        mref.addListenerForSingleValueEvent(event);*/
     }
 
-    /*private void populateSearch(DataSnapshot snapshot) {
-
-        ArrayList<String> nameList = new ArrayList<>();
-
-        if (snapshot.exists())
-        {
-            for (DataSnapshot ds:snapshot.getChildren())
-            {
-                for (DataSnapshot ds1:ds.getChildren())
-                {
-                    for (DataSnapshot ds2:ds1.getChildren())
-                    {
-                        String name = ds2.child("recipeName").getValue(String.class);
-                        nameList.add(name);
-                    }
-                }
-
-            }
-            ArrayAdapter adapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1,nameList);
-            autoCompleteTextView.setAdapter(adapter);
-        }
-        else
-        {
-            Log.d("Recipe or Chef's Names", "Data not found");
-        }
-    }*/
 
     ItemTouchHelper.SimpleCallback itemTouchHelperCallBack = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
         @Override
@@ -325,39 +298,13 @@ public class MyRecipeFragment extends Fragment {
 
             }
         });
-//
-//        DocumentReference docRef = db.collection("User Profile Information").document(currentUser.getUid());
-//
-//        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//            @Override
-//            public void onSuccess(DocumentSnapshot documentSnapshot) {
-//
-//                if (documentSnapshot.exists())
-//                {
-//                    String sName = documentSnapshot.getString("name");
-//                    myName.setText(sName);
-//                }
-//
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//
-//                Toast.makeText(getActivity(), "Something Wrong", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+
 
 
     }
 
     private void getProfileImage() {
 
-
-        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(getActivity().getApplicationContext());
-        if(signInAccount != null){
-
-            Picasso.get().load(signInAccount.getPhotoUrl()).into(myImage);
-        }
 
 
         StorageReference storageReference = firebaseStorage.getReference();
@@ -369,6 +316,7 @@ public class MyRecipeFragment extends Fragment {
                     public void onSuccess(Uri uri) {
 
                         Picasso.get().load(uri).into(myImage);
+                        progressDialog.dismiss();
 
                     }
                 });

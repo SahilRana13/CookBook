@@ -238,10 +238,6 @@ public class RecipeActivity extends AppCompatActivity {
                 }
 
 
-                Toast.makeText(RecipeActivity.this, String.valueOf(average), Toast.LENGTH_SHORT).show();
-
-
-
                 getRatingBar.setRating(Float.valueOf(String.valueOf(average)));
 
 

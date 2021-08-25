@@ -81,4 +81,5 @@
     <string name="RecentlyViewRecipe">RecentlyViewRecipe</string>
     <string name="FavouriteRecipe">FavouriteRecipe</string>
     <string name="Login">Login</string>
+    <string name="no_recipe_found">No Recipe Found</string>
 </resources>

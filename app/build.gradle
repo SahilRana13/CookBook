@@ -69,6 +69,8 @@ dependencies {
 
     implementation 'com.github.gifffert:ExpandableTextView:0.1.6'
 
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+
 }
 
 

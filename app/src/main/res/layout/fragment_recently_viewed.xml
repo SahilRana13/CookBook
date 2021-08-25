@@ -37,6 +37,18 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/recentNullText"
+        android:layout_centerInParent="true"
+        android:textColor="#A9B6C9"
+        android:text="No Recipe History"
+        android:textSize="30sp"
+        android:fontFamily="sans-serif"
+        android:visibility="invisible"
+        />
+
 
 
 </RelativeLayout>

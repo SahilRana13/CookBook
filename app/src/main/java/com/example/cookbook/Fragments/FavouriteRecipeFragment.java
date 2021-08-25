@@ -1,6 +1,8 @@
 package com.example.cookbook.Fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -17,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.cookbook.Adapters.RecipeListAdapter;
 import com.example.cookbook.Models.RecipeInfo;
@@ -40,6 +43,9 @@ public class  FavouriteRecipeFragment extends Fragment implements SwipeRefreshLa
     private ArrayList<RecipeInfo> list1;
     private RecipeInfo model1;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private TextView nullText;
+
+    private ProgressDialog progressDialog;
 
 
     public FavouriteRecipeFragment() {
@@ -69,6 +75,14 @@ public class  FavouriteRecipeFragment extends Fragment implements SwipeRefreshLa
 
         recyclerView1 = view.findViewById(R.id.favouriteRecyclerView);
         db1 = FirebaseDatabase.getInstance();
+        nullText = view.findViewById(R.id.favNullText);
+
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progressdialog);
 
         swipeRefreshLayout = view.findViewById(R.id.favSwipeRefresh);
 
@@ -90,6 +104,14 @@ public class  FavouriteRecipeFragment extends Fragment implements SwipeRefreshLa
 
     private void getFavRecipes() {
 
+        if (list1.size() == 0)
+        {
+            nullText.setVisibility(View.VISIBLE);
+        }else
+        {
+            nullText.setVisibility(View.INVISIBLE);
+        }
+
         swipeRefreshLayout.setRefreshing(false);
         root1.addChildEventListener(new ChildEventListener() {
             @Override
@@ -103,6 +125,15 @@ public class  FavouriteRecipeFragment extends Fragment implements SwipeRefreshLa
                 }
                 recyclerView1.setAdapter(adapter1);
                 adapter1.notifyDataSetChanged();
+                progressDialog.dismiss();
+
+                if (list1.size() == 0)
+                {
+                    nullText.setVisibility(View.VISIBLE);
+                }else
+                {
+                    nullText.setVisibility(View.INVISIBLE);
+                }
 
             }
 

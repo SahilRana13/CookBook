@@ -1,6 +1,8 @@
 package com.example.cookbook.Fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -11,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +54,8 @@ public class MyRecipeDetailsFragment extends Fragment {
     private List<SlideModel> images;
     private Button updateRecipeButton;
 
+    private ProgressDialog progressDialog;
+
 
     String name1,name2,name3,name4,name5,name6,name7,name8;
     String rName,cName,rType,rDuration,country,rIngredients,rDirections;
@@ -86,6 +91,13 @@ public class MyRecipeDetailsFragment extends Fragment {
         recipeDirections = view.findViewById(R.id.receiveMyDirection);
         updateRecipeButton = view.findViewById(R.id.saveUpdateMyRecipeBtn);
 
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progressdialog);
+
 
         images = new ArrayList<>();
 
@@ -98,6 +110,9 @@ public class MyRecipeDetailsFragment extends Fragment {
         updateRecipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                progressDialog.show();
+                progressDialog.setContentView(R.layout.progressdialog);
 
                 rName = recipeName.getText().toString().trim();
                 cName = chefName.getText().toString().trim();
@@ -176,6 +191,7 @@ public class MyRecipeDetailsFragment extends Fragment {
                             recipeIngredients.setText(s1.toString().trim());
                             recipeDirections.setText(s2.toString().trim());
 
+                            progressDialog.dismiss();
 
 
 
@@ -270,31 +286,45 @@ public class MyRecipeDetailsFragment extends Fragment {
 
         RecipeInfo recipeInfo = new RecipeInfo(rName,cName,rType,rDuration,country,rIngredients,rDirections,name8);
 
+        if (rName.length() == 0 || cName.length() == 0 || rType.length() == 0 || rDuration.length() == 0
+                || country.length() == 0 || rIngredients.length() == 0 || rDirections.length() == 0)
+        {
+            progressDialog.dismiss();
+            Toast toast = Toast.makeText(getActivity(),"Enter All Details",Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+            toast.show();
+        }
+        else
+        {
 
-        recipeListBranch.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            recipeListBranch.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                if(snapshot.hasChild(strName)){
+                    if(snapshot.hasChild(strName)){
 
-                    recipeListBranch.child(strName).removeValue();
+                        recipeListBranch.child(strName).removeValue();
 
-                    recipeListBranch.child(strName).push().setValue(recipeInfo);
-                    return;
+                        recipeListBranch.child(strName).push().setValue(recipeInfo);
+                        progressDialog.dismiss();
+
+                        Toast toast = Toast.makeText(getActivity(),"Recipe Updated",Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                        toast.show();
+
+                        return;
+                    }
+
                 }
 
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+                }
+            });
 
 
-
-
-
+        }
 
     }
 

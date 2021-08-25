@@ -1,7 +1,9 @@
 package com.example.cookbook.Fragments;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -18,6 +20,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -32,6 +35,10 @@ import com.example.cookbook.Models.UserInfo;
 import com.example.cookbook.R;
 import com.example.cookbook.RecipeActivity;
 import com.example.cookbook.SplashScreen;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.Circle;
+import com.github.ybq.android.spinkit.style.FadingCircle;
+import com.github.ybq.android.spinkit.style.ThreeBounce;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -63,23 +70,20 @@ public class LoginFragment extends Fragment {
     private ImageView imageView1;
     private TextView textForgotPassword,textSignup;
     private Animation animation1,animation2,animation3;
-    private Button loginButton,googleSignInButton;
+    private Button loginButton;
     private EditText pwd,emailId;
     private TextView v1,iv1;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
     private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
-    private static int PICK_IMAGE = 123;
-    private Uri imagePath;
-    GoogleSignInAccount signInAccount;
 
 
 
+
+    private ProgressDialog progressDialog;
 
     private NavController navController;
-    private GoogleSignInClient mGoogleSignInClient;
-    private final static int RC_SIGN_IN = 123;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -109,7 +113,6 @@ public class LoginFragment extends Fragment {
 
         imageView1 = view.findViewById(R.id.iconLogin);
         loginButton = view.findViewById(R.id.MainLoginBtn);
-        googleSignInButton = view.findViewById(R.id.google_signIn);
         textSignup = view.findViewById(R.id.signUpLogin);
         textForgotPassword = view.findViewById(R.id.forgotPasswordLogin);
         pwd = view.findViewById(R.id.enterPasswordLogin);
@@ -117,13 +120,14 @@ public class LoginFragment extends Fragment {
         v1 = view.findViewById(R.id.visible);
         iv1 = view.findViewById(R.id.notvisible);
 
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
         storageReference = firebaseStorage.getReference();
         db = FirebaseFirestore.getInstance();
-        signInAccount = GoogleSignIn.getLastSignedInAccount(getActivity().getApplicationContext());
-
 
 
         navController = Navigation.findNavController(getActivity(),R.id.Host_Fragment1);
@@ -133,8 +137,6 @@ public class LoginFragment extends Fragment {
         animation2 = AnimationUtils.loadAnimation(getActivity(),R.anim.lefttoright);
         animation3 = AnimationUtils.loadAnimation(getActivity(),R.anim.righttoleft);
 
-
-        createGoogleRequest();
 
         v1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,22 +158,18 @@ public class LoginFragment extends Fragment {
 
         imageView1.startAnimation(animation1);
 
-        googleSignInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                signIn();
-            }
-        });
-
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                progressDialog.show();
+                progressDialog.setContentView(R.layout.progressdialog);
+
 
                 if (emailId.getText().toString().trim().length() == 0)
                 {
+                    progressDialog.dismiss();
                     emailId.setError("Email Id Required");
                     Toast toast = Toast.makeText(getActivity(),"Enter Email",Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
@@ -179,6 +177,7 @@ public class LoginFragment extends Fragment {
                 }
                 else if (pwd.getText().toString().trim().length() == 0)
                 {
+                    progressDialog.dismiss();
                     emailId.setError(null);
                     pwd.setError("Password Required");
                     Toast toast = Toast.makeText(getActivity(),"Enter Password",Toast.LENGTH_LONG);
@@ -207,6 +206,7 @@ public class LoginFragment extends Fragment {
                             else
                             {
 
+                                progressDialog.dismiss();
                                 Toast toast = Toast.makeText(getActivity(),"Enter Valid Email and Password",Toast.LENGTH_LONG);
                                 toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                                 toast.show();
@@ -248,6 +248,7 @@ public class LoginFragment extends Fragment {
         if(emailflag)
         {
 
+            progressDialog.dismiss();
             Toast.makeText(getActivity(), "Login SuccessFull", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getActivity(), DashboardActivity.class);
             startActivity(intent);
@@ -256,152 +257,6 @@ public class LoginFragment extends Fragment {
         {
             Toast.makeText(getActivity(), "Please verify your Email", Toast.LENGTH_SHORT).show();
         }
-
-    }
-
-
-    private void createGoogleRequest() {
-
-        // Configure Google Sign In
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-
-        // Build a GoogleSignInClient with the options specified by gso.
-        mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
-
-    }
-
-    private void signIn() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                // Google Sign In was successful, authenticate with Firebase
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account);
-            } catch (ApiException e) {
-                // Google Sign In failed, update UI appropriately
-                // ...
-                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }
-
-
-    }
-
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-
-
-        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-
-        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-
-                if (task.isSuccessful()) {
-
-                    sendData();
-
-
-
-                } else {
-                    Toast.makeText(getActivity(), "Sorry auth failed.", Toast.LENGTH_SHORT).show();
-
-
-                }
-
-            }
-        });
-
-    }
-
-    private void sendData()
-    {
-
-
-        String name = null;
-        String email = null;
-
-
-        if(signInAccount != null){
-
-            name = signInAccount.getDisplayName();
-            email = signInAccount.getEmail();
-            //imagePath = signInAccount.getPhotoUrl();
-        }
-
-
-        StorageReference ref = storageReference.child("User Profile Images").child(firebaseAuth.getUid());
-
-        Uri file = signInAccount.getPhotoUrl();
-        //String s = file.toString();
-        UploadTask uploadTask = ref.putFile(file);
-        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                Toast.makeText(getActivity(), "Photo uploaded", Toast.LENGTH_SHORT).show();
-
-            }
-        })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                        //Toast.makeText(getActivity(), "Photo Error", Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-
-
-
-
-
-        UserInfo obj1 = new UserInfo(name,email);
-
-        db.collection("User Profile Information")
-                .document(firebaseAuth.getUid())
-                .set(obj1)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-
-                        if (task.isSuccessful())
-                        {
-                            Toast.makeText(getActivity().getApplicationContext(),"Registration Successful!",Toast.LENGTH_LONG).show();
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
-                            Intent intent = new Intent(getContext(),DashboardActivity.class);
-                            startActivity(intent);
-
-                        }else
-                        {
-                            Toast.makeText(getActivity().getApplicationContext(),"FireStore Error!",Toast.LENGTH_LONG).show();
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                        Toast.makeText(getActivity(), "Something Wrong", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-
 
     }
 

@@ -1,7 +1,9 @@
 package com.example.cookbook.Fragments;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -77,6 +79,9 @@ public class AddRecipeFragment extends Fragment {
     String[] types = { "Select","Breakfast", "Brunch", "Lunch", "Dinner", "Snacks", "Appetisers", "Desserts", "Baking", "Drinks", "Other"};
     private Spinner spinner;
 
+    private ProgressDialog progressDialog;
+
+
     private int upload_count = 0;
     private int j = 0;
 
@@ -121,6 +126,10 @@ public class AddRecipeFragment extends Fragment {
 
         navController = Navigation.findNavController(getActivity(),R.id.Host_Fragment2);
 
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
 
         submitRecipe = view.findViewById(R.id.submitRecipeBtn);
 
@@ -159,10 +168,14 @@ public class AddRecipeFragment extends Fragment {
             public void onClick(View v) {
 
 
+                progressDialog.show();
+                progressDialog.setContentView(R.layout.progressdialog);
 
 
-                if (recipeName.getText().toString().trim().length()==0 || chefName.getText().toString().trim().length()==0 || spinner.getSelectedItemPosition()==0 || recipeDuration.getText().toString().trim().length()==0 || countryName.getText().toString().trim().length()==0 || recipeIngredients.getText().toString().trim().length()==0 || recipeDirections.getText().toString().trim().length()==0 )
+
+                if (recipeName.getText().toString().trim().length()==0 || chefName.getText().toString().trim().length()==0 || spinner.getSelectedItemPosition()==0 || recipeDuration.getText().toString().trim().length()==0 || countryName.getText().toString().trim().length()==0 || recipeIngredients.getText().toString().trim().length()==0 || recipeDirections.getText().toString().trim().length()==0 || ImageList.size() == 0)
                 {
+                    progressDialog.dismiss();
                     Toast toast = Toast.makeText(getActivity(),"Enter All Details",Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.show();
@@ -260,10 +273,6 @@ public class AddRecipeFragment extends Fragment {
     {
 
 
-        //Upload Image
-
-//        uploadData();
-
         StorageReference storageRef=FirebaseStorage.getInstance().getReference().child("Recipe Images").child(rName);
 
         for(upload_count = 0;upload_count < ImageList.size();upload_count++)
@@ -291,26 +300,6 @@ public class AddRecipeFragment extends Fragment {
             });
         }
 
-
-//        storageRef.putFile(ImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-//                if(task.isSuccessful())
-//                {
-//                    storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
-//                    {
-//                        @Override
-//                        public void onSuccess(Uri uri) {
-//                            String URL = uri.toString();
-//                            //This is your image url do whatever you want with it.
-//
-//                            uploadData(URL);
-//
-//                        }
-//                    });
-//                }
-//            }
-//        });
 
 
     }
@@ -364,6 +353,7 @@ public class AddRecipeFragment extends Fragment {
         Toast.makeText(getActivity(), "Recipe Added", Toast.LENGTH_SHORT).show();
         navController.navigate(R.id.discoverFragment);
 
+        progressDialog.dismiss();
 
     }
 
@@ -390,6 +380,7 @@ public class AddRecipeFragment extends Fragment {
             position = 0;
 
             recipeImageView.setBackground(null);
+            progressDialog.dismiss();
 
 
         }

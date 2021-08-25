@@ -14,7 +14,7 @@
         android:background="@drawable/email"
         android:layout_marginLeft="20dp"
         android:hint="Search Recipe/Chef Name"
-        android:textColor="#193566"
+        android:textColor="@color/dark"
         android:textColorHint="#A9B6C9"
         android:paddingLeft="25dp"
         android:drawablePadding="20dp"
@@ -203,5 +203,15 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nullText"
+        android:layout_centerInParent="true"
+        android:textColor="#A9B6C9"
+        android:text="@string/no_recipe_found"
+        android:textSize="30sp"
+        android:fontFamily="sans-serif"
+        android:visibility="invisible"
+        />
 </RelativeLayout>

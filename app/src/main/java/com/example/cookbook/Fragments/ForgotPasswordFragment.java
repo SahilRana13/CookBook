@@ -1,6 +1,8 @@
 package com.example.cookbook.Fragments;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -28,6 +30,9 @@ public class ForgotPasswordFragment extends Fragment {
     private EditText forgotpwd;
     private FirebaseAuth firebaseAuth;
 
+    private ProgressDialog progressDialog;
+
+
     public ForgotPasswordFragment() {
         // Required empty public constructor
     }
@@ -50,15 +55,19 @@ public class ForgotPasswordFragment extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String email = forgotpwd.getText().toString().trim();
+                progressDialog.show();
+                progressDialog.setContentView(R.layout.progressdialog);
 
-//                progressDialog.setMessage("Loading...");
-//                progressDialog.show();
+                String email = forgotpwd.getText().toString().trim();
 
 
 
@@ -67,7 +76,7 @@ public class ForgotPasswordFragment extends Fragment {
                     Toast toast = Toast.makeText(getActivity(),"Please Enter Your Email",Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL,0,0);
                     toast.show();
-                    //progressDialog.dismiss();
+                    progressDialog.dismiss();
                 }
                 else
                 {
@@ -79,7 +88,7 @@ public class ForgotPasswordFragment extends Fragment {
                             if (task.isSuccessful())
                             {
 
-                                //progressDialog.dismiss();
+                                progressDialog.dismiss();
                                 Toast toast = Toast.makeText(getActivity(),"Password Reset Email sent",Toast.LENGTH_LONG);
                                 toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL,0,0);
                                 toast.show();
@@ -89,7 +98,7 @@ public class ForgotPasswordFragment extends Fragment {
                             }
                             else
                             {
-                                //progressDialog.dismiss();
+                                progressDialog.dismiss();
                                 Toast toast = Toast.makeText(getActivity(),"Enter Registered Email", Toast.LENGTH_LONG);
                                 toast.setGravity(Gravity.BOTTOM| Gravity.CENTER_HORIZONTAL,0,0);
                                 toast.show();

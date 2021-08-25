@@ -1,5 +1,7 @@
 package com.example.cookbook.Fragments;
 
+import android.app.ProgressDialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.cookbook.Adapters.RecipeListAdapter;
 import com.example.cookbook.Models.RecipeInfo;
@@ -38,6 +41,9 @@ public class RecentlyViewedFragment extends Fragment implements SwipeRefreshLayo
     private ArrayList<RecipeInfo> list1;
     private RecipeInfo model1;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private TextView nullText;
+
+    private ProgressDialog progressDialog;
 
 
     public RecentlyViewedFragment() {
@@ -67,6 +73,15 @@ public class RecentlyViewedFragment extends Fragment implements SwipeRefreshLayo
         recyclerView1 = view.findViewById(R.id.recentRecyclerView);
         db1 = FirebaseDatabase.getInstance();
 
+        nullText = view.findViewById(R.id.recentNullText);
+
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progressdialog);
+
         swipeRefreshLayout = view.findViewById(R.id.recentSwipeRefresh);
 
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -87,6 +102,14 @@ public class RecentlyViewedFragment extends Fragment implements SwipeRefreshLayo
 
     private void getRecentRecipes() {
 
+        if (list1.size() == 0)
+        {
+            nullText.setVisibility(View.VISIBLE);
+        }else
+        {
+            nullText.setVisibility(View.INVISIBLE);
+        }
+
         swipeRefreshLayout.setRefreshing(false);
 
         root1.addChildEventListener(new ChildEventListener() {
@@ -101,6 +124,16 @@ public class RecentlyViewedFragment extends Fragment implements SwipeRefreshLayo
                 }
                 recyclerView1.setAdapter(adapter1);
                 adapter1.notifyDataSetChanged();
+                progressDialog.dismiss();
+
+                if (list1.size() == 0)
+                {
+                    nullText.setVisibility(View.VISIBLE);
+                }else
+                {
+                    nullText.setVisibility(View.INVISIBLE);
+                }
+
 
             }
 

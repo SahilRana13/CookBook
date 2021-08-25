@@ -1,5 +1,7 @@
 package com.example.cookbook.Fragments;
 
+import android.app.ProgressDialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -36,6 +38,8 @@ public class RecipeDetailsFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
 
+    private ProgressDialog progressDialog;
+
     private String fileName;
 
 
@@ -70,6 +74,13 @@ public class RecipeDetailsFragment extends Fragment {
         countryName = view.findViewById(R.id.receiveCountry);
         recipeIngredients = view.findViewById(R.id.receiveIngredients);
         recipeDirections = view.findViewById(R.id.receiveDirection);
+
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progressdialog);
 
         cardView = view.findViewById(R.id.base_cardview);
         arrow = view.findViewById(R.id.arrow_button);
@@ -245,6 +256,7 @@ public class RecipeDetailsFragment extends Fragment {
                             recipeIngredients.setText(s1.toString().trim());
                             recipeDirections.setText(s2.toString().trim());
 
+                            progressDialog.dismiss();
                             sendHistory(name1,name2,name3,name4,name5,name6,name7,name8);
 
 

@@ -1,7 +1,9 @@
 package com.example.cookbook.Fragments;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -63,6 +65,8 @@ public class SignupFragment extends Fragment {
     private EditText user_pwd1,user_pwd2,user_name,user_email;
     private TextView v1,v2,iv1,iv2;
 
+    private ProgressDialog progressDialog;
+
     public SignupFragment() {
         // Required empty public constructor
     }
@@ -84,6 +88,10 @@ public class SignupFragment extends Fragment {
         btnSignup = view.findViewById(R.id.CreateBtn);
         txtLogin = view.findViewById(R.id.LoginText);
         dpimage = view.findViewById(R.id.DpImage);
+
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
 
         user_email = view.findViewById(R.id.CreateEmail);
@@ -158,8 +166,15 @@ public class SignupFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+
+
+                progressDialog.show();
+                progressDialog.setContentView(R.layout.progressdialog);
+
+
                 if (user_name.getText().toString().trim().length()==0 || user_email.getText().toString().trim().length()==0 || user_pwd1.getText().toString().trim().length()==0 || user_pwd2.getText().toString().trim().length()==0)
                 {
+                    progressDialog.dismiss();
                     Toast toast = Toast.makeText(getActivity(),"Enter All Details",Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.show();
@@ -185,12 +200,14 @@ public class SignupFragment extends Fragment {
 
                                 if (task.getException() instanceof FirebaseAuthUserCollisionException) {
 
+                                    progressDialog.dismiss();
                                     Toast toast = Toast.makeText(getActivity(),"User with this email already exist.",Toast.LENGTH_LONG);
                                     toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                                     toast.show();
                                 }
                                 else
                                 {
+                                    progressDialog.dismiss();
                                     Toast toast = Toast.makeText(getActivity(),"Check Internet Connection",Toast.LENGTH_LONG);
                                     toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                                     toast.show();
@@ -205,6 +222,7 @@ public class SignupFragment extends Fragment {
                 }
                 else
                 {
+                    progressDialog.dismiss();
                     Toast toast = Toast.makeText(getActivity(),"Password not matched",Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.show();
@@ -234,6 +252,7 @@ public class SignupFragment extends Fragment {
 
                     else
                     {
+                        progressDialog.dismiss();
                         Toast toast = Toast.makeText(getActivity(),"Verification mail has not been sent",Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                         toast.show();
@@ -269,6 +288,7 @@ public class SignupFragment extends Fragment {
                     public void onFailure(@NonNull Exception e)
                     {
 
+                        progressDialog.dismiss();
                         Toast toast = Toast.makeText(getActivity(),"Upload Failed",Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                         toast.show();
@@ -296,6 +316,7 @@ public class SignupFragment extends Fragment {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful())
                 {
+                    progressDialog.dismiss();
                     Toast.makeText(getActivity().getApplicationContext(),"Registration Successful!",Toast.LENGTH_LONG).show();
                     FirebaseAuth.getInstance().signOut();
                     getActivity().finish();
@@ -304,42 +325,12 @@ public class SignupFragment extends Fragment {
 
                 }else
                 {
+                    progressDialog.dismiss();
                     Toast.makeText(getActivity().getApplicationContext(),"Database Error!",Toast.LENGTH_LONG).show();
                 }
             }
         });
-//
-//        db.collection("User Profile Information")
-//                .document(firebaseAuth.getUid())
-//                .set(obj1)
-//                .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//
-//                        if (task.isSuccessful())
-//                        {
-//                            Toast.makeText(getActivity().getApplicationContext(),"Registration Successful!",Toast.LENGTH_LONG).show();
-//                            FirebaseAuth.getInstance().signOut();
-//                            getActivity().finish();
-//                            startActivity(new Intent(getActivity(),MainActivity.class));
-//
-//
-//                        }else
-//                        {
-//                            Toast.makeText(getActivity().getApplicationContext(),"FireStore Error!",Toast.LENGTH_LONG).show();
-//                        }
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//
-//                        Toast.makeText(getActivity(), "Something Wrong", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//
-//
-//
+
     }
 
 

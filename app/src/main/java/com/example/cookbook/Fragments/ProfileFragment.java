@@ -1,6 +1,8 @@
 package com.example.cookbook.Fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -17,11 +19,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cookbook.Models.UserInfo;
 import com.example.cookbook.R;
+import com.github.ybq.android.spinkit.SpinKitView;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
+import com.github.ybq.android.spinkit.style.FadingCircle;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -57,6 +64,8 @@ public class ProfileFragment extends Fragment {
     private FirebaseUser currentUser;
     private FirebaseStorage firebaseStorage;
 
+    private ProgressDialog progressDialog;
+
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -82,6 +91,14 @@ public class ProfileFragment extends Fragment {
         email = view.findViewById(R.id.ProfileEmail);
         db = FirebaseFirestore.getInstance();
 
+
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progressdialog);
+
         navController = Navigation.findNavController(getActivity(),R.id.Host_Fragment2);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -105,6 +122,9 @@ public class ProfileFragment extends Fragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                progressDialog.show();
+                progressDialog.setContentView(R.layout.progressdialog);
 
                 updateData();
                 editName.setEnabled(false);
@@ -136,6 +156,7 @@ public class ProfileFragment extends Fragment {
 
                 email.setText(snapshot.child("email").getValue().toString().trim());
                 editName.setText(snapshot.child("name").getValue().toString().trim());
+
             }
 
             @Override
@@ -159,42 +180,13 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-//
-//        DocumentReference docRef = db.collection("User Profile Information").document(currentUser.getUid());
-//
-//        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//            @Override
-//            public void onSuccess(DocumentSnapshot documentSnapshot) {
-//
-//                if (documentSnapshot.exists())
-//                {
-//                    String resultEmail = documentSnapshot.getString("email");
-//                    String resultName = documentSnapshot.getString("name");
-//
-//                    email.setText(resultEmail);
-//                    editName.setText(resultName);
-//                }
-//
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//
-//                Toast.makeText(getActivity(), "Something Wrong", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+
 
 
     }
 
     private void getImage() {
 
-
-//        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(getActivity().getApplicationContext());
-//        if(signInAccount != null){
-//
-//            Picasso.get().load(signInAccount.getPhotoUrl()).into(dp);
-//        }
 
 
         StorageReference storageReference = firebaseStorage.getReference();
@@ -206,11 +198,13 @@ public class ProfileFragment extends Fragment {
                     public void onSuccess(Uri uri) {
 
                         Picasso.get().load(uri).into(dp);
+                        progressDialog.dismiss();
 
                     }
                 });
 
         dp.setBackground(null);
+
     }
 
     private void updateData() {
@@ -228,82 +222,39 @@ public class ProfileFragment extends Fragment {
 
 
 
+        if (name.length()==0)
+        {
+            progressDialog.dismiss();
+            Toast toast = Toast.makeText(getActivity(),"Enter All Details",Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+            toast.show();
+        }
+        else
+        {
 
-        userDetails.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            userDetails.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                userDetails.removeValue();
+                    userDetails.removeValue();
 
-                userDetails.push().setValue(userInfo);
+                    userDetails.push().setValue(userInfo);
 
-                Toast toast = Toast.makeText(getActivity(),"Profile Updated",Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
-                toast.show();
-            }
+                    Toast toast = Toast.makeText(getActivity(),"Profile Updated",Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                    progressDialog.dismiss();
 
-            }
-        });
-//
-//        userDetails.addChildEventListener(new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//
-//                email.setText(snapshot.child("email").getValue().toString().trim());
-//                editName.setText(snapshot.child("name").getValue().toString().trim());
-//            }
-//
-//            @Override
-//            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//
-//            }
-//
-//            @Override
-//            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-//
-//            }
-//
-//            @Override
-//            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//        db.collection("User Profile Information")
-//                .document(firebaseAuth.getUid())
-//                .update("name",name)
-//                .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//
-//
-//                        navController.navigate(R.id.profileFragment);
-//                        Toast toast = Toast.makeText(getActivity(),"Profile Updated",Toast.LENGTH_LONG);
-//                        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
-//                        toast.show();
-//                       // progressDialog.dismiss();
-//                        //getActivity().recreate();
-//
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//
-//                        Toast toast = Toast.makeText(getActivity(),"Error : "+e.getMessage(),Toast.LENGTH_LONG);
-//                        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
-//                        toast.show();
-//                        //progressDialog.dismiss();
-//                    }
-//                });
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
     }
 
 
