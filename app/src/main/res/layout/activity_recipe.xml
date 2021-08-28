@@ -50,7 +50,6 @@
         android:id="@+id/recipeTabLayout"
         android:layout_below="@id/avgRatingBar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
         app:tabMode="fixed"
         app:tabIndicatorGravity="stretch"
         app:tabSelectedTextColor="#ffffff"

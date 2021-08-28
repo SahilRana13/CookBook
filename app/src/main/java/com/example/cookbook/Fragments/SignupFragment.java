@@ -179,6 +179,13 @@ public class SignupFragment extends Fragment {
                     toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.show();
                 }
+                else if (!user_email.getText().toString().contains("[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"))
+                {
+                    progressDialog.dismiss();
+                    Toast toast = Toast.makeText(getActivity(),"Check Email ID",Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
+                }
                 else if (user_pwd1.getText().toString().trim().equals(user_pwd2.getText().toString().trim()))
                 {
                     String name = user_name.getText().toString().trim();
@@ -208,7 +215,7 @@ public class SignupFragment extends Fragment {
                                 else
                                 {
                                     progressDialog.dismiss();
-                                    Toast toast = Toast.makeText(getActivity(),"Check Internet Connection",Toast.LENGTH_LONG);
+                                    Toast toast = Toast.makeText(getActivity(),"Something Wrong",Toast.LENGTH_LONG);
                                     toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                                     toast.show();
                                 }

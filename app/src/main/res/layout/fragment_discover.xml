@@ -7,25 +7,50 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.DiscoverFragment">
 
-    <AutoCompleteTextView
-        android:layout_width="320dp"
-        android:layout_height="60dp"
-        android:id="@+id/homeSearchBar"
-        android:background="@drawable/email"
-        android:layout_marginLeft="20dp"
-        android:hint="Search Recipe/Chef Name"
-        android:textColor="@color/dark"
-        android:textColorHint="#A9B6C9"
-        android:paddingLeft="25dp"
-        android:drawablePadding="20dp"
-        android:layout_marginTop="20dp"
-        android:singleLine="true"/>
+    <RelativeLayout
+        android:id="@+id/topLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
+
+        <AutoCompleteTextView
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:id="@+id/homeSearchBar"
+            android:background="@drawable/email"
+            android:hint="Search Recipe/Chef Name"
+            android:textColor="@color/dark"
+            android:textColorHint="#A9B6C9"
+            android:paddingLeft="25dp"
+            android:drawablePadding="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:singleLine="true"/>
+
+
+        <TextView
+            android:id="@+id/button_search_discover"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:drawableLeft="@drawable/ic_baseline_search_24"
+            android:layout_toEndOf="@+id/homeSearchBar"
+            android:padding="5sp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/button_background"
+            android:textColor="#000000"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"/>
+
+
+    </RelativeLayout>
+
+
 
     <HorizontalScrollView
         android:id="@+id/recipeTypeView"
         android:layout_width="match_parent"
         android:layout_height="60sp"
-        android:layout_below="@id/homeSearchBar"
+        android:layout_below="@id/topLayout"
         android:layout_marginTop="10dp"
         android:scrollbars="none">
 
@@ -163,15 +188,6 @@
         </RelativeLayout>
     </HorizontalScrollView>
 
-    <TextView
-        android:id="@+id/button_search_discover"
-        android:layout_width="40dp"
-        android:layout_height="60dp"
-        android:drawableLeft="@drawable/ic_baseline_search_24"
-        android:layout_marginLeft="340dp"
-        android:textColor="#000000"
-        android:paddingLeft="10dp"
-        android:layout_marginTop="20dp"/>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="0dp"
