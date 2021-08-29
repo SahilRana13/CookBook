@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -170,24 +171,21 @@ public class LoginFragment extends Fragment {
                 if (emailId.getText().toString().trim().length() == 0)
                 {
                     progressDialog.dismiss();
-                    emailId.setError("Email Id Required");
-                    Toast toast = Toast.makeText(getActivity(),"Enter Email",Toast.LENGTH_LONG);
+
+                    int enter_email;
+                    Toast toast = Toast.makeText(getActivity(),R.string.enter_email,Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.show();
                 }
                 else if (pwd.getText().toString().trim().length() == 0)
                 {
                     progressDialog.dismiss();
-                    emailId.setError(null);
-                    pwd.setError("Password Required");
-                    Toast toast = Toast.makeText(getActivity(),"Enter Password",Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getActivity(),R.string.enter_password,Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.show();
                 }
                 else
                 {
-                    emailId.setError(null);
-                    pwd.setError(null);
 
                     String email = emailId.getText().toString().trim();
                     String password = pwd.getText().toString().trim();
@@ -207,7 +205,7 @@ public class LoginFragment extends Fragment {
                             {
 
                                 progressDialog.dismiss();
-                                Toast toast = Toast.makeText(getActivity(),"Enter Valid Email and Password",Toast.LENGTH_LONG);
+                                Toast toast = Toast.makeText(getActivity(),R.string.Enter_Valid_Email_Password,Toast.LENGTH_LONG);
                                 toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                                 toast.show();
                             }
@@ -249,13 +247,13 @@ public class LoginFragment extends Fragment {
         {
 
             progressDialog.dismiss();
-            Toast.makeText(getActivity(), "Login SuccessFull", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.Login_SuccessFull, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getActivity(), DashboardActivity.class);
             startActivity(intent);
         }
         else
         {
-            Toast.makeText(getActivity(), "Please verify your Email", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.Please_verify_your_Email, Toast.LENGTH_SHORT).show();
         }
 
     }

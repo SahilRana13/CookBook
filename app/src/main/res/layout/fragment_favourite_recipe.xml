@@ -42,7 +42,7 @@
         android:id="@+id/favNullText"
         android:layout_centerInParent="true"
         android:textColor="#A9B6C9"
-        android:text="No Favourite Recipes"
+        android:text="@string/No_Favourite_Recipes"
         android:textSize="30sp"
         android:fontFamily="sans-serif"
         android:visibility="invisible"

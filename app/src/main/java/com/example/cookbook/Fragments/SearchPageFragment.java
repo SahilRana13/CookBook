@@ -118,7 +118,7 @@ public class SearchPageFragment extends Fragment {
                     adapter.notifyDataSetChanged();
                 }
 
-                tv.setText(searchNumber+" Search Results for\n'"+finalSearch+"'");
+                tv.setText(searchNumber+" "+getString(R.string.Search_Results_for)+"\n'"+finalSearch+"'");
                 progressDialog.dismiss();
             }
 

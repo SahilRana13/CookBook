@@ -106,9 +106,11 @@ public class  FavouriteRecipeFragment extends Fragment implements SwipeRefreshLa
 
         if (list1.size() == 0)
         {
+            progressDialog.dismiss();
             nullText.setVisibility(View.VISIBLE);
         }else
         {
+            progressDialog.dismiss();
             nullText.setVisibility(View.INVISIBLE);
         }
 

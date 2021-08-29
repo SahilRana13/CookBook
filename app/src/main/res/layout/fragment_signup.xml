@@ -31,7 +31,7 @@
                 android:id="@+id/selectimage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tap to choose Image"
+                android:text="@string/Tap_to_choose_Image"
                 android:textStyle="bold"
                 android:textSize="15dp"
                 android:textColor="@color/dark"

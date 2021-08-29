@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/clearList"
-        android:title="Clear List"
+        android:title="@string/Clear_List"
         app:showAsAction="never"/>
 
 

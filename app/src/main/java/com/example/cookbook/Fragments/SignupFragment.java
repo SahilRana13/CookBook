@@ -83,7 +83,7 @@ public class SignupFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getActivity().setTitle("Signup");
+        getActivity().setTitle(R.string.Signup);
 
         btnSignup = view.findViewById(R.id.CreateBtn);
         txtLogin = view.findViewById(R.id.LoginText);
@@ -155,7 +155,7 @@ public class SignupFragment extends Fragment {
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                SignupFragment.this.startActivityForResult(Intent.createChooser(intent, "Choose Image"), PICK_IMAGE);
+                SignupFragment.this.startActivityForResult(Intent.createChooser(intent, getString(R.string.Choose_Image)), PICK_IMAGE);
             }
         });
 
@@ -175,14 +175,14 @@ public class SignupFragment extends Fragment {
                 if (user_name.getText().toString().trim().length()==0 || user_email.getText().toString().trim().length()==0 || user_pwd1.getText().toString().trim().length()==0 || user_pwd2.getText().toString().trim().length()==0)
                 {
                     progressDialog.dismiss();
-                    Toast toast = Toast.makeText(getActivity(),"Enter All Details",Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getActivity(),R.string.Enter_All_Details,Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.show();
                 }
                 else if (!user_email.getText().toString().contains("[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"))
                 {
                     progressDialog.dismiss();
-                    Toast toast = Toast.makeText(getActivity(),"Check Email ID",Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getActivity(),R.string.Check_Email_ID,Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.show();
                 }
@@ -208,14 +208,14 @@ public class SignupFragment extends Fragment {
                                 if (task.getException() instanceof FirebaseAuthUserCollisionException) {
 
                                     progressDialog.dismiss();
-                                    Toast toast = Toast.makeText(getActivity(),"User with this email already exist.",Toast.LENGTH_LONG);
+                                    Toast toast = Toast.makeText(getActivity(),R.string.User_already_exists,Toast.LENGTH_LONG);
                                     toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                                     toast.show();
                                 }
                                 else
                                 {
                                     progressDialog.dismiss();
-                                    Toast toast = Toast.makeText(getActivity(),"Something Wrong",Toast.LENGTH_LONG);
+                                    Toast toast = Toast.makeText(getActivity(),R.string.Something_Wrong,Toast.LENGTH_LONG);
                                     toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                                     toast.show();
                                 }
@@ -230,7 +230,7 @@ public class SignupFragment extends Fragment {
                 else
                 {
                     progressDialog.dismiss();
-                    Toast toast = Toast.makeText(getActivity(),"Password not matched",Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getActivity(),R.string.Password_not_matched,Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.show();
                 }
@@ -260,7 +260,7 @@ public class SignupFragment extends Fragment {
                     else
                     {
                         progressDialog.dismiss();
-                        Toast toast = Toast.makeText(getActivity(),"Verification mail has not been sent",Toast.LENGTH_LONG);
+                        Toast toast = Toast.makeText(getActivity(),R.string.Verification_mailhasnotbeen_sent,Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                         toast.show();
                     }
@@ -276,7 +276,7 @@ public class SignupFragment extends Fragment {
     {
 
 
-        StorageReference ref = storageReference.child("User Profile Images").child(firebaseAuth.getUid());
+        StorageReference ref = storageReference.child(String.valueOf(R.string.User_Profile_Images)).child(firebaseAuth.getUid());
 
         ref.putFile(imagePath)
                 .addOnSuccessListener(
@@ -286,7 +286,6 @@ public class SignupFragment extends Fragment {
                             public void onSuccess(
                                     UploadTask.TaskSnapshot taskSnapshot)
                             {
-
                             }
                         })
 
@@ -296,7 +295,7 @@ public class SignupFragment extends Fragment {
                     {
 
                         progressDialog.dismiss();
-                        Toast toast = Toast.makeText(getActivity(),"Upload Failed",Toast.LENGTH_LONG);
+                        Toast toast = Toast.makeText(getActivity(),R.string.Upload_Failed,Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                         toast.show();
 
@@ -310,7 +309,7 @@ public class SignupFragment extends Fragment {
         String email = user_email.getText().toString().trim();
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference reference = firebaseDatabase.getReference().child("User Profile Details");
+        DatabaseReference reference = firebaseDatabase.getReference().child(String.valueOf(R.string.User_Profile_Images));
 
         DatabaseReference userDetails = reference.child(firebaseAuth.getUid()).push();
 
@@ -324,7 +323,7 @@ public class SignupFragment extends Fragment {
                 if (task.isSuccessful())
                 {
                     progressDialog.dismiss();
-                    Toast.makeText(getActivity().getApplicationContext(),"Registration Successful!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity().getApplicationContext(),R.string.Registration_Successful,Toast.LENGTH_LONG).show();
                     FirebaseAuth.getInstance().signOut();
                     getActivity().finish();
                     startActivity(new Intent(getActivity(),MainActivity.class));
@@ -333,7 +332,7 @@ public class SignupFragment extends Fragment {
                 }else
                 {
                     progressDialog.dismiss();
-                    Toast.makeText(getActivity().getApplicationContext(),"Database Error!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity().getApplicationContext(),R.string.Database_Error,Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -354,8 +353,6 @@ public class SignupFragment extends Fragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-
         }
 
         super.onActivityResult(requestCode, resultCode, data);

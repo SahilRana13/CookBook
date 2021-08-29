@@ -225,7 +225,7 @@ public class ProfileFragment extends Fragment {
         if (name.length()==0)
         {
             progressDialog.dismiss();
-            Toast toast = Toast.makeText(getActivity(),"Enter All Details",Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(getActivity(),R.string.Enter_All_Details,Toast.LENGTH_LONG);
             toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
             toast.show();
         }
@@ -240,7 +240,7 @@ public class ProfileFragment extends Fragment {
 
                     userDetails.push().setValue(userInfo);
 
-                    Toast toast = Toast.makeText(getActivity(),"Profile Updated",Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getActivity(),R.string.Profile_Updated,Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.show();
 

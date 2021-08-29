@@ -52,7 +52,7 @@
                             android:id="@+id/heading"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Basic :"
+                            android:text="@string/Basic"
                             android:textColor="@color/dark"
                             android:textSize="25dp"
                             android:textStyle="bold"

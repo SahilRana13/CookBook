@@ -77,15 +77,15 @@ public class RecipeReviewFragment extends Fragment {
 
                 rateValue = ratingBar.getRating();
                 if(rateValue<=1 && rateValue>0)
-                    Toast.makeText(getActivity(), "Bad-"+rateValue, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getText(R.string.Bad)+""+rateValue, Toast.LENGTH_SHORT).show();
                 else if(rateValue<=2 && rateValue>1)
-                    Toast.makeText(getActivity(), "Ok-"+rateValue, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getText(R.string.Ok)+""+rateValue, Toast.LENGTH_SHORT).show();
                 else if(rateValue<=3 && rateValue>2)
-                    Toast.makeText(getActivity(), "Good-"+rateValue, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getText(R.string.Good)+""+rateValue, Toast.LENGTH_SHORT).show();
                 else if(rateValue<=4 && rateValue>3)
-                    Toast.makeText(getActivity(), "Very Good-"+rateValue, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getText(R.string.Very_Good)+""+rateValue, Toast.LENGTH_SHORT).show();
                 else if(rateValue<=5 && rateValue>4)
-                    Toast.makeText(getActivity(), "Best-"+rateValue, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getText(R.string.Best)+""+rateValue, Toast.LENGTH_SHORT).show();
             }
         });
 

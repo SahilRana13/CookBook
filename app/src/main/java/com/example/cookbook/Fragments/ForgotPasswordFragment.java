@@ -73,7 +73,7 @@ public class ForgotPasswordFragment extends Fragment {
 
                 if(email.length() == 0)
                 {
-                    Toast toast = Toast.makeText(getActivity(),"Please Enter Your Email",Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getActivity(),R.string.Please_Enter_Your_Email,Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL,0,0);
                     toast.show();
                     progressDialog.dismiss();
@@ -89,7 +89,7 @@ public class ForgotPasswordFragment extends Fragment {
                             {
 
                                 progressDialog.dismiss();
-                                Toast toast = Toast.makeText(getActivity(),"Password Reset Email sent",Toast.LENGTH_LONG);
+                                Toast toast = Toast.makeText(getActivity(),R.string.Password_Reset_Email_sent,Toast.LENGTH_LONG);
                                 toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL,0,0);
                                 toast.show();
 
@@ -99,7 +99,7 @@ public class ForgotPasswordFragment extends Fragment {
                             else
                             {
                                 progressDialog.dismiss();
-                                Toast toast = Toast.makeText(getActivity(),"Enter Registered Email", Toast.LENGTH_LONG);
+                                Toast toast = Toast.makeText(getActivity(),R.string.Enter_Registered_Email, Toast.LENGTH_LONG);
                                 toast.setGravity(Gravity.BOTTOM| Gravity.CENTER_HORIZONTAL,0,0);
                                 toast.show();
 

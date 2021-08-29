@@ -19,7 +19,6 @@
     <string name="signup">New here? <u><b>Sign up</b></u> instead</string>
     <string name="sign_in_with_google">Sign In with Google</string>
     <string name="or">OR</string>
-
     <string name="login">Do you have an account? <u><b>Log in</b></u></string>
 
 
@@ -83,4 +82,54 @@
     <string name="Login">Login</string>
     <string name="no_recipe_found">No Recipe Found</string>
     <string name="admin_home">Admin Home</string>
+    <string name="Email_Id_Required">Email Id Required</string>
+    <string name="Password_Required">Password Required</string>
+    <string name="Enter_Valid_Email_Password">Enter Valid Email and Password</string>
+    <string name="Login_SuccessFull">Login SuccessFull</string>
+    <string name="Please_verify_your_Email">Please verify your Email</string>
+    <string name="Signup">Signup</string>
+    <string name="Tap_to_choose_Image">Tap to choose Image</string>
+    <string name="Choose_Image">Choose Image</string>
+    <string name="Enter_All_Details">Enter All Details</string>
+    <string name="Check_Email_ID">Check Email ID</string>
+    <string name="User_already_exists">User with this email already exist.</string>
+    <string name="Something_Wrong">Something Wrong</string>
+    <string name="Password_not_matched">Password not matched</string>
+    <string name="Verification_mailhasnotbeen_sent">Verification mail has not been sent</string>
+    <string name="User_Profile_Images">User Profile Images</string>
+    <string name="Upload_Failed">Upload Failed</string>
+    <string name="User_Profile_Details">User Profile Details</string>
+    <string name="Registration_Successful">Registration Successful</string>
+    <string name="Database_Error">Database Error!</string>
+    <string name="Clear_List">Clear List</string>
+    <string name="Basic">Basic</string>
+    <string name="All">All</string>
+    <string name="Breakfast">Breakfast</string>
+    <string name="Brunch">Brunch</string>
+    <string name="Lunch">Lunch</string>
+    <string name="Dinner">Dinner</string>
+    <string name="Snacks">Snacks</string>
+    <string name="Appetisers">Appetisers</string>
+    <string name="Desserts">Desserts</string>
+    <string name="Baking">Baking</string>
+    <string name="Drinks">Drinks</string>
+    <string name="Others">Others</string>
+    <string name="select">Select</string>
+    <string name="Select">select</string>
+    <string name="Bad">Bad</string>
+    <string name="Ok">Ok</string>
+    <string name="Good">Good</string>
+    <string name="Very_Good">Very Good</string>
+    <string name="Best">Best</string>
+    <string name="Search_Recipe_ChefName">Search Recipe/Chef Name</string>
+    <string name="Search_Results_for">Search Results for</string>
+    <string name="Recipe_Updated">Recipe Updated</string>
+    <string name="Profile_Updated">Profile Updated</string>
+    <string name="No_Favourite_Recipes">No Favourite Recipes</string>
+    <string name="NoRecipe_History">No Recipe History</string>
+    <string name="Loggedout">Logged out</string>
+    <string name="Please_Enter_Your_Email">Please Enter Your Email</string>
+    <string name="Password_Reset_Email_sent">Password Reset Email sent</string>
+    <string name="Enter_Registered_Email">Enter Registered Email</string>
+
 </resources>

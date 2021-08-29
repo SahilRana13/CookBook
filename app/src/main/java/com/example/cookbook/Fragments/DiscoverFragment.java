@@ -217,6 +217,9 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
                 progressDialog.show();
                 progressDialog.setContentView(R.layout.progressdialog);
 
+                list.clear();
+                adapter.notifyDataSetChanged();
+
                 btnAll.setBackground(drawable);
                 btnAll.setTextColor(Color.parseColor("#ECF0F3"));
 

@@ -288,7 +288,7 @@ public class MyRecipeDetailsFragment extends Fragment {
                 || country.length() == 0 || rIngredients.length() == 0 || rDirections.length() == 0)
         {
             progressDialog.dismiss();
-            Toast toast = Toast.makeText(getActivity(),"Enter All Details",Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(getActivity(),R.string.Enter_All_Details,Toast.LENGTH_LONG);
             toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
             toast.show();
         }
@@ -306,7 +306,7 @@ public class MyRecipeDetailsFragment extends Fragment {
                         recipeListBranch.child(strName).push().setValue(recipeInfo);
                         progressDialog.dismiss();
 
-                        Toast toast = Toast.makeText(getActivity(),"Recipe Updated",Toast.LENGTH_LONG);
+                        Toast toast = Toast.makeText(getActivity(),R.string.Recipe_Updated,Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                         toast.show();
 

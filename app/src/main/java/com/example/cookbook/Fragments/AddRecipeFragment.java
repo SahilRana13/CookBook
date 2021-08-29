@@ -76,7 +76,8 @@ public class AddRecipeFragment extends Fragment {
     ArrayList<Uri> ImageList = new ArrayList<Uri>();
     private Uri ImageUri;
     private int position = 0;
-    String[] types = { "Select","Breakfast", "Brunch", "Lunch", "Dinner", "Snacks", "Appetisers", "Desserts", "Baking", "Drinks", "Other"};
+
+    String[] types = {"Select","Breakfast", "Brunch", "Lunch", "Dinner", "Snacks", "Appetisers", "Desserts", "Baking", "Drinks", "Other"};
     private Spinner spinner;
 
     private ProgressDialog progressDialog;
@@ -176,7 +177,7 @@ public class AddRecipeFragment extends Fragment {
                 if (recipeName.getText().toString().trim().length()==0 || chefName.getText().toString().trim().length()==0 || spinner.getSelectedItemPosition()==0 || recipeDuration.getText().toString().trim().length()==0 || countryName.getText().toString().trim().length()==0 || recipeIngredients.getText().toString().trim().length()==0 || recipeDirections.getText().toString().trim().length()==0 || ImageList.size() == 0)
                 {
                     progressDialog.dismiss();
-                    Toast toast = Toast.makeText(getActivity(),"Enter All Details",Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getActivity(),R.string.Enter_All_Details,Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.show();
                 }

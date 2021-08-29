@@ -104,9 +104,11 @@ public class RecentlyViewedFragment extends Fragment implements SwipeRefreshLayo
 
         if (list1.size() == 0)
         {
+            progressDialog.dismiss();
             nullText.setVisibility(View.VISIBLE);
         }else
         {
+            progressDialog.dismiss();
             nullText.setVisibility(View.INVISIBLE);
         }
 
@@ -127,9 +129,11 @@ public class RecentlyViewedFragment extends Fragment implements SwipeRefreshLayo
 
                 if (list1.size() == 0)
                 {
+                    progressDialog.dismiss();
                     nullText.setVisibility(View.VISIBLE);
                 }else
                 {
+                    progressDialog.dismiss();
                     nullText.setVisibility(View.INVISIBLE);
                 }
 

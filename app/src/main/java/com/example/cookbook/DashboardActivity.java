@@ -111,7 +111,7 @@ public class DashboardActivity extends AppCompatActivity {
 
                     case R.id.Logout :
 
-                        Toast toast = Toast.makeText(DashboardActivity.this,"Logged out",Toast.LENGTH_LONG);
+                        Toast toast = Toast.makeText(DashboardActivity.this,R.string.Loggedout,Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                         toast.show();
                         firebaseAuth.signOut();
