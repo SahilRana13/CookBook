@@ -231,10 +231,6 @@ public class RecipeActivity extends AppCompatActivity {
                     count = count + 1.0;
                     average = total / count;
 
-
-
-
-
                 }
 
 

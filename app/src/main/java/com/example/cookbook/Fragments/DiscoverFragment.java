@@ -54,7 +54,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
     private FirebaseAuth firebaseAuth;
     private RecipeListAdapter adapter;
     private ArrayList<RecipeInfo> list;
-    private RecipeInfo model,model_1;
+    private RecipeInfo model;
     private int count = 1;
     private Button btnAll, btnBreakfast, btnBrunch, btnLunch, btnDinner, btnSnacks, btnAppetisers, btnDesserts, btnBaking, btnDrinks, btnOther;
 
@@ -141,11 +141,8 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
         adapter = new RecipeListAdapter(getContext(),list);
 
 
-        //Sahil's
         mref = FirebaseDatabase.getInstance().getReference("recipe_chef's_names");
-        //recipeList = view.findViewById(R.id.autocomplete_search_list);
         autoCompleteTextView = view.findViewById(R.id.homeSearchBar);
-        //databasebutton = view.findViewById(R.id.database_button);
 
         ValueEventListener event = new ValueEventListener() {
             @Override
@@ -1393,7 +1390,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                 if (snapshot.exists())
                 {
-
+                    Log.e("Success","Response");
                 }
             }
 

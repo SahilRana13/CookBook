@@ -25,7 +25,6 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.My
     Context context;
     ArrayList<RecipeInfo> mList;
     String recipetext;
-    String recipeImage;
 
 
     public RecipeListAdapter(Context context, ArrayList<RecipeInfo> mList) {

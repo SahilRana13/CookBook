@@ -83,10 +83,7 @@ public class MyRecipeFragment extends Fragment {
     private ImageView myImage;
     private TextView myName;
 
-    private ListView recipeList;
-    DatabaseReference mref;
     public String recipe;
-    private EditText myRecipeSearch;
     private NavController navController;
 
 

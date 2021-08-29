@@ -14,7 +14,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-    <!--Base CardView-->
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/base_cardview"
                 style="@style/Base.CardView"
@@ -28,8 +28,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.021">
 
-                <!--This is a ConstraintLayout for the entire CardView
-                           including the expandable portion-->
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -38,11 +36,7 @@
                     app:layout_constraintVertical_bias="0.511"
                     tools:layout_editor_absoluteX="-55dp">
 
-                    <!--This is a ConstraintLayout for the fixed portion
-                        of the CardView. The elements
-                        that lie within the fixed portion of the CardView
-                        can be constrained to this layout.-->
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                   <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/fixed_layout"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
@@ -54,7 +48,6 @@
                         app:layout_constraintVertical_bias="0.0">
 
 
-                        <!--This is ImageButton for the expansion icon.-->
                         <TextView
                             android:id="@+id/heading"
                             android:layout_width="wrap_content"
@@ -93,7 +86,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/fixed_layout">
 
-                        <!--Child LinearLayout 1-->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -128,7 +120,6 @@
 
                         </LinearLayout>
 
-                        <!--Child LinearLayout 2-->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -162,7 +153,6 @@
 
                         </LinearLayout>
 
-                        <!--Child LinearLayout 3-->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -194,7 +184,7 @@
                                 android:inputType="textPersonName"/>
 
                         </LinearLayout>
-                    <!--Child LinearLayout 3-->
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -282,8 +272,6 @@
                 app:layout_constraintVertical_bias="0.021"
                 >
 
-                <!--This is a ConstraintLayout for the entire CardView
-                           including the expandable portion-->
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -292,10 +280,6 @@
                     app:layout_constraintVertical_bias="0.511"
                     tools:layout_editor_absoluteX="-55dp">
 
-                    <!--This is a ConstraintLayout for the fixed portion
-                        of the CardView. The elements
-                        that lie within the fixed portion of the CardView
-                        can be constrained to this layout.-->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/fixed_layout2"
                         android:layout_width="match_parent"
@@ -307,8 +291,6 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.0">
 
-
-                        <!--This is ImageButton for the expansion icon.-->
 
                         <TextView
                             android:id="@+id/heading2"
@@ -348,7 +330,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/fixed_layout2">
 
-                        <!--Child LinearLayout 1-->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -369,7 +350,7 @@
                                 android:paddingBottom="10dp"
                                 android:layout_gravity="center_horizontal"
                                 android:inputType="textMultiLine"/>
-                            <!--android:maxLines="4"-->
+
 
                         </LinearLayout>
 
@@ -393,8 +374,6 @@
                 app:layout_constraintVertical_bias="0.021"
                 >
 
-                <!--This is a ConstraintLayout for the entire CardView
-                           including the expandable portion-->
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -403,10 +382,6 @@
                     app:layout_constraintVertical_bias="0.511"
                     tools:layout_editor_absoluteX="-55dp">
 
-                    <!--This is a ConstraintLayout for the fixed portion
-                        of the CardView. The elements
-                        that lie within the fixed portion of the CardView
-                        can be constrained to this layout.-->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/fixed_layout3"
                         android:layout_width="match_parent"
@@ -418,8 +393,6 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.0">
 
-
-                        <!--This is ImageButton for the expansion icon.-->
 
                         <TextView
                             android:id="@+id/heading3"
@@ -459,7 +432,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/fixed_layout3">
 
-                        <!--Child LinearLayout 1-->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -480,7 +452,6 @@
                                 android:paddingBottom="10dp"
                                 android:layout_gravity="center_horizontal"
                                 android:inputType="textMultiLine"/>
-                            <!--android:maxLines="4"-->
 
                         </LinearLayout>
 

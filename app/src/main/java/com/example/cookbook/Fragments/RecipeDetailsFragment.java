@@ -97,30 +97,18 @@ public class RecipeDetailsFragment extends Fragment {
 
         fileName = this.getArguments().getString("key");
 
-        //Toast.makeText(getActivity(), fileName, Toast.LENGTH_SHORT).show();
-
-
         arrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                // If the CardView is already expanded, set its visibility
-                //  to gone and change the expand less icon to expand more.
-                if (hiddenView.getVisibility() == View.VISIBLE) {
+               if (hiddenView.getVisibility() == View.VISIBLE) {
 
-                    // The transition of the hiddenView is carried out
-                    //  by the TransitionManager class.
-                    // Here we use an object of the AutoTransition
-                    // Class to create a default transition.
-                    TransitionManager.beginDelayedTransition(cardView,
+                   TransitionManager.beginDelayedTransition(cardView,
                             new AutoTransition());
                     hiddenView.setVisibility(View.GONE);
                     arrow.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
                 }
-
-                // If the CardView is not expanded, set its visibility
-                // to visible and change the expand more icon to expand less.
-                else {
+               else {
 
                     TransitionManager.beginDelayedTransition(cardView,
                             new AutoTransition());
@@ -134,22 +122,13 @@ public class RecipeDetailsFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                // If the CardView is already expanded, set its visibility
-                //  to gone and change the expand less icon to expand more.
                 if (hiddenView2.getVisibility() == View.VISIBLE) {
 
-                    // The transition of the hiddenView is carried out
-                    //  by the TransitionManager class.
-                    // Here we use an object of the AutoTransition
-                    // Class to create a default transition.
                     TransitionManager.beginDelayedTransition(cardView2,
                             new AutoTransition());
                     hiddenView2.setVisibility(View.GONE);
                     arrow2.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
                 }
-
-                // If the CardView is not expanded, set its visibility
-                // to visible and change the expand more icon to expand less.
                 else {
 
                     TransitionManager.beginDelayedTransition(cardView2,
@@ -164,22 +143,13 @@ public class RecipeDetailsFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                // If the CardView is already expanded, set its visibility
-                //  to gone and change the expand less icon to expand more.
                 if (hiddenView3.getVisibility() == View.VISIBLE) {
 
-                    // The transition of the hiddenView is carried out
-                    //  by the TransitionManager class.
-                    // Here we use an object of the AutoTransition
-                    // Class to create a default transition.
                     TransitionManager.beginDelayedTransition(cardView3,
                             new AutoTransition());
                     hiddenView3.setVisibility(View.GONE);
                     arrow3.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
                 }
-
-                // If the CardView is not expanded, set its visibility
-                // to visible and change the expand more icon to expand less.
                 else {
 
                     TransitionManager.beginDelayedTransition(cardView3,

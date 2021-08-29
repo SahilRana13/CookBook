@@ -36,7 +36,7 @@ public class SearchPageFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     private RecipeListAdapter adapter;
     private ArrayList<RecipeInfo> list;
-    private RecipeInfo model,model_1;
+    private RecipeInfo model;
     private int count = 1;
     private int searchNumber =0;
 
@@ -93,12 +93,8 @@ public class SearchPageFragment extends Fragment {
         if (bundle!=null)
         {
             search = bundle.getString("recipe");
-            //tv.setText(search);
         }
-        /*else
-        {
-            tv.setText("Search Result");
-        }*/
+
 
         root = db.getReference().child("User Recipe Details");
 

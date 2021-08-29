@@ -115,11 +115,10 @@ public class RecentlyViewedFragment extends Fragment implements SwipeRefreshLayo
         root1.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                for (DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    //for (DataSnapshot ds: dataSnapshot.getChildren()){
+                for (DataSnapshot dataSnapshot: snapshot.getChildren())
+                {
                     model1 = dataSnapshot.getValue(RecipeInfo.class);
                     list1.add(model1);
-                    //}
 
                 }
                 recyclerView1.setAdapter(adapter1);
@@ -177,7 +176,6 @@ public class RecentlyViewedFragment extends Fragment implements SwipeRefreshLayo
             adapter1.notifyDataSetChanged();
             getRecentRecipes();
 
-            // Not implemented here
         }
 
         return super.onOptionsItemSelected(item);

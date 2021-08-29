@@ -181,7 +181,6 @@ public class  FavouriteRecipeFragment extends Fragment implements SwipeRefreshLa
             adapter1.notifyDataSetChanged();
             getFavRecipes();
 
-            // Not implemented here
         }
 
         return super.onOptionsItemSelected(item);

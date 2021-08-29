@@ -63,7 +63,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class AddRecipeFragment extends Fragment {
 
-    private EditText recipeName,chefName,recipeType,recipeDuration,countryName,recipeIngredients,recipeDirections;
+    private EditText recipeName,chefName,recipeDuration,countryName,recipeIngredients,recipeDirections;
     private Button submitRecipe;
     private ImageSwitcher recipeImageView;
     private ImageButton next,previous;
@@ -233,7 +233,6 @@ public class AddRecipeFragment extends Fragment {
                 }
                 else
                 {
-                    //previous.setImageDrawable();
                     Toast.makeText(getActivity(), "No Previous Images", Toast.LENGTH_SHORT).show();
                 }
 
@@ -291,8 +290,6 @@ public class AddRecipeFragment extends Fragment {
 
                             String url = String.valueOf(uri);
 
-                            //StoreLink(url,upload_count);
-
                             uploadData(url);
                         }
                     });
@@ -312,8 +309,6 @@ public class AddRecipeFragment extends Fragment {
         DatabaseReference reference = firebaseDatabase.getReference().child("User Recipe Details");
 
         DatabaseReference recipeListBranch = reference.child(firebaseAuth.getUid()).child(rName).push();
-
-        //RecipeInfo recipeInfo = new RecipeInfo(rName,cName,rType,rDuration,country,rIngredients,rDirections);
 
         RecipeInfo recipeInfo = new RecipeInfo(rName,cName,rType,rDuration,country,rIngredients,rDirections,url);
 
@@ -346,9 +341,6 @@ public class AddRecipeFragment extends Fragment {
         hashMap.put("recipeImageLink",url);
 
         recipeListBranch1.push().setValue(hashMap);
-
-
-        //StoreLink(string);
 
         Toast.makeText(getActivity(), "Recipe Added", Toast.LENGTH_SHORT).show();
         navController.navigate(R.id.discoverFragment);
@@ -396,7 +388,7 @@ public class AddRecipeFragment extends Fragment {
 
         super.onActivityResult(requestCode, resultCode, data);
 
-//
+
     }
 
     private void saveData() {

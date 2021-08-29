@@ -46,8 +46,6 @@ public class MyRecipeListAdapter extends RecyclerView.Adapter<MyRecipeListAdapte
     String recipeImage;
     public RecipeInfo model;
 
-    //Context myContext = exampleViewHolder.itemView.getContext()
-
 
     public MyRecipeListAdapter() {
     }

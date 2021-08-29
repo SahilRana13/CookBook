@@ -28,27 +28,6 @@
         android:textStyle="bold"/>
 
 
-    <!--<EditText
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:id="@+id/mySearchBarView"
-        android:background="@drawable/email"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/myTextView"
-        android:hint="Search Recipe"
-        android:textColor="#193566"
-        android:textColorHint="#A9B6C9"
-        android:paddingLeft="25dp"
-        android:drawablePadding="20dp"
-        android:layout_marginTop="20dp"
-        android:singleLine="true"/>-->
-
-    <!--<ListView
-        android:id="@+id/myRecipe_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/mySearchBarView"/>-->
-
     <View
         android:layout_width="350dp"
         android:layout_height="2dp"

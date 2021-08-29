@@ -282,8 +282,6 @@ public class MyRecipeDetailsFragment extends Fragment {
 
         DatabaseReference recipeListBranch = reference.child(firebaseAuth.getUid());
 
-        //RecipeInfo recipeInfo = new RecipeInfo(rName,cName,rType,rDuration,country,rIngredients,rDirections);
-
         RecipeInfo recipeInfo = new RecipeInfo(rName,cName,rType,rDuration,country,rIngredients,rDirections,name8);
 
         if (rName.length() == 0 || cName.length() == 0 || rType.length() == 0 || rDuration.length() == 0
