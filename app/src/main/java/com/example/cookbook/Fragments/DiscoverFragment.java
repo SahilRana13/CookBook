@@ -99,6 +99,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         progressDialog.show();
         progressDialog.setContentView(R.layout.progressdialog);
+        progressDialog.dismiss();
 
         btnAll = view.findViewById(R.id.r1);
         btnBreakfast = view.findViewById(R.id.r2);
@@ -216,6 +217,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                 progressDialog.show();
                 progressDialog.setContentView(R.layout.progressdialog);
+                progressDialog.dismiss();
 
                 list.clear();
                 adapter.notifyDataSetChanged();
@@ -306,6 +308,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                 progressDialog.show();
                 progressDialog.setContentView(R.layout.progressdialog);
+                progressDialog.dismiss();
 
                 list.clear();
                 adapter.notifyDataSetChanged();
@@ -398,6 +401,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                 progressDialog.show();
                 progressDialog.setContentView(R.layout.progressdialog);
+                progressDialog.dismiss();
 
                 list.clear();
                 adapter.notifyDataSetChanged();
@@ -489,6 +493,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                 progressDialog.show();
                 progressDialog.setContentView(R.layout.progressdialog);
+                progressDialog.dismiss();
 
 
                 list.clear();
@@ -581,6 +586,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                 progressDialog.show();
                 progressDialog.setContentView(R.layout.progressdialog);
+                progressDialog.dismiss();
 
                 list.clear();
                 adapter.notifyDataSetChanged();
@@ -672,7 +678,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                 progressDialog.show();
                 progressDialog.setContentView(R.layout.progressdialog);
-
+                progressDialog.dismiss();
 
                 list.clear();
                 adapter.notifyDataSetChanged();
@@ -764,7 +770,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                 progressDialog.show();
                 progressDialog.setContentView(R.layout.progressdialog);
-
+                progressDialog.dismiss();
 
                 list.clear();
                 adapter.notifyDataSetChanged();
@@ -856,6 +862,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                 progressDialog.show();
                 progressDialog.setContentView(R.layout.progressdialog);
+                progressDialog.dismiss();
 
                 list.clear();
                 adapter.notifyDataSetChanged();
@@ -947,6 +954,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                 progressDialog.show();
                 progressDialog.setContentView(R.layout.progressdialog);
+                progressDialog.dismiss();
 
                 list.clear();
                 adapter.notifyDataSetChanged();
@@ -1038,7 +1046,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                 progressDialog.show();
                 progressDialog.setContentView(R.layout.progressdialog);
-
+                progressDialog.dismiss();
 
                 list.clear();
                 adapter.notifyDataSetChanged();
@@ -1130,6 +1138,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                 progressDialog.show();
                 progressDialog.setContentView(R.layout.progressdialog);
+                progressDialog.dismiss();
 
                 list.clear();
                 adapter.notifyDataSetChanged();

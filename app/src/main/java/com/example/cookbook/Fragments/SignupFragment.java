@@ -277,7 +277,6 @@ public class SignupFragment extends Fragment {
 
 
         StorageReference ref = storageReference.child(String.valueOf(R.string.User_Profile_Images)).child(firebaseAuth.getUid());
-
         ref.putFile(imagePath)
                 .addOnSuccessListener(
                         new OnSuccessListener<UploadTask.TaskSnapshot>() {
