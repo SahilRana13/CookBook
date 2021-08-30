@@ -179,13 +179,6 @@ public class SignupFragment extends Fragment {
                     toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.show();
                 }
-                else if (!user_email.getText().toString().contains("[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"))
-                {
-                    progressDialog.dismiss();
-                    Toast toast = Toast.makeText(getActivity(),R.string.Check_Email_ID,Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
-                    toast.show();
-                }
                 else if (user_pwd1.getText().toString().trim().equals(user_pwd2.getText().toString().trim()))
                 {
                     String name = user_name.getText().toString().trim();
@@ -276,7 +269,7 @@ public class SignupFragment extends Fragment {
     {
 
 
-        StorageReference ref = storageReference.child(String.valueOf(R.string.User_Profile_Images)).child(firebaseAuth.getUid());
+        StorageReference ref = storageReference.child("User Profile Images").child(firebaseAuth.getUid());
         ref.putFile(imagePath)
                 .addOnSuccessListener(
                         new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -308,7 +301,7 @@ public class SignupFragment extends Fragment {
         String email = user_email.getText().toString().trim();
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference reference = firebaseDatabase.getReference().child(String.valueOf(R.string.User_Profile_Images));
+        DatabaseReference reference = firebaseDatabase.getReference().child("User Profile Details");
 
         DatabaseReference userDetails = reference.child(firebaseAuth.getUid()).push();
 
