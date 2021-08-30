@@ -170,6 +170,7 @@ public class MyRecipeFragment extends Fragment {
 
                 recyclerView.setAdapter(newAdapter);
                 newAdapter.notifyDataSetChanged();
+                progressDialog.dismiss();
 
             }
 
