@@ -109,10 +109,7 @@ public class AddRecipeFragment extends Fragment {
         getActivity().setTitle(R.string.AddRecipe);
 
         recipeImageView = view.findViewById(R.id.addRecipeImageView);
-
-
         spinner = view.findViewById(R.id.enterRecipeTypeSpinner);
-
         recipeName = view.findViewById(R.id.enterRecipeName);
         chefName = view.findViewById(R.id.enterChefName);
         recipeDuration = view.findViewById(R.id.enterDuration);

@@ -131,5 +131,9 @@
     <string name="Please_Enter_Your_Email">Please Enter Your Email</string>
     <string name="Password_Reset_Email_sent">Password Reset Email sent</string>
     <string name="Enter_Registered_Email">Enter Registered Email</string>
+    <string name="Enter_Recipe_Chef_Name">Enter Recipe/Chef Name</string>
+    <string name="Delete">Delete</string>
+    <string name="Are_you_sure_you_want_to_delete">Are you sure you want to delete</string>
+    <string name="Cancel">Cancel</string>
 
 </resources>

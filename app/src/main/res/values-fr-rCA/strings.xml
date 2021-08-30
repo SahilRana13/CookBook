@@ -118,4 +118,8 @@
     <string name="Please_Enter_Your_Email">Veuillez entrer votre e-mail</string>
     <string name="Password_Reset_Email_sent">E-mail de réinitialisation du mot de passe envoyé</string>
     <string name="Enter_Registered_Email">Entrez l\'e-mail enregistré</string>
+    <string name="Enter_Recipe_Chef_Name">Entrer le nom de la recette/du chef</string>
+    <string name="Delete">Effacer</string>
+    <string name="Are_you_sure_you_want_to_delete">Etes-vous sûr que vous voulez supprimer</string>
+    <string name="Cancel">Annuler</string>
 </resources>

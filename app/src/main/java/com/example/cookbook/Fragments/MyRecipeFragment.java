@@ -210,10 +210,10 @@ public class MyRecipeFragment extends Fragment {
 
             AlertDialog.Builder adb=new AlertDialog.Builder(getActivity());
 
-            adb.setTitle("Delete?");
-            adb.setMessage("Are you sure you want to delete?");
+            adb.setTitle(getString(R.string.Delete)+"?");
+            adb.setMessage(getString(R.string.Are_you_sure_you_want_to_delete)+"?");
 
-            adb.setNegativeButton("Cancel", new AlertDialog.OnClickListener() {
+            adb.setNegativeButton(R.string.Cancel, new AlertDialog.OnClickListener() {
 
                 public void onClick(DialogInterface dialog, int which) {
 
@@ -222,7 +222,7 @@ public class MyRecipeFragment extends Fragment {
 
 
                 }});
-            adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
+            adb.setPositiveButton(R.string.Ok, new AlertDialog.OnClickListener() {
 
                 public void onClick(DialogInterface dialog, int which) {
 

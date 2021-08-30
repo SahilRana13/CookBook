@@ -130,8 +130,6 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         }
 
-
-
         swipeRefreshLayout.setOnRefreshListener(this);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2,GridLayoutManager.VERTICAL,false);
@@ -166,7 +164,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
             {
                 if (autoCompleteTextView.getText().toString().trim().length()==0)
                 {
-                    Toast toast = Toast.makeText(getActivity(),"Enter Recipe/Chef Name",Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getActivity(),R.string.Enter_Recipe_Chef_Name,Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.show();
                 }
@@ -1224,6 +1222,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
             }
         });
+
 
 
 
