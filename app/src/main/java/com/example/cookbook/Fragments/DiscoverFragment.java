@@ -69,6 +69,8 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
     private ListView recipeList;
     private AutoCompleteTextView autoCompleteTextView;
 
+    private String test;
+
 
     public DiscoverFragment() {
         // Required empty public constructor
@@ -139,6 +141,8 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
         list = new ArrayList<>();
         adapter = new RecipeListAdapter(getContext(),list);
 
+
+        test = "all";
 
         mref = FirebaseDatabase.getInstance().getReference("recipe_chef's_names");
         autoCompleteTextView = view.findViewById(R.id.homeSearchBar);
@@ -212,6 +216,8 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View v) {
+
+                test = "all";
 
                 progressDialog.show();
                 progressDialog.setContentView(R.layout.progressdialog);
@@ -303,6 +309,8 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
         btnBreakfast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                test = "breakfast";
 
                 progressDialog.show();
                 progressDialog.setContentView(R.layout.progressdialog);
@@ -397,6 +405,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
             @Override
             public void onClick(View v) {
 
+                test = "brunch";
                 progressDialog.show();
                 progressDialog.setContentView(R.layout.progressdialog);
                 progressDialog.dismiss();
@@ -489,6 +498,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
             @Override
             public void onClick(View v) {
 
+                test = "lunch";
                 progressDialog.show();
                 progressDialog.setContentView(R.layout.progressdialog);
                 progressDialog.dismiss();
@@ -582,6 +592,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
             @Override
             public void onClick(View v) {
 
+                test = "dinner";
                 progressDialog.show();
                 progressDialog.setContentView(R.layout.progressdialog);
                 progressDialog.dismiss();
@@ -674,6 +685,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
             @Override
             public void onClick(View v) {
 
+                test = "snacks";
                 progressDialog.show();
                 progressDialog.setContentView(R.layout.progressdialog);
                 progressDialog.dismiss();
@@ -766,6 +778,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
             @Override
             public void onClick(View v) {
 
+                test = "appetisers";
                 progressDialog.show();
                 progressDialog.setContentView(R.layout.progressdialog);
                 progressDialog.dismiss();
@@ -858,6 +871,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
             @Override
             public void onClick(View v) {
 
+                test = "desserts";
                 progressDialog.show();
                 progressDialog.setContentView(R.layout.progressdialog);
                 progressDialog.dismiss();
@@ -950,6 +964,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
             @Override
             public void onClick(View v) {
 
+                test = "baking";
                 progressDialog.show();
                 progressDialog.setContentView(R.layout.progressdialog);
                 progressDialog.dismiss();
@@ -1042,6 +1057,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
             @Override
             public void onClick(View v) {
 
+                test = "drinks";
                 progressDialog.show();
                 progressDialog.setContentView(R.layout.progressdialog);
                 progressDialog.dismiss();
@@ -1134,6 +1150,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
             @Override
             public void onClick(View v) {
 
+                test = "other";
                 progressDialog.show();
                 progressDialog.setContentView(R.layout.progressdialog);
                 progressDialog.dismiss();
@@ -1230,51 +1247,637 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     private void getRecipeData() {
 
+
         root = db.getReference().child("User Recipe Details");
 
-        root.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
-                for (DataSnapshot dataSnapshot: snapshot.getChildren())
-                {
+        if (test.equalsIgnoreCase("all"))
+        {
+
+            root.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    for (DataSnapshot dataSnapshot: snapshot.getChildren())
+                    {
 
 
-                    for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                        for (DataSnapshot ds: dataSnapshot.getChildren()) {
 
-                        model = ds.getValue(RecipeInfo.class);
-                        list.add(model);
+                            model = ds.getValue(RecipeInfo.class);
+                            list.add(model);
 
+                        }
+
+                        recyclerView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+                        progressDialog.dismiss();
+
+                        swipeRefreshLayout.setRefreshing(false);
                     }
-
-                    recyclerView.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
-                    progressDialog.dismiss();
-
-                    swipeRefreshLayout.setRefreshing(false);
+                    if (list.size() == 0)
+                    {
+                        nullText.setVisibility(View.VISIBLE);
+                    }else
+                    {
+                        nullText.setVisibility(View.INVISIBLE);
+                    }
                 }
-            }
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
-            }
+                }
 
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
 
-            }
+                }
 
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
-            }
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+
+        }
+        else if (test.equalsIgnoreCase("breakfast"))
+        {
+            root.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    for (DataSnapshot dataSnapshot: snapshot.getChildren())
+                    {
+
+
+                        for (DataSnapshot ds: dataSnapshot.getChildren()) {
+
+                            if (ds.child("recipeType").getValue().toString().equalsIgnoreCase("breakfast"))
+                            {
+
+                                model = ds.getValue(RecipeInfo.class);
+                                list.add(model);
+                            }
+
+                        }
+
+                        recyclerView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+                        progressDialog.dismiss();
+
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                    if (list.size() == 0)
+                    {
+                        nullText.setVisibility(View.VISIBLE);
+                    }else
+                    {
+                        nullText.setVisibility(View.INVISIBLE);
+                    }
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+        else if (test.equalsIgnoreCase("brunch"))
+        {
+            root.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    for (DataSnapshot dataSnapshot: snapshot.getChildren())
+                    {
+
+
+                        for (DataSnapshot ds: dataSnapshot.getChildren()) {
+
+                            if (ds.child("recipeType").getValue().toString().equalsIgnoreCase("brunch"))
+                            {
+
+                                model = ds.getValue(RecipeInfo.class);
+                                list.add(model);
+                            }
+
+                        }
+
+                        recyclerView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+                        progressDialog.dismiss();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                    if (list.size() == 0)
+                    {
+                        nullText.setVisibility(View.VISIBLE);
+                    }else
+                    {
+                        nullText.setVisibility(View.INVISIBLE);
+                    }
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+        else if (test.equalsIgnoreCase("lunch"))
+        {
+            root.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    for (DataSnapshot dataSnapshot: snapshot.getChildren())
+                    {
+
+
+                        for (DataSnapshot ds: dataSnapshot.getChildren()) {
+
+                            if (ds.child("recipeType").getValue().toString().equalsIgnoreCase("lunch"))
+                            {
+
+                                model = ds.getValue(RecipeInfo.class);
+                                list.add(model);
+                            }
+
+                        }
+
+                        recyclerView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+                        progressDialog.dismiss();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                    if (list.size() == 0)
+                    {
+                        nullText.setVisibility(View.VISIBLE);
+                    }else
+                    {
+                        nullText.setVisibility(View.INVISIBLE);
+                    }
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+        else if (test.equalsIgnoreCase("dinner"))
+        {
+            root.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    for (DataSnapshot dataSnapshot: snapshot.getChildren())
+                    {
+
+
+                        for (DataSnapshot ds: dataSnapshot.getChildren()) {
+
+                            if (ds.child("recipeType").getValue().toString().equalsIgnoreCase("dinner"))
+                            {
+
+                                model = ds.getValue(RecipeInfo.class);
+                                list.add(model);
+                            }
+
+                        }
+
+                        recyclerView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+                        progressDialog.dismiss();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                    if (list.size() == 0)
+                    {
+                        nullText.setVisibility(View.VISIBLE);
+                    }else
+                    {
+                        nullText.setVisibility(View.INVISIBLE);
+                    }
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+        else if (test.equalsIgnoreCase("snacks"))
+        {
+            root.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    for (DataSnapshot dataSnapshot: snapshot.getChildren())
+                    {
+
+
+                        for (DataSnapshot ds: dataSnapshot.getChildren()) {
+
+                            if (ds.child("recipeType").getValue().toString().equalsIgnoreCase("snacks"))
+                            {
+
+                                model = ds.getValue(RecipeInfo.class);
+                                list.add(model);
+                            }
+
+                        }
+
+                        recyclerView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+                        progressDialog.dismiss();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                    if (list.size() == 0)
+                    {
+                        nullText.setVisibility(View.VISIBLE);
+                    }else
+                    {
+                        nullText.setVisibility(View.INVISIBLE);
+                    }
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+        else if (test.equalsIgnoreCase("appetisers"))
+        {
+            root.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    for (DataSnapshot dataSnapshot: snapshot.getChildren())
+                    {
+
+
+                        for (DataSnapshot ds: dataSnapshot.getChildren()) {
+
+                            if (ds.child("recipeType").getValue().toString().equalsIgnoreCase("appetisers"))
+                            {
+
+                                model = ds.getValue(RecipeInfo.class);
+                                list.add(model);
+                            }
+
+                        }
+
+                        recyclerView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+                        progressDialog.dismiss();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                    if (list.size() == 0)
+                    {
+                        nullText.setVisibility(View.VISIBLE);
+                    }else
+                    {
+                        nullText.setVisibility(View.INVISIBLE);
+                    }
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+        else if (test.equalsIgnoreCase("desserts"))
+        {
+            root.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    for (DataSnapshot dataSnapshot: snapshot.getChildren())
+                    {
+
+
+                        for (DataSnapshot ds: dataSnapshot.getChildren()) {
+
+                            if (ds.child("recipeType").getValue().toString().equalsIgnoreCase("desserts"))
+                            {
+
+                                model = ds.getValue(RecipeInfo.class);
+                                list.add(model);
+                            }
+
+                        }
+
+                        recyclerView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+                        progressDialog.dismiss();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                    if (list.size() == 0)
+                    {
+                        nullText.setVisibility(View.VISIBLE);
+                    }else
+                    {
+                        nullText.setVisibility(View.INVISIBLE);
+                    }
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+        else if (test.equalsIgnoreCase("baking"))
+        {
+            root.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    for (DataSnapshot dataSnapshot: snapshot.getChildren())
+                    {
+
+
+                        for (DataSnapshot ds: dataSnapshot.getChildren()) {
+
+                            if (ds.child("recipeType").getValue().toString().equalsIgnoreCase("baking"))
+                            {
+
+                                model = ds.getValue(RecipeInfo.class);
+                                list.add(model);
+                            }
+
+                        }
+
+                        recyclerView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+                        progressDialog.dismiss();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                    if (list.size() == 0)
+                    {
+                        nullText.setVisibility(View.VISIBLE);
+                    }else
+                    {
+                        nullText.setVisibility(View.INVISIBLE);
+                    }
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+        else if (test.equalsIgnoreCase("Drinks"))
+        {
+            root.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    for (DataSnapshot dataSnapshot: snapshot.getChildren())
+                    {
+
+
+                        for (DataSnapshot ds: dataSnapshot.getChildren()) {
+
+                            if (ds.child("recipeType").getValue().toString().equalsIgnoreCase("drinks"))
+                            {
+
+                                model = ds.getValue(RecipeInfo.class);
+                                list.add(model);
+                            }
+
+                        }
+
+                        recyclerView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+                        progressDialog.dismiss();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                    if (list.size() == 0)
+                    {
+                        nullText.setVisibility(View.VISIBLE);
+                    }else
+                    {
+                        nullText.setVisibility(View.INVISIBLE);
+                    }
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+        else if (test.equalsIgnoreCase("other"))
+        {
+            root.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    for (DataSnapshot dataSnapshot: snapshot.getChildren())
+                    {
+
+
+                        for (DataSnapshot ds: dataSnapshot.getChildren()) {
+
+                            if (ds.child("recipeType").getValue().toString().equalsIgnoreCase("other"))
+                            {
+
+                                model = ds.getValue(RecipeInfo.class);
+                                list.add(model);
+                            }
+
+                        }
+
+                        recyclerView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+                        progressDialog.dismiss();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                    if (list.size() == 0)
+                    {
+                        nullText.setVisibility(View.VISIBLE);
+                    }else
+                    {
+                        nullText.setVisibility(View.INVISIBLE);
+                    }
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+
 
     }
 

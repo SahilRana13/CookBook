@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import android.text.method.ScrollingMovementMethod;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.view.Gravity;
@@ -22,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Scroller;
 import android.widget.Toast;
 
 import com.denzcoskun.imageslider.ImageSlider;
@@ -90,6 +92,7 @@ public class MyRecipeDetailsFragment extends Fragment {
         recipeIngredients = view.findViewById(R.id.receiveMyIngredients);
         recipeDirections = view.findViewById(R.id.receiveMyDirection);
         updateRecipeButton = view.findViewById(R.id.saveUpdateMyRecipeBtn);
+
 
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setCancelable(false);
